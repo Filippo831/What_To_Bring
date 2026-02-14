@@ -1,5 +1,5 @@
 import math
-from constants import *
+from constants import GRADIENT, RADIUS
 from classes import Gpx_features
 
 
@@ -20,11 +20,48 @@ def haversine_distance(first, second) -> float:
     return new_distance
 
 
+"""
+    @param:
+    - distance_elevation: list with tuples indicating for each point the distance from the beginning and the altitude
+    @body:
+    - calculate the first derivative of the altitude to get the gradient and identify the climbs from that
+    @return:
+    - length
+    - elevation_gain
+    - start_distance
+    - start_elevation
+"""
+
+
+def extract_climbs(distance_elevation):
+    gradient_list: list[float] = [0]
+
+    for iterator_index in range(distance_elevation - 1):
+        distance_delta = (
+            distance_elevation[iterator_index + 1][0]
+            - distance_elevation[iterator_index][0]
+        )
+        elevation_delta = (
+            distance_elevation[iterator_index + 1][1]
+            - distance_elevation[iterator_index][1]
+        )
+
+        gradient = elevation_delta / distance_delta * 100
+
+        gradient_list.append(gradient)
+
+    return
+
+
 def extract_features(gpx) -> Gpx_features:
     gpx_features = Gpx_features()
     total_distance = 0
 
     intermediate_points = []
+
+    # list of tuples [(distance, altitude)]
+    distance_elevation = []
+
     for track in gpx.tracks:
         for segment in track.segments:
             for point_index in range(len(segment.points) - 1):
@@ -34,6 +71,12 @@ def extract_features(gpx) -> Gpx_features:
                 # calculate the total distance of the gpx route
                 before_distance = total_distance
                 total_distance += haversine_distance(first, second)
+
+                # if the list is empty it means we have to include the first point as well
+                if not distance_elevation:
+                    distance_elevation.append((before_distance, first.elevation))
+
+                distance_elevation.append((total_distance, second.elevation))
 
                 # every km take a point to get the weather information
                 if (

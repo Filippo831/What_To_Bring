@@ -1,5 +1,5 @@
 import math
-from constants import GRADIENT, RADIUS
+from constants import CLIMB_LENGTH, GRADIENT, RADIUS
 from classes import Gpx_features
 
 
@@ -36,7 +36,7 @@ def haversine_distance(first, second) -> float:
 def extract_climbs(distance_elevation):
     gradient_list: list[float] = [0]
 
-    for iterator_index in range(distance_elevation - 1):
+    for iterator_index in range(len(distance_elevation) - 1):
         distance_delta = (
             distance_elevation[iterator_index + 1][0]
             - distance_elevation[iterator_index][0]
@@ -50,7 +50,27 @@ def extract_climbs(distance_elevation):
 
         gradient_list.append(gradient)
 
-    return
+    on_climb = False
+    starting_index = 0
+
+    for index in range(len(gradient_list) - 1):
+        if gradient_list[index] > GRADIENT:
+            if not on_climb:
+                on_climb = True
+                starting_index = index
+
+        else:
+            if on_climb:
+                if (
+                    distance_elevation[index][0] - distance_elevation[starting_index][0]
+                    > CLIMB_LENGTH
+                ):
+                    yield (
+                        distance_elevation[starting_index],
+                        distance_elevation[index],
+                    )
+
+                on_climb = False
 
 
 def extract_features(gpx) -> Gpx_features:
@@ -85,6 +105,12 @@ def extract_features(gpx) -> Gpx_features:
                     or point_index == 0
                 ):
                     intermediate_points.append(segment.points[point_index])
+
+    for climb in extract_climbs(distance_elevation):
+        length = climb[1][0] - climb[0][0]
+        elevation = climb[1][1] - climb[0][1]
+        # print starting point, distance and elevation
+        print(f"Climb starting at {climb[0][0]:.2f} m with elevation {climb[0][1]:.2f} m, length {length:.2f} m and elevation gain {elevation:.2f} m")
 
     gpx_features.set_distance(total_distance)
     gpx_features.set_weather_points(intermediate_points)

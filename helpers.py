@@ -1,6 +1,6 @@
 import math
 from constants import CLIMB_LENGTH, GRADIENT, RADIUS
-from classes import Gpx_features
+from classes import Gpx_features, Climb
 
 
 # compute the distance between 2 points
@@ -76,6 +76,7 @@ def extract_climbs(distance_elevation):
 def extract_features(gpx) -> Gpx_features:
     gpx_features = Gpx_features()
     total_distance = 0
+    total_elevation = 0
 
     intermediate_points = []
 
@@ -92,6 +93,12 @@ def extract_features(gpx) -> Gpx_features:
                 before_distance = total_distance
                 total_distance += haversine_distance(first, second)
 
+                # calculate total poisitive elevation of the hike
+                elevation_delta = second.elevation - first.elevation
+
+                if elevation_delta > 0:
+                    total_elevation += elevation_delta
+
                 # if the list is empty it means we have to include the first point as well
                 if not distance_elevation:
                     distance_elevation.append((before_distance, first.elevation))
@@ -104,15 +111,15 @@ def extract_features(gpx) -> Gpx_features:
                     != math.floor(before_distance / 1000)
                     or point_index == 0
                 ):
-                    intermediate_points.append(segment.points[point_index])
+                    intermediate_points.append((second.latitude, second.longitude))
 
     for climb in extract_climbs(distance_elevation):
-        length = climb[1][0] - climb[0][0]
-        elevation = climb[1][1] - climb[0][1]
-        # print starting point, distance and elevation
-        print(f"Climb starting at {climb[0][0]:.2f} m with elevation {climb[0][1]:.2f} m, length {length:.2f} m and elevation gain {elevation:.2f} m")
+        new_climb = Climb(climb[0], climb[1])
+        gpx_features.add_climbs(new_climb)
 
     gpx_features.set_distance(total_distance)
     gpx_features.set_weather_points(intermediate_points)
+    gpx_features.set_elevation_gain(total_elevation)
+    gpx_features.calculate_hiking_time()
 
     return gpx_features

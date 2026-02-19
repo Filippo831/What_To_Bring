@@ -89,6 +89,8 @@ def extract_features(gpx) -> Gpx_features:
                 first = segment.points[point_index]
                 second = segment.points[point_index + 1]
 
+                gpx_features.append_coordinates((first.longitude, first.latitude))
+
                 # calculate the total distance of the gpx route
                 before_distance = total_distance
                 total_distance += haversine_distance(first, second)

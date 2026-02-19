@@ -30,6 +30,7 @@ class Climb:
 class Gpx_features:
     distance: float = 0
     elevation_gain: float = 0
+    points = []
     weather_points = []
     weather_information = []
     climbs: list[Climb] = []
@@ -52,6 +53,9 @@ class Gpx_features:
             self.distance / HIKING_SPEED * 3600
             + self.elevation_gain / ELEVATION_PER_HOUR * 3600
         )
+
+    def append_coordinates(self, _point):
+        self.points.append(_point)
 
 
 # class created for testing purposes

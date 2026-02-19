@@ -6,6 +6,7 @@ import time
 from helpers import extract_features
 from classes import Gpx_features
 from weather import analyze_weather_points, get_weather
+from map import get_coords_information
 
 def main():
     gpx_file = open("./test.gpx", "r")
@@ -24,6 +25,9 @@ def main():
 
     # for information in gpx_features.weather_information:
     #     print(information)
+
+    get_coords_information(gpx_features.points)
+
 
 
 

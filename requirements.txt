@@ -16,6 +16,7 @@ niquests==3.17.0
 numpy==2.4.2
 openmeteo_requests==1.7.5
 openmeteo_sdk==1.25.0
+osmium==4.3.0
 packaging==26.0
 pandas==3.0.0
 pillow==12.1.1

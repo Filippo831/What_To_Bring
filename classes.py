@@ -20,6 +20,8 @@ class Climb:
     @params
         distance: float = the total distance of the gpx route in meters
         elevation_gain: float = the total elevation gain of the gpx route in meters
+        points: list[tuple] = the coordinates of the gpx route (latitude, longitude)
+        path_sac_scale: list[int] = the sac scale (difficulty of the path) of each point in the gpx route
         weather_points: list[Points] = the points where we want to get the weather information
         weather_information: list[dict] = the weather information for each point in weather_points
         climbs: list[Climb] = the climbs of the gpx route
@@ -31,6 +33,7 @@ class Gpx_features:
     distance: float = 0
     elevation_gain: float = 0
     points = []
+    path_sac_scale = []
     weather_points = []
     weather_information = []
     climbs: list[Climb] = []

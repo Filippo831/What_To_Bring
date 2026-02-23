@@ -73,7 +73,7 @@ def extract_climbs(distance_elevation):
                 on_climb = False
 
 
-def extract_features(gpx) -> Gpx_features:
+def extract_features(_gpx) -> Gpx_features:
     gpx_features = Gpx_features()
     total_distance = 0
     total_elevation = 0
@@ -83,17 +83,24 @@ def extract_features(gpx) -> Gpx_features:
     # list of tuples [(distance, altitude)]
     distance_elevation = []
 
-    for track in gpx.tracks:
+    for track in _gpx.tracks:
         for segment in track.segments:
             for point_index in range(len(segment.points) - 1):
                 first = segment.points[point_index]
                 second = segment.points[point_index + 1]
 
-                gpx_features.append_coordinates((first.longitude, first.latitude))
-
                 # calculate the total distance of the gpx route
                 before_distance = total_distance
                 total_distance += haversine_distance(first, second)
+
+                if len(gpx_features.points) == 0:
+                    gpx_features.append_coordinates(
+                        (first.longitude, first.latitude, 0)
+                    )
+
+                gpx_features.append_coordinates(
+                    (second.longitude, second.latitude, total_distance)
+                )
 
                 # calculate total poisitive elevation of the hike
                 elevation_delta = second.elevation - first.elevation

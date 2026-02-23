@@ -16,8 +16,6 @@ def main():
 
     gpx_features: Gpx_features = extract_features(gpx)
 
-    print(len(gpx_features.points))
-
     # get tomorrows time at 9AM for the first weather point
     starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
     starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
@@ -29,7 +27,7 @@ def main():
         for information in gpx_features.weather_information:
             print(information)
 
-    # get_coords_information(gpx_features)
+    get_coords_information(gpx_features)
 
 
 

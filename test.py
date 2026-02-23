@@ -27,3 +27,12 @@ class TestFeaturesExtraction(unittest.TestCase):
         self.assertAlmostEqual(gpx_features.elevation_gain, 280, places=-2)
         self.assertAlmostEqual(gpx_features.hiking_time, 7860, places=-3)
 
+
+class TestMapFeaturesExtraction(unittest.TestCase):
+    def test_map_features_exctract(self):
+        gpx_file = open("./test.gpx", "r")
+
+        gpx = gpxpy.parse(gpx_file)
+
+        gpx_features: Gpx_features = extract_features(gpx)
+

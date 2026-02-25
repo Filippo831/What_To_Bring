@@ -1,6 +1,40 @@
 import geopandas as gpd
+import pandas as pd
 from shapely.geometry import LineString, Point
 import re
+
+
+def extract_sac_scale(tags):
+    if pd.isna(tags):
+        return None
+    # Look for "sac_scale"=>"value" using regex
+    match = re.search(r'"sac_scale"=>"([^"]+)"', tags)
+    return match.group(1) if match else None
+
+def extract_mtb_scale(tags):
+    if pd.isna(tags):
+        return None
+    # Look for "mtb_scale"=>"value" using regex
+    match = re.search(r'"mtb:scale"=>"([^"]+)"', tags)
+    return match.group(1) if match else None
+
+
+def process_row(row):
+    tags = row["other_tags"]
+    if pd.isna(tags):
+        return pd.Series({"surface": "asphalt", "sac_scale": None})
+
+    surface_match = re.search(r'"surface"=>"([^"]+)"', tags)
+    surface = surface_match.group(1) if surface_match else "asphalt"
+
+    # Logic: if highway is track and surface is missing/generic, set to ground
+    if row["highway"] == "track" and (pd.isna(surface) or surface == "asphalt"):
+        surface = "ground"
+
+    sac_scale = extract_sac_scale(tags)
+    mtb_scale = extract_mtb_scale(tags)
+
+    return pd.Series({"surface": surface, "sac_scale": sac_scale, "mtb_scale": mtb_scale})
 
 
 def get_coords_information(_gpx_features):
@@ -33,47 +67,43 @@ def get_coords_information(_gpx_features):
     results = gpd.sjoin(route_gdf_m, lines_only_m, how="left", predicate="intersects")
 
     # get rid of the geometry column and the index_right column
-    results = results.drop(columns=["geometry", "index_right"])
+    results = results.drop(
+        columns=[
+            "geometry",
+            "index_right",
+            "waterway",
+            "aerialway",
+            "barrier",
+            "man_made",
+            "railway",
+            "z_order",
+        ]
+    )
 
     # for all the results given for one point, extract only the lines with some value under the highway column
     # if there is no value, it means that there is no road at that point, so create an empty value that will be filled with "no road"
     filtered_results = results[results["highway"].notna()]
     filtered_results["highway"] = filtered_results["highway"].fillna("no road")
 
-    highway_sequence = ["path", "track", "footway"]
+    # 1. Define the priority mapping
+    # Lower number = Higher priority
+    priority_map = {"path": 1, "track": 2, "footway": 3}
+    # Default high value for any highway types not in your list
+    filtered_results["priority"] = (
+        filtered_results["highway"].map(priority_map).fillna(99)
+    )
 
-    # iterate over the results by chunks of rows with same index
-    for index, group in filtered_results.groupby(filtered_results.index):
-        sequence_index = len(highway_sequence)  # default to length of the list if no match
-        for _, row in group.iterrows():
-            # if no road copy the previous surface
-            if row["highway"] == "no road":
-                if index > 0:
-                    previous_surface = filtered_results.loc[index - 1, "surface"]
-                    filtered_results.at[index, "surface"] = previous_surface
-                
-            # get the row with the lowest index value in the highway_sequence list. If not present the index value is the length of the list
-            elif row["highway"] in highway_sequence:
-                current_index = highway_sequence.index(row["highway"])
-                if current_index < sequence_index:
-                    sequence_index = current_index
-                    # in other_tags get the value of surface and copy it in the surface column
-                    regex = r'"surface"=>"([^"]*)"'
-                    try:
-                        surface_value = re.findall(regex, row["other_tags"])[0]
-                        filtered_results.at[index, "surface"] = surface_value
-                    except:
-                        filtered_results.at[index, "surface"] = "unknown"
+    # 2. Sort by index and then priority
+    # sorted_df = filtered_results.sort_values(by=[filtered_results.index.name or 'index', 'priority'])
+    sorted_df = filtered_results.sort_values(by="priority").sort_index()
 
+    # 3. Group by the index and take the first occurrence (the one with highest priority)
+    final_extract = sorted_df.groupby(level=0).first()
+    # final_extract.to_csv("results.csv", index=True)
 
-
-            
-
-
-
+    # 5. Get the final result
+    result = final_extract.apply(process_row, axis=1)
 
     # write in results.csv
-    filtered_results.to_csv("results.csv", index=True)
-
-    
-
+    result.to_csv("results.csv", index=True)
+    # filtered_results.to_csv("results.csv", index=True)

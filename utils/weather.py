@@ -62,12 +62,12 @@ def get_weather(point):
     - For each weather point, calculate the time when the hiker will reach that point based on the average speed of the hike and get the weather information for that point at that time. The weather information is then added to the gpx_features object.
 '''
 
-def analyze_weather_points(starting_time, gpx_features):
+def analyze_weather_points(gpx_features):
     # average speed in seconds per kilometer
-    average_speed = gpx_features.hiking_time / gpx_features.distance * 1000
+    # average_speed = gpx_features.hiking_time / gpx_features.distance * 1000
 
     for point_index, point in enumerate(gpx_features.weather_points):
-        point_time = starting_time + round(point_index * average_speed)
+        point_time = point.time
 
         # round the time to the closest hour
         round_time = point_time % 3600

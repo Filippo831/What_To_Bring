@@ -7,9 +7,16 @@ class Point:
     longitude: float = 0
     cumulative_distance: float = 0
     elevation: float = 0
-    time = None
+    time: datetime.datetime = datetime.datetime.now()
 
-    def __init__(self, _lat, _lon, _cumulative_distance=0.0, _elev=0, _time=None):
+    def __init__(
+        self,
+        _lat,
+        _lon,
+        _cumulative_distance=0.0,
+        _elev=0,
+        _time=datetime.datetime.now(),
+    ):
         self.latitude = _lat
         self.longitude = _lon
         self.cumulative_distance = _cumulative_distance
@@ -66,7 +73,6 @@ class Gpx_features:
 
     def add_climbs(self, _climb: Climb):
         self.climbs.append(_climb)
-
 
     # calculate the hiking time using Naismith's rule if not recorded, otherwise use the time from the gpx file
     # def calculate_hiking_time(self):

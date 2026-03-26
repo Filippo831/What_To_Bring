@@ -21,7 +21,7 @@ class TestFeaturesExtraction(unittest.TestCase):
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False)
+        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False, _starting_time=0)
 
         self.assertAlmostEqual(gpx_features.distance, 6790, places=-2)
         self.assertAlmostEqual(gpx_features.elevation_gain, 280, places=-2)
@@ -34,5 +34,5 @@ class TestMapFeaturesExtraction(unittest.TestCase):
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False)
+        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False, _starting_time=0)
 

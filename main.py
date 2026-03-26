@@ -23,21 +23,36 @@ def main():
     # discriminate between planned gpx and recorded gpx
     is_recorded = gpx.time is not None
 
+
     if is_recorded and gpx.time is not None:
         starting_time = gpx.time
+
+        # if it's recorded, we suppose it has more points and we don't need all of them so we take one every 10
+        gpx.reduce_points(10)
     else:
         # get tomorrows time at 9AM for the first weather point
         starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
         starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
 
-    gpx_features: Gpx_features = extract_features(gpx, _is_recorded=is_recorded)
+    # convert starting_time to unix time
+    starting_time = time.mktime(starting_time.timetuple())
+    starting_time = int(starting_time)
 
-    unix_time = time.mktime(starting_time.timetuple())
 
-    if "--no-weather" not in sys.argv:
-        analyze_weather_points(unix_time, gpx_features)
 
-    get_coords_information(gpx_features)
+    gpx_features: Gpx_features = extract_features(
+        gpx, _is_recorded=is_recorded, _starting_time=starting_time
+    )
+
+    # if "--no-weather" not in sys.argv:
+    #     analyze_weather_points(gpx_features)
+
+    # get_coords_information(gpx_features)
+
+    for point in gpx_features.weather_points:
+        print(
+            f"Point at {point.latitude}, {point.longitude} at time {point.time}"
+        )
 
 
 if __name__ == "__main__":

@@ -8,24 +8,26 @@ from utils.constants import (
 )
 from utils.classes import Gpx_features, Climb, Point
 from itertools import pairwise
+import datetime
 
 
-# calculate the hiking time using Naismith's rule if the gpx is planned, 
+# calculate the hiking time using Naismith's rule if the gpx is planned
 # otherwise calculate the time between the first and the last point of the gpx
-def calculate_hiking_time(_points: list[Point], _is_recorded: bool) -> int:
+def calculate_hiking_time(
+    _points: list[Point], _elevation_gain: int, _is_recorded: bool
+) -> int:
     total_distance = _points[-1].cumulative_distance
-    total_elevation = _points[-1].elevation
 
     if not _is_recorded:
         hiking_time = round(
             total_distance / HIKING_SPEED * 3600
-            + total_elevation / ELEVATION_PER_HOUR * 3600
+            + _elevation_gain / ELEVATION_PER_HOUR * 3600
         )
         return hiking_time
 
     else:
         if _points[0].time is not None and _points[-1].time is not None:
-            return (_points[-1].time - _points[0].time).total_seconds()
+            return int((_points[-1].time - _points[0].time).total_seconds())
         else:
             return 0
 
@@ -63,8 +65,10 @@ def extract_climbs(points: list[Point]):
     gradient_list: list[float] = [0]
 
     for first, second in pairwise(points):
-        distance_delta = first.cumulative_distance - second.cumulative_distance
+        distance_delta = second.cumulative_distance - first.cumulative_distance
         elevation_delta = first.elevation - second.elevation
+        if distance_delta == 0:
+            pass
 
         gradient = elevation_delta / distance_delta * 100
 
@@ -91,7 +95,7 @@ def extract_climbs(points: list[Point]):
                 on_climb = False
 
 
-def extract_features(_gpx, _is_recorded) -> Gpx_features:
+def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
     gpx_features = Gpx_features()
 
     gpx_features.is_recorded = _is_recorded
@@ -108,7 +112,11 @@ def extract_features(_gpx, _is_recorded) -> Gpx_features:
                 before_distance = total_distance
                 total_distance += haversine_distance(first, second)
 
+                # calculate total poisitive elevation of the hike
+                elevation_delta = second.elevation - first.elevation
 
+                if elevation_delta > 0:
+                    total_elevation += elevation_delta
 
                 if len(gpx_features.points) == 0:
                     gpx_features.points.append(
@@ -117,7 +125,7 @@ def extract_features(_gpx, _is_recorded) -> Gpx_features:
                             first.longitude,
                             0,
                             first.elevation,
-                            first.time if _is_recorded else None,
+                            _starting_time,
                         )
                     )
 
@@ -127,15 +135,16 @@ def extract_features(_gpx, _is_recorded) -> Gpx_features:
                         second.longitude,
                         total_distance,
                         second.elevation,
-                        second.time if _is_recorded else None,
+                        (
+                            second.time
+                            if _is_recorded
+                            else _starting_time
+                            + calculate_hiking_time(
+                                gpx_features.points, total_elevation, False
+                            )
+                        ),
                     )
                 )
-
-                # calculate total poisitive elevation of the hike
-                elevation_delta = second.elevation - first.elevation
-
-                if elevation_delta > 0:
-                    total_elevation += elevation_delta
 
                 # every km take a point to get the weather information
                 if (
@@ -160,7 +169,9 @@ def extract_features(_gpx, _is_recorded) -> Gpx_features:
     gpx_features.set_distance(total_distance)
     gpx_features.set_elevation_gain(total_elevation)
 
-    hiking_time = calculate_hiking_time(gpx_features.points, _is_recorded)
+    hiking_time = calculate_hiking_time(
+        gpx_features.points, total_elevation, _is_recorded
+    )
     gpx_features.set_hiking_time(hiking_time)
 
     return gpx_features

@@ -1,6 +1,6 @@
 import unittest
-from classes import Point, Gpx_features
-from helpers import haversine_distance, extract_features
+from utils.classes import Point, Gpx_features
+from utils.gpx import haversine_distance, extract_features
 import gpxpy
 
 
@@ -17,11 +17,11 @@ class TestHaversine(unittest.TestCase):
 
 class TestFeaturesExtraction(unittest.TestCase):
     def test_features_extract(self):
-        gpx_file = open("./test.gpx", "r")
+        gpx_file = open("./files/planned_gpx.gpx", "r")
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(gpx)
+        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False)
 
         self.assertAlmostEqual(gpx_features.distance, 6790, places=-2)
         self.assertAlmostEqual(gpx_features.elevation_gain, 280, places=-2)
@@ -30,9 +30,9 @@ class TestFeaturesExtraction(unittest.TestCase):
 
 class TestMapFeaturesExtraction(unittest.TestCase):
     def test_map_features_exctract(self):
-        gpx_file = open("./test.gpx", "r")
+        gpx_file = open("./files/planned_gpx.gpx", "r")
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(gpx)
+        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False)
 

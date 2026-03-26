@@ -1,4 +1,4 @@
-from constants import WEATHER_FEATURES
+from utils.constants import WEATHER_FEATURES
 import openmeteo_requests
 
 import pandas as pd

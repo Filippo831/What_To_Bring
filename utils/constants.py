@@ -21,3 +21,6 @@ WEATHER_FEATURES = [
     "precipitation_probability",
     "precipitation",
 ]
+
+# path with map osm inforamtion
+MAP_PATH = "./files/map_data_baldo_trentino.gpkg"

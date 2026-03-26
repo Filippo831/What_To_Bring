@@ -3,3 +3,5 @@ __pycache__/
 .cache.sqlite
 map_data_baldo_trentino.gpkg
 *.csv*
+.~lock.results.csv#
+todo.txt

@@ -27,18 +27,16 @@ def main():
     if is_recorded and gpx.time is not None:
         starting_time = gpx.time
 
-        # if it's recorded, we suppose it has more points and we don't need all of them so we take one every 10
-        gpx.reduce_points(10)
     else:
         # get tomorrows time at 9AM for the first weather point
         starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
         starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
 
+    # reduce the amount of points in the gpx
+    gpx.reduce_points(min_distance=5)
+
     # convert starting_time to unix time
-    starting_time = time.mktime(starting_time.timetuple())
-    starting_time = int(starting_time)
-
-
+    starting_time = int(time.mktime(starting_time.timetuple()))
 
     gpx_features: Gpx_features = extract_features(
         gpx, _is_recorded=is_recorded, _starting_time=starting_time
@@ -49,6 +47,7 @@ def main():
 
     # get_coords_information(gpx_features)
 
+    pprint.pprint(gpx_features.__dict__)
     for point in gpx_features.weather_points:
         print(
             f"Point at {point.latitude}, {point.longitude} at time {point.time}"

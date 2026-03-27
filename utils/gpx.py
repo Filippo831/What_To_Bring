@@ -8,7 +8,7 @@ from utils.constants import (
 )
 from utils.classes import Gpx_features, Climb, Point
 from itertools import pairwise
-import datetime
+import time
 
 
 # calculate the hiking time using Naismith's rule if the gpx is planned
@@ -27,7 +27,9 @@ def calculate_hiking_time(
 
     else:
         if _points[0].time is not None and _points[-1].time is not None:
-            return int((_points[-1].time - _points[0].time).total_seconds())
+            # print(type(_points[0].time))
+            # print(type(_points[-1].time))
+            return int(_points[-1].time - _points[0].time)
         else:
             return 0
 
@@ -95,6 +97,22 @@ def extract_climbs(points: list[Point]):
                 on_climb = False
 
 
+"""
+    @params
+    - _gpx: gpxpy.gpx.GPX = the gpx object parsed from the gpx file
+    - _is_recorded: bool = whether the gpx is recorded or planned
+    - _starting_time: int = the unix time of the starting point of the hike
+    @returns
+    - Gpx_features = the features of the gpx route, including distance, 
+    elevation gain, hiking time, points and weather points
+    @body
+    - For each point in the gpx route, calculate the cumulative distance, 
+    elevation gain and time (if recorded) and add it to the Gpx_features object. 
+    If the gpx is planned, calculate the time using Naismith's rule.
+    Also extract the climbs from the gpx route and add them to the Gpx_features object.
+"""
+
+
 def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
     gpx_features = Gpx_features()
 
@@ -118,6 +136,7 @@ def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
                 if elevation_delta > 0:
                     total_elevation += elevation_delta
 
+                # add the first point of the pair if this is the first iteration
                 if len(gpx_features.points) == 0:
                     gpx_features.points.append(
                         Point(
@@ -129,20 +148,21 @@ def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
                         )
                     )
 
+                # if the gpx is recorded, get the time of the point, otherwise calculate it using Naismith's rule
+                if _is_recorded:
+                    point_time = int(time.mktime(second.time.timetuple()))
+                else:
+                    point_time = _starting_time + calculate_hiking_time(
+                        gpx_features.points, total_elevation, False
+                    )
+
                 gpx_features.points.append(
                     Point(
                         second.latitude,
                         second.longitude,
                         total_distance,
                         second.elevation,
-                        (
-                            second.time
-                            if _is_recorded
-                            else _starting_time
-                            + calculate_hiking_time(
-                                gpx_features.points, total_elevation, False
-                            )
-                        ),
+                        point_time,
                     )
                 )
 
@@ -158,7 +178,7 @@ def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
                             second.longitude,
                             total_distance,
                             second.elevation,
-                            second.time if _is_recorded else None,
+                            point_time,
                         )
                     )
 

@@ -1,13 +1,9 @@
-from utils.constants import ELEVATION_PER_HOUR, HIKING_SPEED
-import datetime
-
-
 class Point:
     latitude: float = 0
     longitude: float = 0
     cumulative_distance: float = 0
     elevation: float = 0
-    time: datetime.datetime = datetime.datetime.now()
+    time: int = 0
 
     def __init__(
         self,
@@ -15,7 +11,7 @@ class Point:
         _lon,
         _cumulative_distance=0.0,
         _elev=0,
-        _time=datetime.datetime.now(),
+        _time=0
     ):
         self.latitude = _lat
         self.longitude = _lon

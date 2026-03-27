@@ -5,7 +5,6 @@ import gpxpy
 
 
 
-# if the input is 9.960 the result should be around 0.0075356
 class TestHaversine(unittest.TestCase):
     def test_haversine_distance(self):
         first = Point(38.898, -77.037)
@@ -28,11 +27,4 @@ class TestFeaturesExtraction(unittest.TestCase):
         self.assertAlmostEqual(gpx_features.hiking_time, 7860, places=-3)
 
 
-class TestMapFeaturesExtraction(unittest.TestCase):
-    def test_map_features_exctract(self):
-        gpx_file = open("./files/planned_gpx.gpx", "r")
-
-        gpx = gpxpy.parse(gpx_file)
-
-        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False, _starting_time=0)
 

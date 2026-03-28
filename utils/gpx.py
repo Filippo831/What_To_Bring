@@ -9,7 +9,20 @@ from utils.constants import (
 from utils.classes import Gpx_features, Climb, Point
 from itertools import pairwise
 import time
+import datetime
 
+def calculate_starting_time(_gpx, _is_recorded):
+    if _is_recorded and _gpx.time is not None:
+        starting_time = _gpx.time
+
+    else:
+        # get tomorrows time at 9AM for the first weather point
+        starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
+        starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
+
+    # convert starting_time to unix time
+    starting_time = int(time.mktime(starting_time.timetuple()))
+    return starting_time
 
 # calculate the hiking time using Naismith's rule if the gpx is planned
 # otherwise calculate the time between the first and the last point of the gpx
@@ -27,8 +40,6 @@ def calculate_hiking_time(
 
     else:
         if _points[0].time is not None and _points[-1].time is not None:
-            # print(type(_points[0].time))
-            # print(type(_points[-1].time))
             return int(_points[-1].time - _points[0].time)
         else:
             return 0

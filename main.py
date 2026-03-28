@@ -1,13 +1,11 @@
 import gpxpy
-import datetime
 import time
 import sys
-import pprint
 
-from utils.gpx import extract_features
+from utils.gpx import extract_features, calculate_starting_time
 from utils.classes import Gpx_features
 from utils.weather import analyze_weather_points
-from utils.map import get_coords_information
+from utils.map import analyze_path
 
 
 def main():
@@ -23,35 +21,25 @@ def main():
     # discriminate between planned gpx and recorded gpx
     is_recorded = gpx.time is not None
 
-
-    if is_recorded and gpx.time is not None:
-        starting_time = gpx.time
-
-    else:
-        # get tomorrows time at 9AM for the first weather point
-        starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
-        starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
+    starting_time = calculate_starting_time(gpx, is_recorded)
 
     # reduce the amount of points in the gpx
     gpx.reduce_points(min_distance=5)
-
-    # convert starting_time to unix time
-    starting_time = int(time.mktime(starting_time.timetuple()))
 
     gpx_features: Gpx_features = extract_features(
         gpx, _is_recorded=is_recorded, _starting_time=starting_time
     )
 
-    # if "--no-weather" not in sys.argv:
-    #     analyze_weather_points(gpx_features)
+    if "--no-weather" not in sys.argv:
+        analyze_weather_points(gpx_features)
 
-    # get_coords_information(gpx_features)
+    analyze_path(gpx_features)
 
-    pprint.pprint(gpx_features.__dict__)
-    for point in gpx_features.weather_points:
-        print(
-            f"Point at {point.latitude}, {point.longitude} at time {point.time}"
-        )
+    # export gpx_features weather information to a csv file
+    # gpx_features.weather_information.to_csv("./files/weather_information.csv", index=False)
+
+    # export gpx_features path information to a csv file
+    gpx_features.path_information.to_csv("./files/path_information.csv", index=False)
 
 
 if __name__ == "__main__":

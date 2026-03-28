@@ -41,9 +41,9 @@ def process_row(row):
     )
 
 
-def get_coords_information(_gpx_features):
+def analyze_path(_gpx_features):
     # Create a LineString from the GPX points to define the route
-    route_line = LineString([(p[0], p[1]) for p in _gpx_features.points])
+    route_line = LineString([(p.longitude, p.latitude) for p in _gpx_features.points])
     search_envelope = route_line.envelope
 
     # load opm information from the map file
@@ -55,7 +55,8 @@ def get_coords_information(_gpx_features):
     )
 
     route_gdf = gpd.GeoDataFrame(
-        geometry=[Point((c[0], c[1])) for c in _gpx_features.points], crs="EPSG:4326"
+        geometry=[Point((p.longitude, p.latitude)) for p in _gpx_features.points],
+        crs="EPSG:4326",
     )
 
     # Automatically picks the best meter-based projection for your specific points
@@ -101,6 +102,6 @@ def get_coords_information(_gpx_features):
 
     result = final_extract.apply(process_row, axis=1)
 
-    # write in results.csv
-    result.to_csv("results.csv", index=True)
-    # filtered_results.to_csv("results.csv", index=True)
+    print(result)
+    _gpx_features.set_path_information(result)
+

@@ -1,9 +1,13 @@
+from pandas import DataFrame
+
+
 class Point:
     latitude: float = 0
     longitude: float = 0
     cumulative_distance: float = 0
     elevation: float = 0
     time: int = 0
+    way_type: str = ""
 
     def __init__(
         self,
@@ -42,7 +46,8 @@ class Climb:
         points: list[tuple] = the coordinates of the gpx route (latitude, longitude)
         path_sac_scale: list[int] = the sac scale (difficulty of the path) of each point in the gpx route
         weather_points: list[Points] = the points where we want to get the weather information
-        weather_information: list[dict] = the weather information for each point in weather_points
+        weather_information: Dataframe = the weather information for each point in weather_points
+        path_information: Dataframe = the information about the path (sac scale, surface, etc.) for each point in the gpx route
         climbs: list[Climb] = the climbs of the gpx route
         hiking_time: int = the estimated hiking time in seconds (using Naismith's rule)
         is_recorded: bool = whether the gpx route is recorded or planned
@@ -54,9 +59,9 @@ class Gpx_features:
     distance: float = 0
     elevation_gain: float = 0
     points: list[Point] = []
-    path_sac_scale = []
     weather_points: list[Point] = []
-    weather_information = []
+    weather_information: DataFrame = DataFrame()
+    path_information: DataFrame = DataFrame()
     climbs: list[Climb] = []
     hiking_time: int = 0
     is_recorded: bool = False
@@ -84,3 +89,6 @@ class Gpx_features:
 
     def append_weather_point(self, _point: Point):
         self.weather_points.append(_point)
+
+    def set_path_information(self, _path_information: DataFrame):
+        self.path_information = _path_information

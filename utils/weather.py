@@ -29,8 +29,8 @@ def call_api(_point, _is_recorded):
     else:
         url = "https://api.open-meteo.com/v1/forecast"
         params = {
-            "latitude": _point[0],
-            "longitude": _point[1],
+            "latitude": _point.latitude,
+            "longitude": _point.longitude,
             "hourly": WEATHER_FEATURES,
         }
 

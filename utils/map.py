@@ -4,6 +4,15 @@ from shapely.geometry import LineString, Point
 import re
 from utils.constants import MAP_PATH
 
+"""
+    @params
+    - tags: string = the string containing the other_tags information from the map file
+    @returns
+    - sac_scale: string or None = the value of the sac_scale tag if it exists, otherwise None
+    @body
+    - Use regex to extract the value of the sac_scale tag from the tags string. If the tag does not exist, return None.
+"""
+
 
 def extract_sac_scale(tags):
     if pd.isna(tags):
@@ -11,6 +20,17 @@ def extract_sac_scale(tags):
     # Look for "sac_scale"=>"value" using regex
     match = re.search(r'"sac_scale"=>"([^"]+)"', tags)
     return match.group(1) if match else None
+
+
+"""
+    def extract_mtb_scale(tags):
+    @params
+    - tags: string = the string containing the other_tags information from the map file
+    @returns
+    - mtb_scale: string or None = the value of the mtb_scale tag if it exists, otherwise None
+    @body
+    - Use regex to extract the value of the mtb_scale tag from the tags string. If the tag does not exist, return None.
+"""
 
 
 def extract_mtb_scale(tags):
@@ -21,10 +41,25 @@ def extract_mtb_scale(tags):
     return match.group(1) if match else None
 
 
+"""
+    def process_row(row):
+    @params
+    - row: pandas Series = a row from the DataFrame containing the map information for a specific point
+    @returns
+    - pandas Series = a Series containing the surface, sac_scale, and mtb_scale information extracted from the row
+    @body
+    - Extract the surface, sac_scale, and mtb_scale information from the row using regex and the helper functions defined above. If the surface information is missing or generic (asphalt) and
+"""
+
+
 def process_row(row):
     tags = row["other_tags"]
     if pd.isna(tags):
-        return pd.Series({"surface": "asphalt", "sac_scale": None})
+        surface = "asphalt"
+        if row["highway"] == "track":
+            surface = "ground"
+
+        return pd.Series({"surface": surface, "sac_scale": None, "mtb_scale": None})
 
     surface_match = re.search(r'"surface"=>"([^"]+)"', tags)
     surface = surface_match.group(1) if surface_match else "asphalt"
@@ -39,6 +74,64 @@ def process_row(row):
     return pd.Series(
         {"surface": surface, "sac_scale": sac_scale, "mtb_scale": mtb_scale}
     )
+
+
+def get_surface_percentage(_result, _points) -> dict[str, float]:
+    points_count = len(_points)
+    dataframe_rows = _result.shape[0]
+
+    assert points_count == dataframe_rows, (
+        "The number of points and the number of rows in the result dataframe must be the same."
+    )
+
+    surface_length = {}
+
+    for i in range(1, dataframe_rows):
+        surface_type = None
+        # if the sac_scale is defined, use that to derive the surface type
+        if _result.iloc[i]["sac_scale"] is not None:
+            surface_type = _result.iloc[i]["sac_scale"]
+            surface_type.replace("demanding_", "")
+
+        elif _result.iloc[i]["mtb_scale"] is not None:
+            """
+            if the sac_scale is not defined but the mtb_scale is defined, use that to derive the surface type
+            - mtb_scale 0 and 1 correspond to hiking
+            - mtb_scale 2 to 4 correspond to mountain_hiking
+            - mtb_scale 5 and above correspond to alpine_hiking
+            """
+            mtb_scale = _result.iloc[i]["mtb_scale"]
+            if mtb_scale in ["0", "1"]:
+                surface_type = "path"
+            elif mtb_scale in ["2", "3", "4"]:
+                surface_type = "mountain_hiking"
+            else:
+                surface_type = "alpine_hiking"
+            
+        else:
+            surface_type = _result.iloc[i]["surface"]
+            if surface_type in ["ground", "dirt", "earth"]:
+                surface_type = "path"
+            else:
+                surface_type = "asphalt"
+
+        distance = _points[i].cumulative_distance - _points[i-1].cumulative_distance
+        surface_length[surface_type] = surface_length.get(surface_type, 0) + distance
+
+    return surface_length
+
+
+
+
+"""
+    def analyze_path(_gpx_features):
+    @params
+    - gpx_features: Gpx_features = the features of the gpx route, including the points of the route and the weather points
+    @returns
+    - None (the path information is added to the gpx_features object)
+    @body
+    - For each point in the gpx route, find the corresponding information from the map file (such as surface, sac_scale, mtb_scale) based on the location of the point.
+"""
 
 
 def analyze_path(_gpx_features):
@@ -98,10 +191,9 @@ def analyze_path(_gpx_features):
     sorted_df = filtered_results.sort_values(by="priority").sort_index()
 
     final_extract = sorted_df.groupby(level=0).first()
-    # final_extract.to_csv("results.csv", index=True)
 
     result = final_extract.apply(process_row, axis=1)
 
-    print(result)
-    _gpx_features.set_path_information(result)
+    surface_percentage = get_surface_percentage(result, _gpx_features.points)
 
+    # _gpx_features.set_path_information(result)

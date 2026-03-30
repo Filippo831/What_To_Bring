@@ -61,7 +61,7 @@ class Gpx_features:
     points: list[Point] = []
     weather_points: list[Point] = []
     weather_information: DataFrame = DataFrame()
-    path_information: DataFrame = DataFrame()
+    path_information: set = set()
     climbs: list[Climb] = []
     hiking_time: int = 0
     is_recorded: bool = False
@@ -75,12 +75,6 @@ class Gpx_features:
     def add_climbs(self, _climb: Climb):
         self.climbs.append(_climb)
 
-    # calculate the hiking time using Naismith's rule if not recorded, otherwise use the time from the gpx file
-    # def calculate_hiking_time(self):
-    #     self.hiking_time = round(
-    #         self.distance / HIKING_SPEED * 3600
-    #         + self.elevation_gain / ELEVATION_PER_HOUR * 3600
-    #     )
     def set_hiking_time(self, _hiking_time):
         self.hiking_time = _hiking_time
 

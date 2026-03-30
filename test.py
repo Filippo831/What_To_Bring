@@ -1,6 +1,8 @@
 import unittest
-from utils.classes import Point, Gpx_features
+import pandas as pd
+from utils.classes import Point, Gpx_features, Climb
 from utils.gpx import haversine_distance, extract_features
+from utils.map import extract_sac_scale, extract_mtb_scale, process_row
 import gpxpy
 
 
@@ -20,42 +22,70 @@ class TestFeaturesExtraction(unittest.TestCase):
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(
-            gpx, _is_recorded=False, _starting_time=0
-        )
+        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False, _starting_time=0)
 
         self.assertAlmostEqual(gpx_features.distance, 6790, places=-2)
         self.assertAlmostEqual(gpx_features.elevation_gain, 280, places=-2)
         self.assertAlmostEqual(gpx_features.hiking_time, 7860, places=-3)
 
 
-# by giving the file "exported_gpx.gpx" check if the weather response is the same as the one in "./files/exported_weather_info.csv" (the weather information for the exported gpx file)
-# class TestWeather(unittest.TestCase):
-#     def test_weather(self):
-#         import pandas as pd
-#         from utils.weather import analyze_weather_points
-#         from utils.gpx import calculate_starting_time
-#
-#         gpx_file = open("./files/exported_gpx.gpx", "r")
-#
-#         gpx = gpxpy.parse(gpx_file)
-#
-#         gpx_file.close()
-#
-#         gpx.reduce_points(min_distance=5)
-#
-#         is_recorded = gpx.time is not None
-#
-#         starting_time = calculate_starting_time(gpx, is_recorded)
-#
-#         gpx_features: Gpx_features = extract_features(
-#             gpx, is_recorded, _starting_time=starting_time
-#         )
+class TestClasses(unittest.TestCase):
+    def test_point_initialization(self):
+        p = Point(45.0, 7.0, 1000, 500, 1600000000)
+        self.assertEqual(p.latitude, 45.0)
+        self.assertEqual(p.longitude, 7.0)
+        self.assertEqual(p.cumulative_distance, 1000)
+        self.assertEqual(p.elevation, 500)
+        self.assertEqual(p.time, 1600000000)
 
-        # analyze_weather_points(gpx_features)
-        #
-        # exported_weather_info = gpx_features.weather_information
-        #
-        # expected_weather_info = pd.read_csv("./files/exported_weather_info.csv")
-        #
-        # pd.testing.assert_frame_equal(exported_weather_info, expected_weather_info)
+
+class TestGpxFeaturesMethods(unittest.TestCase):
+    def test_gpx_features_mutators(self):
+        gf = Gpx_features()
+        self.assertEqual(gf.distance, 0)
+
+        gf.set_distance(1234.5)
+        self.assertAlmostEqual(gf.distance, 1234.5)
+
+        gf.set_elevation_gain(250)
+        self.assertEqual(gf.elevation_gain, 250)
+
+        gf.set_hiking_time(3600)
+        self.assertEqual(gf.hiking_time, 3600)
+
+        p = Point(1, 2, 3, 4, 5)
+        gf.append_point(p)
+        self.assertIs(gf.points[-1], p)
+
+        wp = Point(3, 4, 5, 6, 7)
+        gf.append_weather_point(wp)
+        self.assertIs(gf.weather_points[-1], wp)
+
+        c = Climb(Point(0, 0, 0, 10, 0), Point(0, 0, 100, 20, 0))
+        gf.add_climbs(c)
+        self.assertIs(gf.climbs[-1], c)
+
+        df = pd.DataFrame({"a": [1]})
+        gf.set_path_information(df)
+        self.assertTrue(isinstance(gf.path_information, pd.DataFrame))
+
+
+class TestMapHelpers(unittest.TestCase):
+    def test_extract_scales_and_process_row(self):
+        tags = '"sac_scale"=>"mountain_hiking" "mtb:scale"=>"3" "surface"=>"gravel"'
+
+        self.assertEqual(extract_sac_scale(tags), "mountain_hiking")
+        self.assertEqual(extract_mtb_scale(tags), "3")
+
+        row = pd.Series({"other_tags": tags, "highway": "track"})
+        res = process_row(row)
+        self.assertEqual(res["surface"], "gravel")
+
+        # test fallback when tags are missing
+        row_missing = pd.Series({"other_tags": pd.NA, "highway": "track"})
+        res_missing = process_row(row_missing)
+        self.assertEqual(res_missing["surface"], "ground")
+
+
+if __name__ == "__main__":
+    unittest.main()

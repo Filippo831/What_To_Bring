@@ -127,7 +127,7 @@ def extract_climbs(points: list[Point]):
 def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
     gpx_features = Gpx_features()
 
-    gpx_features.is_recorded = _is_recorded
+    gpx_features.set_is_recorded(_is_recorded)
     total_distance = 0
     total_elevation = 0
 

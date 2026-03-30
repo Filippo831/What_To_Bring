@@ -76,8 +76,8 @@ def process_row(row):
     )
 
 
-def get_surface_percentage(_result, _points) -> dict[str, float]:
-    points_count = len(_points)
+def get_surface_percentage(_result, _gpx_features) -> dict[str, float]:
+    points_count = len(_gpx_features.points)
     dataframe_rows = _result.shape[0]
 
     assert points_count == dataframe_rows, (
@@ -89,11 +89,14 @@ def get_surface_percentage(_result, _points) -> dict[str, float]:
     for i in range(1, dataframe_rows):
         surface_type = None
         # if the sac_scale is defined, use that to derive the surface type
-        if _result.iloc[i]["sac_scale"] is not None:
+        if not pd.isna(_result.iloc[i]["sac_scale"]):
             surface_type = _result.iloc[i]["sac_scale"]
-            surface_type.replace("demanding_", "")
+            try:
+                surface_type.replace("demanding_", "")
+            except AttributeError:
+                raise ValueError(f"Invalid sac_scale value: {_result.iloc[i]['sac_scale']}")
 
-        elif _result.iloc[i]["mtb_scale"] is not None:
+        elif not pd.isna(_result.iloc[i]["mtb_scale"]):
             """
             if the sac_scale is not defined but the mtb_scale is defined, use that to derive the surface type
             - mtb_scale 0 and 1 correspond to hiking
@@ -115,10 +118,14 @@ def get_surface_percentage(_result, _points) -> dict[str, float]:
             else:
                 surface_type = "asphalt"
 
-        distance = _points[i].cumulative_distance - _points[i-1].cumulative_distance
+        distance = _gpx_features.points[i].cumulative_distance - _gpx_features.points[i-1].cumulative_distance
         surface_length[surface_type] = surface_length.get(surface_type, 0) + distance
 
-    return surface_length
+    surface_percentage: dict[str, float] = dict()
+    for k, v in surface_length.items():
+        surface_percentage[k] = (v / _gpx_features.distance) * 100
+
+    return surface_percentage
 
 
 
@@ -194,6 +201,8 @@ def analyze_path(_gpx_features):
 
     result = final_extract.apply(process_row, axis=1)
 
-    surface_percentage = get_surface_percentage(result, _gpx_features.points)
+    surface_percentage = get_surface_percentage(result, _gpx_features)
 
-    # _gpx_features.set_path_information(result)
+    _gpx_features.set_surface_percentage(surface_percentage)
+
+

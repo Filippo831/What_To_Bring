@@ -1,5 +1,6 @@
 import gpxpy
 import sys
+import pprint
 
 from utils.gpx import extract_features, calculate_starting_time
 from utils.classes import Gpx_features
@@ -34,11 +35,6 @@ def main():
 
     analyze_path(gpx_features)
 
-    # export gpx_features weather information to a csv file
-    # gpx_features.weather_information.to_csv("./files/weather_information.csv", index=False)
-
-    # export gpx_features path information to a csv file
-    # gpx_features.path_information.to_csv("./files/path_information.csv", index=False)
 
 
 if __name__ == "__main__":

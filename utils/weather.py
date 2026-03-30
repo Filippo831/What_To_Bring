@@ -1,5 +1,6 @@
 from utils.constants import WEATHER_FEATURES
 import openmeteo_requests
+import pprint
 
 import pandas as pd
 import requests_cache
@@ -110,9 +111,13 @@ def analyze_weather_points(_gpx_features):
         # get the row of the hourly dataframe with the same date as point_time
         weather_information = hourly_dataframe[hourly_dataframe["date"] == point_time]
 
-        _gpx_features.weather_information = pd.concat(
-            [_gpx_features.weather_information, weather_information], ignore_index=True
-        )
+        # drop the date column from the weather_information dataframe
+        weather_information = weather_information.drop(columns=["date"])
+
+        # cast the dataframe to an array of dicts, where each dict corresponds to a row in the dataframe
+        weather_information = weather_information.to_dict(orient="records")
+
         
+        _gpx_features.set_weather_information(weather_information)
 
     return

@@ -4,6 +4,7 @@ from utils.classes import Point, Gpx_features, Climb
 from utils.gpx import haversine_distance, extract_features
 from utils.map import extract_sac_scale, extract_mtb_scale, process_row
 import gpxpy
+import math
 
 
 class TestHaversine(unittest.TestCase):
@@ -22,7 +23,9 @@ class TestFeaturesExtraction(unittest.TestCase):
 
         gpx = gpxpy.parse(gpx_file)
 
-        gpx_features: Gpx_features = extract_features(gpx, _is_recorded=False, _starting_time=0)
+        gpx_features: Gpx_features = extract_features(
+            gpx, _is_recorded=False, _starting_time=0
+        )
 
         self.assertAlmostEqual(gpx_features.distance, 6790, places=-2)
         self.assertAlmostEqual(gpx_features.elevation_gain, 280, places=-2)
@@ -65,9 +68,29 @@ class TestGpxFeaturesMethods(unittest.TestCase):
         gf.add_climbs(c)
         self.assertIs(gf.climbs[-1], c)
 
-        df = pd.DataFrame({"a": [1]})
-        gf.set_path_information(df)
-        self.assertTrue(isinstance(gf.path_information, pd.DataFrame))
+        sp = {"asphalt": 80.0, "mountain_hiking": 20.0}
+        gf.set_surface_percentage(sp)
+        self.assertEqual(gf.surface_percentage, sp)
+
+
+class TestExtractPercentages(unittest.TestCase):
+    def test_extract_percentages(self):
+        gpx_file = open("./files/planned_gpx.gpx", "r")
+
+        gpx = gpxpy.parse(gpx_file)
+
+        gpx_features: Gpx_features = extract_features(
+            gpx, _is_recorded=False, _starting_time=0
+        )
+
+        expected_percentages = {"asphalt": 60, "path": 33, "mountain_hiking": 7}
+
+        for k in gpx_features.surface_percentage.keys():
+            assert math.isclose(
+                gpx_features.surface_percentage[k],
+                expected_percentages[k],
+                rel_tol=0.05,
+            )
 
 
 class TestMapHelpers(unittest.TestCase):

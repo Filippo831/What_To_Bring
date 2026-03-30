@@ -1,4 +1,4 @@
-from pandas import DataFrame
+from pandas import DataFrame, Timestamp
 
 
 class Point:
@@ -60,11 +60,14 @@ class Gpx_features:
     elevation_gain: float = 0
     points: list[Point] = []
     weather_points: list[Point] = []
-    weather_information: DataFrame = DataFrame()
-    path_information: set = set()
+    weather_information: list[dict[str, float]] = []
+    surface_percentage: dict[str, float] = dict()
     climbs: list[Climb] = []
     hiking_time: int = 0
     is_recorded: bool = False
+
+    def set_is_recorded(self, _is_recorded):
+        self.is_recorded = _is_recorded
 
     def set_distance(self, _distance):
         self.distance = _distance
@@ -84,5 +87,8 @@ class Gpx_features:
     def append_weather_point(self, _point: Point):
         self.weather_points.append(_point)
 
-    def set_path_information(self, _path_information: DataFrame):
-        self.path_information = _path_information
+    def set_surface_percentage(self, _surface_percentage: dict[str, float]):
+        self.surface_percentage = _surface_percentage
+
+    def set_weather_information(self, _weather_information: list[dict[str, float]]):
+        self.weather_information = _weather_information

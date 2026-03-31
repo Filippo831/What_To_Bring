@@ -1,7 +1,11 @@
+import re
+from typing import Any, cast
+
 import geopandas as gpd
 import pandas as pd
 from shapely.geometry import LineString, Point
-import re
+
+from utils.classes import Gpx_features
 from utils.constants import MAP_PATH
 
 """
@@ -14,10 +18,11 @@ from utils.constants import MAP_PATH
 """
 
 
-def extract_sac_scale(tags):
-    if pd.isna(tags):
+def extract_sac_scale(tags: Any) -> str | None:  # pyright: ignore[reportExplicitAny, reportAny]
+    if not isinstance(tags, str):
         return None
-    # Look for "sac_scale"=>"value" using regex
+
+    # Look for "sac_scale"=>"{value}" using regex
     match = re.search(r'"sac_scale"=>"([^"]+)"', tags)
     return match.group(1) if match else None
 
@@ -33,10 +38,11 @@ def extract_sac_scale(tags):
 """
 
 
-def extract_mtb_scale(tags):
-    if pd.isna(tags):
+def extract_mtb_scale(tags: Any) -> str | None:    # pyright: ignore[reportExplicitAny, reportAny]
+    if not isinstance(tags, str):
         return None
-    # Look for "mtb_scale"=>"value" using regex
+
+    # Look for "mtb_scale"=>{"value"} using regex
     match = re.search(r'"mtb:scale"=>"([^"]+)"', tags)
     return match.group(1) if match else None
 
@@ -52,9 +58,9 @@ def extract_mtb_scale(tags):
 """
 
 
-def process_row(row):
-    tags = row["other_tags"]
-    if pd.isna(tags):
+def process_row(row: pd.Series) -> pd.Series:
+    tags: Any = row["other_tags"]  # pyright: ignore[reportExplicitAny, reportAny]
+    if not isinstance(tags, str):
         surface = "asphalt"
         if row["highway"] == "track":
             surface = "ground"
@@ -76,7 +82,7 @@ def process_row(row):
     )
 
 
-def get_surface_percentage(_result, _gpx_features) -> dict[str, float]:
+def get_surface_percentage(_result: pd.DataFrame, _gpx_features: Gpx_features) -> dict[str, float]:
     points_count = len(_gpx_features.points)
     dataframe_rows = _result.shape[0]
 
@@ -84,41 +90,47 @@ def get_surface_percentage(_result, _gpx_features) -> dict[str, float]:
         "The number of points and the number of rows in the result dataframe must be the same."
     )
 
-    surface_length = {}
+    surface_length: dict[str, float] = {}
 
     for i in range(1, dataframe_rows):
-        surface_type = None
-        # if the sac_scale is defined, use that to derive the surface type
-        if not pd.isna(_result.iloc[i]["sac_scale"]):
-            surface_type = _result.iloc[i]["sac_scale"]
-            try:
-                surface_type.replace("demanding_", "")
-            except AttributeError:
-                raise ValueError(f"Invalid sac_scale value: {_result.iloc[i]['sac_scale']}")
+        sac_scale: Any = _result.iloc[i]["sac_scale"]  # pyright: ignore[reportExplicitAny, reportAny]
+        mtb_scale: Any = _result.iloc[i]["mtb_scale"]  # pyright: ignore[reportExplicitAny, reportAny]
+        surface: Any = _result.iloc[i]["surface"]  # pyright: ignore[reportExplicitAny, reportAny]
 
-        elif not pd.isna(_result.iloc[i]["mtb_scale"]):
+        surface_type: str = ""
+        # if the sac_scale is defined, use that to derive the surface type
+        if isinstance(sac_scale, str):
+            try:
+                surface_type = sac_scale.replace("demanding_", "")
+            except AttributeError:
+                raise ValueError(
+                    f"Invalid sac_scale value: {_result.iloc[i]['sac_scale']}"
+                )
+
+        elif isinstance(mtb_scale, str):
             """
             if the sac_scale is not defined but the mtb_scale is defined, use that to derive the surface type
             - mtb_scale 0 and 1 correspond to hiking
             - mtb_scale 2 to 4 correspond to mountain_hiking
             - mtb_scale 5 and above correspond to alpine_hiking
             """
-            mtb_scale = _result.iloc[i]["mtb_scale"]
             if mtb_scale in ["0", "1"]:
                 surface_type = "path"
             elif mtb_scale in ["2", "3", "4"]:
                 surface_type = "mountain_hiking"
             else:
                 surface_type = "alpine_hiking"
-            
+
         else:
-            surface_type = _result.iloc[i]["surface"]
-            if surface_type in ["ground", "dirt", "earth"]:
+            if isinstance(surface, str) and surface in ["ground", "dirt", "earth"]:
                 surface_type = "path"
             else:
                 surface_type = "asphalt"
 
-        distance = _gpx_features.points[i].cumulative_distance - _gpx_features.points[i-1].cumulative_distance
+        distance = (
+            _gpx_features.points[i].cumulative_distance
+            - _gpx_features.points[i - 1].cumulative_distance
+        )
         surface_length[surface_type] = surface_length.get(surface_type, 0) + distance
 
     surface_percentage: dict[str, float] = dict()
@@ -126,8 +138,6 @@ def get_surface_percentage(_result, _gpx_features) -> dict[str, float]:
         surface_percentage[k] = (v / _gpx_features.distance) * 100
 
     return surface_percentage
-
-
 
 
 """
@@ -141,7 +151,7 @@ def get_surface_percentage(_result, _gpx_features) -> dict[str, float]:
 """
 
 
-def analyze_path(_gpx_features):
+def analyze_path(_gpx_features: Gpx_features):
     # Create a LineString from the GPX points to define the route
     route_line = LineString([(p.longitude, p.latitude) for p in _gpx_features.points])
     search_envelope = route_line.envelope
@@ -150,7 +160,7 @@ def analyze_path(_gpx_features):
     big_file = MAP_PATH
 
     # We load ONLY the lines to keep things clean
-    relevant_data = gpd.read_file(
+    relevant_data = gpd.read_file(  # pyright: ignore[reportUnknownMemberType]
         big_file, mask=search_envelope, engine="pyogrio", layer="lines"
     )
 
@@ -164,7 +174,7 @@ def analyze_path(_gpx_features):
     route_gdf_m = route_gdf.to_crs(best_crs)
     lines_only_m = relevant_data.to_crs(best_crs)
 
-    route_gdf_m["geometry"] = route_gdf_m.buffer(10)
+    route_gdf_m["geometry"] = route_gdf_m.buffer(10)  # pyright: ignore[reportUnknownMemberType]
 
     # This finds any line that passes through the 10m circle around your point
     results = gpd.sjoin(route_gdf_m, lines_only_m, how="left", predicate="intersects")
@@ -185,7 +195,7 @@ def analyze_path(_gpx_features):
 
     # for all the results given for one point, extract only the lines with some value under the highway column
     # if there is no value, it means that there is no road at that point, so create an empty value that will be filled with "no road"
-    filtered_results = results[results["highway"].notna()]
+    filtered_results = cast(pd.DataFrame, results[results["highway"].notna()].copy())
     filtered_results["highway"] = filtered_results["highway"].fillna("no road")
 
     # Lower number = Higher priority
@@ -204,5 +214,3 @@ def analyze_path(_gpx_features):
     surface_percentage = get_surface_percentage(result, _gpx_features)
 
     _gpx_features.set_surface_percentage(surface_percentage)
-
-

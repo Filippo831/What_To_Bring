@@ -1,4 +1,6 @@
 import math
+
+from gpxpy.gpx import GPX, GPXTrackPoint
 from utils.constants import (
     CLIMB_LENGTH,
     GRADIENT,
@@ -11,9 +13,10 @@ from itertools import pairwise
 import time
 import datetime
 
-def calculate_starting_time(_gpx, _is_recorded):
-    if _is_recorded and _gpx.time is not None:
-        starting_time = _gpx.time
+
+def calculate_starting_time(_gpx_features: GPX, _is_recorded: bool):
+    if _is_recorded and _gpx_features.time is not None:
+        starting_time = _gpx_features.time
 
     else:
         # get tomorrows time at 9AM for the first weather point
@@ -23,6 +26,7 @@ def calculate_starting_time(_gpx, _is_recorded):
     # convert starting_time to unix time
     starting_time = int(time.mktime(starting_time.timetuple()))
     return starting_time
+
 
 # calculate the hiking time using Naismith's rule if the gpx is planned
 # otherwise calculate the time between the first and the last point of the gpx
@@ -39,14 +43,11 @@ def calculate_hiking_time(
         return hiking_time
 
     else:
-        if _points[0].time is not None and _points[-1].time is not None:
-            return int(_points[-1].time - _points[0].time)
-        else:
-            return 0
+        return int(_points[-1].time - _points[0].time)
 
 
 # compute the distance between 2 points
-def haversine_distance(first, second) -> float:
+def haversine_distance(first: GPXTrackPoint, second: GPXTrackPoint) -> float:
     inter_result = (
         (1 - math.cos(math.radians(first.latitude - second.latitude))) / 2
     ) + math.cos(math.radians(first.latitude)) * math.cos(
@@ -124,7 +125,9 @@ def extract_climbs(points: list[Point]):
 """
 
 
-def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
+def extract_features(
+    _gpx: GPX, _is_recorded: bool, _starting_time: int
+) -> Gpx_features:
     gpx_features = Gpx_features()
 
     gpx_features.set_is_recorded(_is_recorded)
@@ -160,7 +163,7 @@ def extract_features(_gpx, _is_recorded, _starting_time) -> Gpx_features:
                     )
 
                 # if the gpx is recorded, get the time of the point, otherwise calculate it using Naismith's rule
-                if _is_recorded:
+                if _is_recorded and second.time is not None:
                     point_time = int(time.mktime(second.time.timetuple()))
                 else:
                     point_time = _starting_time + calculate_hiking_time(

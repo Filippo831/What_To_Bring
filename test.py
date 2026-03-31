@@ -1,4 +1,5 @@
 import unittest
+from gpxpy.gpx import GPXTrackPoint
 import pandas as pd
 from utils.classes import Point, Gpx_features, Climb
 from utils.gpx import haversine_distance, extract_features
@@ -9,8 +10,10 @@ import math
 
 class TestHaversine(unittest.TestCase):
     def test_haversine_distance(self):
-        first = Point(38.898, -77.037)
-        second = Point(48.858, 2.294)
+        # create 2 points of type GPXTrakckPoint with these coordinates: (38.898, -77.037) and (48.858, 2.294) and calculate the distance between them using the haversine_distance function. The expected distance is 6161.6 km.
+        first = GPXTrackPoint(latitude=38.898, longitude=-77.037, elevation=0)
+        second = GPXTrackPoint(latitude=48.858, longitude=2.294, elevation=0)
+
 
         self.assertAlmostEqual(
             haversine_distance(first, second) / 1000, 6161.6, places=1

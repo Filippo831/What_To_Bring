@@ -1,17 +1,19 @@
+from typing import Any, Hashable
+from utils.classes import Gpx_features, Point
 from utils.constants import WEATHER_FEATURES
 import openmeteo_requests
-import pprint
+import numpy as np
 
 import pandas as pd
 import requests_cache
-from retry_requests import retry
+from retry_requests import retry  # pyright: ignore[reportUnknownVariableType]
 
 
-def call_api(_point, _is_recorded):
+def call_api(_point: Point, _is_recorded: bool):
     # Setup the Open-Meteo API client with cache and retry on error
     cache_session = requests_cache.CachedSession(".cache", expire_after=3600)
     retry_session = retry(cache_session, retries=5, backoff_factor=0.2)
-    openmeteo = openmeteo_requests.Client(session=retry_session)
+    openmeteo = openmeteo_requests.Client(session=retry_session)  # pyright: ignore[reportArgumentType]
 
     # Make sure all required weather variables are listed here
     # The order of variables in hourly or daily is important to assign them correctly below
@@ -35,7 +37,7 @@ def call_api(_point, _is_recorded):
             "hourly": WEATHER_FEATURES,
         }
 
-    responses = openmeteo.weather_api(url, params=params)
+    responses = openmeteo.weather_api(url, params=params)  # pyright: ignore[reportUnknownMemberType]
 
     # Process first location. Add a for-loop for multiple locations or weather models
 
@@ -54,13 +56,16 @@ def call_api(_point, _is_recorded):
 """
 
 
-def get_weather(_point, _is_recorded):
+def get_weather(_point: Point, _is_recorded: bool):
 
     response = call_api(_point, _is_recorded)
     # Process hourly data. The order of variables needs to be the same as requested.
     hourly = response.Hourly()
 
-    hourly_data = {
+    if hourly is None:
+        return pd.DataFrame()
+
+    hourly_data: dict[str, Any] = {  # pyright: ignore[reportExplicitAny]
         "date": pd.date_range(
             start=pd.to_datetime(hourly.Time(), unit="s", utc=True),
             end=pd.to_datetime(hourly.TimeEnd(), unit="s", utc=True),
@@ -71,7 +76,11 @@ def get_weather(_point, _is_recorded):
 
     # extract the weather features from the hourly data and add them to the hourly_data dictionary
     for index, feature in enumerate(WEATHER_FEATURES):
-        hourly_data[feature] = hourly.Variables(index).ValuesAsNumpy()
+        variable = hourly.Variables(index)
+        if variable is not None:
+            hourly_data[feature] = variable.ValuesAsNumpy()
+        else:
+            hourly_data[feature] = np.array([])
 
     hourly_dataframe = pd.DataFrame(data=hourly_data)
 
@@ -89,9 +98,10 @@ def get_weather(_point, _is_recorded):
 """
 
 
-def analyze_weather_points(_gpx_features):
+def analyze_weather_points(_gpx_features: Gpx_features):
     # average speed in seconds per kilometer
     # average_speed = gpx_features.hiking_time / gpx_features.distance * 1000
+    weather_array: list[dict[Hashable, Any]] = []  # pyright: ignore[reportExplicitAny]
 
     for point in _gpx_features.weather_points:
         point_time = point.time
@@ -114,10 +124,10 @@ def analyze_weather_points(_gpx_features):
         # drop the date column from the weather_information dataframe
         weather_information = weather_information.drop(columns=["date"])
 
-        # cast the dataframe to an array of dicts, where each dict corresponds to a row in the dataframe
-        weather_information = weather_information.to_dict(orient="records")
+        # cast the dataframe to a dict and append it to weather_array
+        weather_array.append(weather_information.to_dict(orient="records")[0])
 
         
-        _gpx_features.set_weather_information(weather_information)
+    _gpx_features.set_weather_information(weather_array)
 
     return

@@ -1,4 +1,4 @@
-from pandas import DataFrame, Timestamp
+from typing import Any
 
 
 class Point:
@@ -11,11 +11,11 @@ class Point:
 
     def __init__(
         self,
-        _lat,
-        _lon,
-        _cumulative_distance=0.0,
-        _elev=0,
-        _time=0
+        _lat: float,
+        _lon: float,
+        _cumulative_distance: float = 0.0,
+        _elev: float = 0,
+        _time: int = 0,
     ):
         self.latitude = _lat
         self.longitude = _lon
@@ -43,11 +43,10 @@ class Climb:
     @params
         distance: float = the total distance of the gpx route in meters
         elevation_gain: float = the total elevation gain of the gpx route in meters
-        points: list[tuple] = the coordinates of the gpx route (latitude, longitude)
-        path_sac_scale: list[int] = the sac scale (difficulty of the path) of each point in the gpx route
+        points: list[Points] = the points of the gpx route (with latitude, longitude, cumulative distance, elevation, time and way type)
         weather_points: list[Points] = the points where we want to get the weather information
-        weather_information: Dataframe = the weather information for each point in weather_points
-        path_information: Dataframe = the information about the path (sac scale, surface, etc.) for each point in the gpx route
+        weather_information: list[dict[str, float]] = the weather information (specified in the configuration file) for each point in the gpx route
+        surface_percentage: dict[str, float] = the percentage of each path surface type (e.g. asphalt, gravel, etc.) in the gpx route
         climbs: list[Climb] = the climbs of the gpx route
         hiking_time: int = the estimated hiking time in seconds (using Naismith's rule)
         is_recorded: bool = whether the gpx route is recorded or planned
@@ -66,19 +65,19 @@ class Gpx_features:
     hiking_time: int = 0
     is_recorded: bool = False
 
-    def set_is_recorded(self, _is_recorded):
+    def set_is_recorded(self, _is_recorded: bool):
         self.is_recorded = _is_recorded
 
-    def set_distance(self, _distance):
+    def set_distance(self, _distance: float):
         self.distance = _distance
 
-    def set_elevation_gain(self, _elevation_gain):
+    def set_elevation_gain(self, _elevation_gain: float):
         self.elevation_gain = _elevation_gain
 
     def add_climbs(self, _climb: Climb):
         self.climbs.append(_climb)
 
-    def set_hiking_time(self, _hiking_time):
+    def set_hiking_time(self, _hiking_time: int):
         self.hiking_time = _hiking_time
 
     def append_point(self, _point: Point):
@@ -90,5 +89,5 @@ class Gpx_features:
     def set_surface_percentage(self, _surface_percentage: dict[str, float]):
         self.surface_percentage = _surface_percentage
 
-    def set_weather_information(self, _weather_information: list[dict[str, float]]):
+    def set_weather_information(self, _weather_information: list[dict[Any, float]]):  # pyright: ignore[reportExplicitAny]
         self.weather_information = _weather_information

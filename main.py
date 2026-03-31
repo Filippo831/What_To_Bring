@@ -1,11 +1,11 @@
 import gpxpy
 import sys
-import pprint
 
 from utils.gpx import extract_features, calculate_starting_time
 from utils.classes import Gpx_features
 from utils.weather import analyze_weather_points
 from utils.map import analyze_path
+from utils.xml import export_xml
 
 
 def main():
@@ -34,6 +34,8 @@ def main():
         analyze_weather_points(gpx_features)
 
     analyze_path(gpx_features)
+
+    export_xml(gpx_features, "files/exported_xml.xml") 
 
 
 

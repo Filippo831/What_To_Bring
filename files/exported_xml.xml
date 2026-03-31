@@ -1,0 +1,85 @@
+<?xml version="1.0" ?>
+<GpxFeatures>
+    <Distance units="km">6.744333686041007</Distance>
+    <ElevationGain units="m">244.03853000000004</ElevationGain>
+    <HikingTime units="minutes">126</HikingTime>
+    <WeatherForecast>
+        <DataPoint kilometer="0">
+            <temperature_2m>5.144500255584717</temperature_2m>
+            <relative_humidity_2m>38.0</relative_humidity_2m>
+            <apparent_temperature>0.22696638107299805</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="1">
+            <temperature_2m>5.09250020980835</temperature_2m>
+            <relative_humidity_2m>38.0</relative_humidity_2m>
+            <apparent_temperature>0.1707601547241211</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="2">
+            <temperature_2m>5.773500442504883</temperature_2m>
+            <relative_humidity_2m>34.0</relative_humidity_2m>
+            <apparent_temperature>0.36432552337646484</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="3">
+            <temperature_2m>5.78000020980835</temperature_2m>
+            <relative_humidity_2m>34.0</relative_humidity_2m>
+            <apparent_temperature>0.37131500244140625</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="4">
+            <temperature_2m>5.422500133514404</temperature_2m>
+            <relative_humidity_2m>34.0</relative_humidity_2m>
+            <apparent_temperature>-0.012837409973144531</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="5">
+            <temperature_2m>8.093500137329102</temperature_2m>
+            <relative_humidity_2m>30.0</relative_humidity_2m>
+            <apparent_temperature>2.2209129333496094</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+        <DataPoint kilometer="6">
+            <temperature_2m>9.15149974822998</temperature_2m>
+            <relative_humidity_2m>27.0</relative_humidity_2m>
+            <apparent_temperature>3.097848892211914</apparent_temperature>
+            <precipitation_probability>0.0</precipitation_probability>
+            <precipitation>0.0</precipitation>
+        </DataPoint>
+    </WeatherForecast>
+    <Surfaces>
+        <Surface type="asphalt">32.98276208290493</Surface>
+        <Surface type="path">59.40742190606277</Surface>
+        <Surface type="mountain_hiking">7.609816011032305</Surface>
+    </Surfaces>
+    <Climbs>
+        <Climb>
+            <Length>380.8896667654949</Length>
+            <Gain>-30.00675799999999</Gain>
+            <Gradient>-7.87807090037821</Gradient>
+            <StartDistance>2328.074357345937</StartDistance>
+            <StartElevation>706.655205</StartElevation>
+        </Climb>
+        <Climb>
+            <Length>466.70117839715294</Length>
+            <Gain>-50.6384230000001</Gain>
+            <Gradient>-10.850288223808139</Gradient>
+            <StartDistance>3714.9387808300735</StartDistance>
+            <StartElevation>717.028347</StartElevation>
+        </Climb>
+        <Climb>
+            <Length>1381.0498126840866</Length>
+            <Gain>-140.3786379999999</Gain>
+            <Gradient>-10.164632492666746</Gradient>
+            <StartDistance>4549.882228153359</StartDistance>
+            <StartElevation>668.364615</StartElevation>
+        </Climb>
+    </Climbs>
+</GpxFeatures>

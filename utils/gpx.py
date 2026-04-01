@@ -80,7 +80,7 @@ def extract_climbs(points: list[Point]):
 
     for first, second in pairwise(points):
         distance_delta = second.cumulative_distance - first.cumulative_distance
-        elevation_delta = first.elevation - second.elevation
+        elevation_delta = second.elevation - first.elevation
         if distance_delta == 0:
             pass
 

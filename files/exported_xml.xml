@@ -5,51 +5,51 @@
     <HikingTime units="minutes">126</HikingTime>
     <WeatherForecast>
         <DataPoint kilometer="0">
-            <temperature_2m>5.144500255584717</temperature_2m>
-            <relative_humidity_2m>38.0</relative_humidity_2m>
-            <apparent_temperature>0.22696638107299805</apparent_temperature>
+            <temperature_2m>7.8445000648498535</temperature_2m>
+            <relative_humidity_2m>41.0</relative_humidity_2m>
+            <apparent_temperature>4.319385528564453</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="1">
-            <temperature_2m>5.09250020980835</temperature_2m>
-            <relative_humidity_2m>38.0</relative_humidity_2m>
-            <apparent_temperature>0.1707601547241211</apparent_temperature>
+            <temperature_2m>7.792500019073486</temperature_2m>
+            <relative_humidity_2m>41.0</relative_humidity_2m>
+            <apparent_temperature>4.2620391845703125</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="2">
-            <temperature_2m>5.773500442504883</temperature_2m>
-            <relative_humidity_2m>34.0</relative_humidity_2m>
-            <apparent_temperature>0.36432552337646484</apparent_temperature>
+            <temperature_2m>8.673500061035156</temperature_2m>
+            <relative_humidity_2m>38.0</relative_humidity_2m>
+            <apparent_temperature>4.615006446838379</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="3">
-            <temperature_2m>5.78000020980835</temperature_2m>
-            <relative_humidity_2m>34.0</relative_humidity_2m>
-            <apparent_temperature>0.37131500244140625</apparent_temperature>
+            <temperature_2m>8.680000305175781</temperature_2m>
+            <relative_humidity_2m>38.0</relative_humidity_2m>
+            <apparent_temperature>4.622158050537109</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="4">
-            <temperature_2m>5.422500133514404</temperature_2m>
-            <relative_humidity_2m>34.0</relative_humidity_2m>
-            <apparent_temperature>-0.012837409973144531</apparent_temperature>
+            <temperature_2m>8.322500228881836</temperature_2m>
+            <relative_humidity_2m>38.0</relative_humidity_2m>
+            <apparent_temperature>4.229172706604004</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="5">
-            <temperature_2m>8.093500137329102</temperature_2m>
-            <relative_humidity_2m>30.0</relative_humidity_2m>
-            <apparent_temperature>2.2209129333496094</apparent_temperature>
+            <temperature_2m>10.693499565124512</temperature_2m>
+            <relative_humidity_2m>34.0</relative_humidity_2m>
+            <apparent_temperature>6.1122283935546875</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
         <DataPoint kilometer="6">
-            <temperature_2m>9.15149974822998</temperature_2m>
-            <relative_humidity_2m>27.0</relative_humidity_2m>
-            <apparent_temperature>3.097848892211914</apparent_temperature>
+            <temperature_2m>11.751500129699707</temperature_2m>
+            <relative_humidity_2m>31.0</relative_humidity_2m>
+            <apparent_temperature>6.662538528442383</apparent_temperature>
             <precipitation_probability>0.0</precipitation_probability>
             <precipitation>0.0</precipitation>
         </DataPoint>
@@ -61,25 +61,11 @@
     </Surfaces>
     <Climbs>
         <Climb>
-            <Length>380.8896667654949</Length>
-            <Gain>-30.00675799999999</Gain>
-            <Gradient>-7.87807090037821</Gradient>
-            <StartDistance>2328.074357345937</StartDistance>
-            <StartElevation>706.655205</StartElevation>
-        </Climb>
-        <Climb>
-            <Length>466.70117839715294</Length>
-            <Gain>-50.6384230000001</Gain>
-            <Gradient>-10.850288223808139</Gradient>
-            <StartDistance>3714.9387808300735</StartDistance>
-            <StartElevation>717.028347</StartElevation>
-        </Climb>
-        <Climb>
-            <Length>1381.0498126840866</Length>
-            <Gain>-140.3786379999999</Gain>
-            <Gradient>-10.164632492666746</Gradient>
-            <StartDistance>4549.882228153359</StartDistance>
-            <StartElevation>668.364615</StartElevation>
+            <Length>1195.0776849170838</Length>
+            <Gain>136.724193</Gain>
+            <Gradient>11.440611328081667</Gradient>
+            <StartDistance>917.1714498142582</StartDistance>
+            <StartElevation>573.667446</StartElevation>
         </Climb>
     </Climbs>
 </GpxFeatures>

@@ -27,6 +27,10 @@ $ source venv/bin/activate
 ```
 $ pip install -r requirements.txt
 ```
+- Download the map
+```
+$ wget https://download.geofabrik.de/europe/italy/nord-est-latest-free.gpkg.zip
+$ unzip nord-est-latest-free.gpkg.zip -d ./assets/map
 
-
+```
 

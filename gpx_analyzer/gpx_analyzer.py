@@ -1,14 +1,14 @@
 import gpxpy
 import sys
 
-from utils.gpx import extract_features, calculate_starting_time
-from utils.classes import Gpx_features
-from utils.weather import analyze_weather_points
-from utils.map import analyze_path
-from utils.xml import export_xml
+from gpx_analyzer.utils.gpx import extract_features, calculate_starting_time
+from gpx_analyzer.utils.classes import Gpx_features
+from gpx_analyzer.utils.weather import analyze_weather_points
+from gpx_analyzer.utils.map import analyze_path
+from gpx_analyzer.utils.xml import export_xml
 
 
-def main():
+def gpx_analyzer():
     # check if sys.argv[-1] contains a gpx file
     if not sys.argv[-1].endswith(".gpx"):
         print("Please provide a gpx file as the last argument")
@@ -36,8 +36,3 @@ def main():
     analyze_path(gpx_features)
 
     export_xml(gpx_features, "files/exported_xml.xml") 
-
-
-
-if __name__ == "__main__":
-    main()

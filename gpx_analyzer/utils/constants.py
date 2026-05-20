@@ -23,4 +23,4 @@ WEATHER_FEATURES = [
 ]
 
 # path with map osm inforamtion
-MAP_PATH = "./files/map_data_baldo_trentino.gpkg"
+MAP_PATH = "./assets/map/nord-est.gpkg"

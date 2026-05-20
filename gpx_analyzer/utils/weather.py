@@ -1,6 +1,6 @@
 from typing import Any, Hashable
-from utils.classes import Gpx_features, Point
-from utils.constants import WEATHER_FEATURES
+from gpx_analyzer.utils.classes import Gpx_features, Point
+from gpx_analyzer.utils.constants import WEATHER_FEATURES
 import openmeteo_requests
 import numpy as np
 

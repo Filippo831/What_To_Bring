@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 
-from utils.classes import Gpx_features
+from gpx_analyzer.utils.classes import Gpx_features
 
 
 def export_xml(_gpx_features: Gpx_features, _output_file: str):

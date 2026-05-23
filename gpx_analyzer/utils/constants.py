@@ -23,4 +23,4 @@ WEATHER_FEATURES = [
 ]
 
 # path with map osm inforamtion
-MAP_PATH = "./assets/map/nord-est-latest.osm.pbf"
+MAP_PATH = "./assets/map/nord-est-custom.gpkg"

@@ -31,6 +31,16 @@ $ pip install -r requirements.txt
 ```
 $ wget https://download.geofabrik.de/europe/italy/nord-est-latest.osm.pbf
 $ mv nord-est-latest.osm.pbf ./assets/map/
-
 ```
+- install gdal tools to convert the map to a more efficient format (not tested)
+```
+ON WINDOWS:
+$ winget install GISInternals.GDAL
 
+ON MACOS:
+$ brew install gdal
+```
+- Convert the map to a more efficient format
+```
+$ ogr2ogr -f GPKG ./assets/map/nord-est-custom.gpkg ./assets/map/nord-est-latest.osm.pbf lines
+```

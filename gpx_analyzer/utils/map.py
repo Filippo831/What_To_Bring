@@ -155,6 +155,7 @@ def get_surface_percentage(_result: pd.DataFrame, _gpx_features: Gpx_features) -
 
 def analyze_path(_gpx_features: Gpx_features):
     # Create a LineString from the GPX points to define the route
+    print(f"[DEBUG] Number of input GPX points: {len(_gpx_features.points)}")
     route_line = LineString([(p.longitude, p.latitude) for p in _gpx_features.points])
     search_envelope = route_line.envelope
 
@@ -162,9 +163,14 @@ def analyze_path(_gpx_features: Gpx_features):
     big_file = MAP_PATH
 
     # We load ONLY the lines to keep things clean
+    print(f"[DEBUG] Loading lines from '{big_file}' using envelope mask...")
+
+    # check if big_file exists
+
     relevant_data = gpd.read_file(  # pyright: ignore[reportUnknownMemberType]
         big_file, mask=search_envelope, engine="pyogrio", layer="lines"
     )
+    print(f"[DEBUG] Loaded {len(relevant_data)} relevant map lines within the route envelope.")
 
     route_gdf = gpd.GeoDataFrame(
         geometry=[Point((p.longitude, p.latitude)) for p in _gpx_features.points],
@@ -173,6 +179,7 @@ def analyze_path(_gpx_features: Gpx_features):
 
     # Automatically picks the best meter-based projection for your specific points
     best_crs = route_gdf.estimate_utm_crs()
+    print(f"[DEBUG] Automatically selected UTM CRS: {best_crs}")
     route_gdf_m = route_gdf.to_crs(best_crs)
     lines_only_m = relevant_data.to_crs(best_crs)
 
@@ -180,8 +187,7 @@ def analyze_path(_gpx_features: Gpx_features):
 
     # This finds any line that passes through the 10m circle around your point
     results = gpd.sjoin(route_gdf_m, lines_only_m, how="left", predicate="intersects")
-
-
+    print(f"[DEBUG] Spatial join completed. Total raw intersection rows found: {len(results)}")
 
     # get rid of the geometry column and the index_right column
     results = results.drop(
@@ -192,10 +198,12 @@ def analyze_path(_gpx_features: Gpx_features):
     )
     # output the results inside a csv file to check what's inside
     results.to_csv("results.csv", index=False)
+    print("[DEBUG] Wrote raw spatial join results to 'results.csv'.")
 
     # for all the results given for one point, extract only the lines with some value under the highway column
     # if there is no value, it means that there is no road at that point, so create an empty value that will be filled with "no road"
     filtered_results = cast(pd.DataFrame, results[results["highway"].notna()].copy())
+    print(f"[DEBUG] Rows with valid 'highway' tags: {len(filtered_results)} (Dropped {len(results) - len(filtered_results)} rows with NaN 'highway')")
     filtered_results["highway"] = filtered_results["highway"].fillna("no road")
 
     # Lower number = Higher priority
@@ -208,9 +216,15 @@ def analyze_path(_gpx_features: Gpx_features):
     sorted_df = filtered_results.sort_values(by="priority").sort_index()
 
     final_extract = sorted_df.groupby(level=0).first()
+    print(f"[DEBUG] After deduplication (highest priority per point), final unique points to process: {len(final_extract)}")
+    
+    if not final_extract.empty and "highway" in final_extract.columns:
+        print("[DEBUG] Breakdown of final highway types selected:")
+        print(final_extract["highway"].value_counts())
 
     result = final_extract.apply(process_row, axis=1)
 
     surface_percentage = get_surface_percentage(result, _gpx_features)
+    print(f"[DEBUG] Calculated surface percentages: {surface_percentage}")
 
     _gpx_features.set_surface_percentage(surface_percentage)

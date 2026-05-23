@@ -7,3 +7,4 @@ __pycache__/
 todo.txt
 typings/
 nord-est-latest.osm.pbf
+export/

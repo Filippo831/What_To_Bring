@@ -1,9 +1,9 @@
 venv/
 __pycache__/
 .cache.sqlite
-map_data_baldo_trentino.gpkg
 *.csv*
 *.gpkg
 .~lock.results.csv#
 todo.txt
 typings/
+nord-est-latest.osm.pbf

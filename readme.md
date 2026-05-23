@@ -29,8 +29,8 @@ $ pip install -r requirements.txt
 ```
 - Download the map
 ```
-$ wget https://download.geofabrik.de/europe/italy/nord-est-latest-free.gpkg.zip
-$ unzip nord-est-latest-free.gpkg.zip -d ./assets/map
+$ wget https://download.geofabrik.de/europe/italy/nord-est-latest.osm.pbf
+$ mv nord-est-latest.osm.pbf ./assets/map/
 
 ```
 

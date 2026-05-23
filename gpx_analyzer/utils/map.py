@@ -1,3 +1,5 @@
+# pyright: basic
+
 import re
 from typing import Any, cast
 
@@ -179,19 +181,17 @@ def analyze_path(_gpx_features: Gpx_features):
     # This finds any line that passes through the 10m circle around your point
     results = gpd.sjoin(route_gdf_m, lines_only_m, how="left", predicate="intersects")
 
+
+
     # get rid of the geometry column and the index_right column
     results = results.drop(
         columns=[
             "geometry",
             "index_right",
-            "waterway",
-            "aerialway",
-            "barrier",
-            "man_made",
-            "railway",
-            "z_order",
         ]
     )
+    # output the results inside a csv file to check what's inside
+    results.to_csv("results.csv", index=False)
 
     # for all the results given for one point, extract only the lines with some value under the highway column
     # if there is no value, it means that there is no road at that point, so create an empty value that will be filled with "no road"

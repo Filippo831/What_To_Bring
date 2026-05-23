@@ -1,14 +1,14 @@
 import math
 
 from gpxpy.gpx import GPX, GPXTrackPoint
-from gpx_analyzer.utils.constants import (
+from input_handler.gpx_analyzer.utils.constants import (
     CLIMB_LENGTH,
     GRADIENT,
     RADIUS,
     ELEVATION_PER_HOUR,
     HIKING_SPEED,
 )
-from gpx_analyzer.utils.classes import Gpx_features, Climb, Point
+from input_handler.gpx_analyzer.utils.classes import Gpx_features, Climb, Point
 from itertools import pairwise
 import time
 import datetime

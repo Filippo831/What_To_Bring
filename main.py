@@ -1,7 +1,7 @@
-from gpx_analyzer.gpx_analyzer import gpx_analyzer
+from input_handler.input_handler import input_handler
 
 def main():
-    gpx_analyzer()
+    input_handler()
 
 if __name__ == "__main__":
     main()

@@ -1,9 +1,9 @@
 import unittest
 from gpxpy.gpx import GPXTrackPoint
 import pandas as pd
-from gpx_analyzer.utils.classes import Point, Gpx_features, Climb
-from gpx_analyzer.utils.gpx import haversine_distance, extract_features
-from gpx_analyzer.utils.map import extract_sac_scale, extract_mtb_scale, process_row
+from input_handler.gpx_analyzer.utils.classes import Point, Gpx_features, Climb
+from input_handler.gpx_analyzer.utils.gpx import haversine_distance, extract_features
+from input_handler.gpx_analyzer.utils.map import extract_sac_scale, extract_mtb_scale, process_row
 import gpxpy
 import math
 

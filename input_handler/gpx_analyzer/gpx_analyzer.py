@@ -1,11 +1,11 @@
 import gpxpy
 import sys
 
-from gpx_analyzer.utils.gpx import extract_features, calculate_starting_time
-from gpx_analyzer.utils.classes import Gpx_features
-from gpx_analyzer.utils.weather import analyze_weather_points
-from gpx_analyzer.utils.map import analyze_path
-from gpx_analyzer.utils.xml import export_xml
+from input_handler.gpx_analyzer.utils.gpx import extract_features, calculate_starting_time
+from input_handler.gpx_analyzer.utils.classes import Gpx_features
+from input_handler.gpx_analyzer.utils.weather import analyze_weather_points
+from input_handler.gpx_analyzer.utils.map import analyze_path
+from input_handler.gpx_analyzer.utils.xml import export_xml
 
 
 def gpx_analyzer():

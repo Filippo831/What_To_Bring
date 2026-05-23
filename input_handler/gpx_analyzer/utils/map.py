@@ -7,8 +7,8 @@ import geopandas as gpd
 import pandas as pd
 from shapely.geometry import LineString, Point
 
-from gpx_analyzer.utils.classes import Gpx_features
-from gpx_analyzer.utils.constants import MAP_PATH
+from input_handler.gpx_analyzer.utils.classes import Gpx_features
+from input_handler.gpx_analyzer.utils.constants import MAP_PATH
 
 """
     @params

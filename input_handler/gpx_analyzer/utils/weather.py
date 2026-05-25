@@ -43,7 +43,7 @@ def call_api(_point: Point, _is_recorded: bool):
 
     response = responses[0]
 
-    return response 
+    return response
 
 
 """
@@ -127,7 +127,6 @@ def analyze_weather_points(_gpx_features: Gpx_features):
         # cast the dataframe to a dict and append it to weather_array
         weather_array.append(weather_information.to_dict(orient="records")[0])
 
-        
     _gpx_features.set_weather_information(weather_array)
 
     return

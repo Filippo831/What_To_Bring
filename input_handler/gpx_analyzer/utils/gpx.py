@@ -14,14 +14,8 @@ import time
 import datetime
 
 
-def calculate_starting_time(_gpx_features: GPX, _is_recorded: bool):
-    if _is_recorded and _gpx_features.time is not None:
-        starting_time = _gpx_features.time
-
-    else:
-        # get tomorrows time at 9AM for the first weather point
-        starting_time = datetime.datetime.now() + datetime.timedelta(days=1)
-        starting_time = starting_time.replace(hour=9, minute=0, second=0, microsecond=0)
+def calculate_starting_time(_gpx_features: GPX):
+    starting_time = _gpx_features.time
 
     # convert starting_time to unix time
     starting_time = int(time.mktime(starting_time.timetuple()))

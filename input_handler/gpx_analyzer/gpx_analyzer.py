@@ -1,29 +1,37 @@
 import gpxpy
 import sys
+from datetime import datetime
 
-from input_handler.gpx_analyzer.utils.gpx import extract_features, calculate_starting_time
+from input_handler.gpx_analyzer.utils.gpx import (
+    extract_features,
+    calculate_starting_time,
+)
 from input_handler.gpx_analyzer.utils.classes import Gpx_features
 from input_handler.gpx_analyzer.utils.weather import analyze_weather_points
 from input_handler.gpx_analyzer.utils.map import analyze_path
 from input_handler.gpx_analyzer.utils.xml import export_xml
 
 
-def gpx_analyzer():
-    # check if sys.argv[-1] contains a gpx file
-    if not sys.argv[-1].endswith(".gpx"):
-        print("Please provide a gpx file as the last argument")
-        return
+def gpx_analyzer(_gpx_file_path: str, _starting_time: str | None = None):
+    gpx_file = open(_gpx_file_path, "r")
 
-    gpx_file = open(sys.argv[-1], "r")
-
-    print(f"Analyzing {sys.argv[-1]}...")
+    print(f"Analyzing {_gpx_file_path}...")
     gpx = gpxpy.parse(gpx_file)
     print("GPX file parsed successfully")
 
     # discriminate between planned gpx and recorded gpx
     is_recorded = gpx.time is not None
+    starting_time: int = 0
 
-    starting_time = calculate_starting_time(gpx, is_recorded)
+    if is_recorded:
+        starting_time = calculate_starting_time(gpx)
+    else:
+        if _starting_time is not None:
+            date_format = "%Y-%m-%d %H:%M"
+
+            dt_obj = datetime.strptime(_starting_time, date_format)
+
+            starting_time = int(dt_obj.timestamp())
 
     # reduce the amount of points in the gpx
     gpx.reduce_points(min_distance=5)
@@ -43,4 +51,4 @@ def gpx_analyzer():
     analyze_path(gpx_features)
     print("Path information analyzed successfully")
 
-    export_xml(gpx_features, "./assets/export/exported_xml.xml") 
+    export_xml(gpx_features, "./assets/export/exported_xml.xml")

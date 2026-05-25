@@ -1,5 +1,7 @@
 import gpxpy
 import sys
+import xml.etree.ElementTree as ET
+
 from datetime import datetime
 
 from input_handler.gpx_analyzer.utils.gpx import (
@@ -12,7 +14,7 @@ from input_handler.gpx_analyzer.utils.map import analyze_path
 from input_handler.gpx_analyzer.utils.xml import export_xml
 
 
-def gpx_analyzer(_gpx_file_path: str, _starting_time: str | None = None):
+def gpx_analyzer(_gpx_file_path: str, _xml_root: ET.Element, _starting_time: str | None = None):
     gpx_file = open(_gpx_file_path, "r")
 
     print(f"Analyzing {_gpx_file_path}...")
@@ -51,4 +53,5 @@ def gpx_analyzer(_gpx_file_path: str, _starting_time: str | None = None):
     analyze_path(gpx_features)
     print("Path information analyzed successfully")
 
-    export_xml(gpx_features, "./assets/export/exported_xml.xml")
+    export_xml(gpx_features, _xml_root)
+

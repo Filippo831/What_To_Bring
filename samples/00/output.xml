@@ -1,0 +1,246 @@
+<?xml version="1.0" ?>
+<input_data>
+    <GPXFeatures>
+        <Distance units="km">10.13460529702432</Distance>
+        <ElevationGain units="m">752.7400000000005</ElevationGain>
+        <HikingTime units="minutes">227</HikingTime>
+        <WeatherForecast>
+            <DataPoint kilometer="0">
+                <temperature_2m>17.39550018310547</temperature_2m>
+                <relative_humidity_2m>56.0</relative_humidity_2m>
+                <apparent_temperature>15.78276252746582</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="1">
+                <temperature_2m>18.445499420166016</temperature_2m>
+                <relative_humidity_2m>51.0</relative_humidity_2m>
+                <apparent_temperature>17.675640106201172</apparent_temperature>
+                <precipitation_probability>8.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="2">
+                <temperature_2m>18.445499420166016</temperature_2m>
+                <relative_humidity_2m>51.0</relative_humidity_2m>
+                <apparent_temperature>17.675640106201172</apparent_temperature>
+                <precipitation_probability>8.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="3">
+                <temperature_2m>19.445499420166016</temperature_2m>
+                <relative_humidity_2m>42.0</relative_humidity_2m>
+                <apparent_temperature>18.355670928955078</apparent_temperature>
+                <precipitation_probability>3.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="4">
+                <temperature_2m>19.445499420166016</temperature_2m>
+                <relative_humidity_2m>42.0</relative_humidity_2m>
+                <apparent_temperature>18.355670928955078</apparent_temperature>
+                <precipitation_probability>3.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="5">
+                <temperature_2m>19.59549903869629</temperature_2m>
+                <relative_humidity_2m>35.0</relative_humidity_2m>
+                <apparent_temperature>16.406667709350586</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="6">
+                <temperature_2m>19.59549903869629</temperature_2m>
+                <relative_humidity_2m>35.0</relative_humidity_2m>
+                <apparent_temperature>16.406667709350586</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="7">
+                <temperature_2m>19.59549903869629</temperature_2m>
+                <relative_humidity_2m>35.0</relative_humidity_2m>
+                <apparent_temperature>16.406667709350586</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="8">
+                <temperature_2m>20.09549903869629</temperature_2m>
+                <relative_humidity_2m>36.0</relative_humidity_2m>
+                <apparent_temperature>17.76901626586914</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="9">
+                <temperature_2m>20.09549903869629</temperature_2m>
+                <relative_humidity_2m>36.0</relative_humidity_2m>
+                <apparent_temperature>17.76901626586914</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+            <DataPoint kilometer="10">
+                <temperature_2m>20.09549903869629</temperature_2m>
+                <relative_humidity_2m>36.0</relative_humidity_2m>
+                <apparent_temperature>17.76901626586914</apparent_temperature>
+                <precipitation_probability>0.0</precipitation_probability>
+                <precipitation>0.0</precipitation>
+            </DataPoint>
+        </WeatherForecast>
+        <Surfaces>
+            <Surface type="asphalt">6.9970019563929755</Surface>
+            <Surface type="hiking">15.574643050885362</Surface>
+            <Surface type="path">10.319953218627292</Surface>
+            <Surface type="mountain_hiking">67.10840177409436</Surface>
+        </Surfaces>
+        <Climbs>
+            <Climb>
+                <Length>1861.433810215572</Length>
+                <Gain>365.01</Gain>
+                <Gradient>19.609077582926695</Gradient>
+                <StartDistance>1147.5409164978278</StartDistance>
+                <StartElevation>1563.38</StartElevation>
+            </Climb>
+            <Climb>
+                <Length>1246.087531804264</Length>
+                <Gain>213.73000000000002</Gain>
+                <Gradient>17.152085591493808</Gradient>
+                <StartDistance>3149.472401444074</StartDistance>
+                <StartElevation>1933.25</StartElevation>
+            </Climb>
+            <Climb>
+                <Length>405.2347926209686</Length>
+                <Gain>59.25999999999999</Gain>
+                <Gradient>14.623620942495949</Gradient>
+                <StartDistance>5891.949618372405</StartDistance>
+                <StartElevation>2019.09</StartElevation>
+            </Climb>
+        </Climbs>
+    </GPXFeatures>
+    <name>Mario</name>
+    <surname>Rossi</surname>
+    <mail>mario.rossi@example.com</mail>
+    <age>25</age>
+    <gender>male</gender>
+    <heat_tolerance>3</heat_tolerance>
+    <wardrobe_item name="Men's Hiking Synthetic SS T-Shirt MH500">
+        <Layer_Type>BASE LAYER</Layer_Type>
+        <Sleeve_Length>Short Sleeved</Sleeve_Length>
+        <Weight>142g (L)</Weight>
+        <Material>100% Polyester</Material>
+        <Drying_Time>Fast (Synthetic)</Drying_Time>
+        <Breathability>High (4/5 stars)</Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Trekking Merino Wool LS T-Shirt MT500">
+        <Layer_Type>BASE LAYER</Layer_Type>
+        <Sleeve_Length>Long Sleeved</Sleeve_Length>
+        <Weight>190g (L)</Weight>
+        <Material>86% Merino Wool, 14% Polyamide</Material>
+        <Drying_Time>Moderate</Drying_Time>
+        <Breathability>Excellent (Natural fiber)</Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Hiking T-Shirt MH100">
+        <Layer_Type>BASE LAYER</Layer_Type>
+        <Sleeve_Length>Short Sleeved</Sleeve_Length>
+        <Weight>130g (L)</Weight>
+        <Material>100% Polyester</Material>
+        <Drying_Time>Fast</Drying_Time>
+        <Breathability>Good (Moisture Management)</Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Long-Sleeved Hiking T-Shirt MH500">
+        <Layer_Type>BASE LAYER</Layer_Type>
+        <Sleeve_Length>Long Sleeved</Sleeve_Length>
+        <Weight>175g (L)</Weight>
+        <Material>Polyester / Elastane mix</Material>
+        <Drying_Time>Fast</Drying_Time>
+        <Breathability>High</Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Desert Trekking UV T-Shirt Desert 500">
+        <Layer_Type>BASE LAYER</Layer_Type>
+        <Sleeve_Length>Long Sleeved</Sleeve_Length>
+        <Weight>180g (L)</Weight>
+        <Material>Polyamide / Polyester</Material>
+        <Drying_Time>Extreme Fast</Drying_Time>
+        <Breathability>Maximum (Vented)</Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Hiking Fleece MH100">
+        <Layer_Type>MIDDLE LAYER</Layer_Type>
+        <Middle_Layer_Material>Recycled Polyester Fleece</Middle_Layer_Material>
+        <Middle_Layer_Weight>240g (L)</Middle_Layer_Weight>
+        <Middle_Layer_Breathability>Moderate (RET 7.5)</Middle_Layer_Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Hiking Fleece MH500">
+        <Layer_Type>MIDDLE LAYER</Layer_Type>
+        <Middle_Layer_Material>Polyester Fleece</Middle_Layer_Material>
+        <Middle_Layer_Weight>335g (L)</Middle_Layer_Weight>
+        <Middle_Layer_Breathability>High (Micro-grid structure)</Middle_Layer_Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's NH900 Sherpa Hiking Fleece">
+        <Layer_Type>MIDDLE LAYER</Layer_Type>
+        <Middle_Layer_Material>Dense Sherpa Fleece</Middle_Layer_Material>
+        <Middle_Layer_Weight>580g (L)</Middle_Layer_Weight>
+        <Middle_Layer_Breathability>Moderate (Warmth focus)</Middle_Layer_Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's MH120 Hiking Fleece Zip">
+        <Layer_Type>MIDDLE LAYER</Layer_Type>
+        <Middle_Layer_Material>Recycled Micro-fleece</Middle_Layer_Material>
+        <Middle_Layer_Weight>210g (L)</Middle_Layer_Weight>
+        <Middle_Layer_Breathability>High</Middle_Layer_Breathability>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Waterproof Hiking Jacket MH500">
+        <Layer_Type>SHELL LAYER</Layer_Type>
+        <Shell_Breathability>High (RET 6)</Shell_Breathability>
+        <Shell_Waterproofing>25,000mm water column</Shell_Waterproofing>
+        <Hard_Soft_Shell>Hard Shell (3-Layer)</Hard_Soft_Shell>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Hiking Softshell MT500">
+        <Layer_Type>SHELL LAYER</Layer_Type>
+        <Shell_Breathability>High (Air permeable)</Shell_Breathability>
+        <Shell_Waterproofing>Water repellent (DWR)</Shell_Waterproofing>
+        <Hard_Soft_Shell>Soft Shell</Hard_Soft_Shell>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Rain Jacket MH100">
+        <Layer_Type>SHELL LAYER</Layer_Type>
+        <Shell_Breathability>Moderate (RET 12)</Shell_Breathability>
+        <Shell_Waterproofing>5,000mm water column</Shell_Waterproofing>
+        <Hard_Soft_Shell>Hard Shell (2-Layer)</Hard_Soft_Shell>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Ultra-Light Rain Jacket FH500">
+        <Layer_Type>SHELL LAYER</Layer_Type>
+        <Shell_Breathability>Extremely High (RET &lt; 6)</Shell_Breathability>
+        <Shell_Waterproofing>10,000mm water column</Shell_Waterproofing>
+        <Hard_Soft_Shell>Hard Shell (Lightweight)</Hard_Soft_Shell>
+    </wardrobe_item>
+    <wardrobe_item name="Men's MT500 Down Puffer Jacket">
+        <Layer_Type>INSULATION LAYER</Layer_Type>
+        <Insulation_Weight>430g (L)</Insulation_Weight>
+        <Insulation_Materials>Padding: 90% Down/10% Feather; Outer: Polyamide; Lining: Polyamide</Insulation_Materials>
+        <Insulation_Waterproofing>Water repellent (DWR)</Insulation_Waterproofing>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Synthetic Padded Jacket MT100">
+        <Layer_Type>INSULATION LAYER</Layer_Type>
+        <Insulation_Weight>360g (L)</Insulation_Weight>
+        <Insulation_Materials>Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide</Insulation_Materials>
+        <Insulation_Waterproofing>Water repellent</Insulation_Waterproofing>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Trekking Down Jacket MT900 (-18°C)">
+        <Layer_Type>INSULATION LAYER</Layer_Type>
+        <Insulation_Weight>570g (L)</Insulation_Weight>
+        <Insulation_Materials>Padding: 90% Down (800 CUIN); Outer: Polyamide; Lining: Polyamide</Insulation_Materials>
+        <Insulation_Waterproofing>Water repellent</Insulation_Waterproofing>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Hooded Hybrid Jacket MT500">
+        <Layer_Type>INSULATION LAYER</Layer_Type>
+        <Insulation_Weight>410g (L)</Insulation_Weight>
+        <Insulation_Materials>Padding: Synthetic (chest); Sleeves: Fleece; Outer: Polyester/Polyamide</Insulation_Materials>
+        <Insulation_Waterproofing>Water repellent (chest area)</Insulation_Waterproofing>
+    </wardrobe_item>
+    <wardrobe_item name="Men's Trekking 3-in-1 Jacket Travel 100">
+        <Layer_Type>INSULATION LAYER</Layer_Type>
+        <Middle_Layer_Material>Removable Fleece</Middle_Layer_Material>
+        <Middle_Layer_Breathability>Moderate</Middle_Layer_Breathability>
+        <Shell_Breathability>Moderate (RET 12)</Shell_Breathability>
+        <Shell_Waterproofing>2,000mm water column</Shell_Waterproofing>
+        <Hard_Soft_Shell>Hard Shell</Hard_Soft_Shell>
+        <Insulation_Weight>Varies (Fleece inside)</Insulation_Weight>
+        <Insulation_Materials>Outer: Polyester; Inner: Polyester Fleece</Insulation_Materials>
+        <Insulation_Waterproofing>Outer shell only</Insulation_Waterproofing>
+    </wardrobe_item>
+    <activity_type>hike</activity_type>
+</input_data>

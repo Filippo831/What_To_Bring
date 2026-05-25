@@ -1,8 +1,0 @@
-{
-  "name": "Mario",
-  "surname": "Rossi",
-  "mail": "mario.rossi@example.com",
-  "age": 25,
-  "gender": "male",
-  "heat_tolerance": 3
-}

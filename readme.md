@@ -3,10 +3,13 @@
 ## project structure
 ``` 
 .
+├── samples/                # fake people doing fake hikes for test purposes
 ├── input_handler/          # input handler and xml creation
 ├── model/                  # build prompt and call Gemini API
 ├── presentation/           # output presentation and performance analysis
+├── tests/                  # unittest
 └── what_to_bring.py        # entry point
+
 ```
 
 ## setup

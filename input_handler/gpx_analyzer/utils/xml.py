@@ -1,11 +1,10 @@
 import xml.etree.ElementTree as ET
-from xml.dom import minidom
 
 from input_handler.gpx_analyzer.utils.classes import Gpx_features
 
 
-def export_xml(_gpx_features: Gpx_features, _output_file: str):
-    root = ET.Element("GpxFeatures")
+def export_xml(_gpx_features: Gpx_features, _xml_root: ET.Element):
+    root = ET.SubElement(_xml_root, "GPXFeatures")
 
     ET.SubElement(root, "Distance", units="km").text = str(
         _gpx_features.distance / 1000
@@ -39,10 +38,10 @@ def export_xml(_gpx_features: Gpx_features, _output_file: str):
         ET.SubElement(c_elem, "StartDistance").text = str(climb.starting_distance)
         ET.SubElement(c_elem, "StartElevation").text = str(climb.starting_elevation)
 
-    raw_xml = ET.tostring(root, encoding="utf-8")  # pyright: ignore[reportAny]
-
-    reparsed = minidom.parseString(raw_xml)  # pyright: ignore[reportAny]
-    pretty_xml = reparsed.toprettyxml(indent="    ")
-
-    with open(_output_file, "w", encoding="utf-8") as f:
-        _ = f.write(pretty_xml)
+    # raw_xml = ET.tostring(root, encoding="utf-8")  # pyright: ignore[reportAny]
+    #
+    # reparsed = minidom.parseString(raw_xml)  # pyright: ignore[reportAny]
+    # pretty_xml = reparsed.toprettyxml(indent="    ")
+    #
+    # with open(_output_file, "w", encoding="utf-8") as f:
+    #     _ = f.write(pretty_xml)

@@ -1,4 +1,5 @@
 from input_handler.input_handler import input_handler
+from presentation.presentation import presentation
 import os
 
 def main():
@@ -16,12 +17,15 @@ def main():
                 "folder": folder,
                 "personal_information": os.path.join("./samples", folder, "personal_information.json"),
                 "hike_information": os.path.join("./samples", folder, "hike_information.json"),
-                "course": os.path.join("./samples", folder, "course.gpx")
+                "course": os.path.join("./samples", folder, "course.gpx"),
+                "xml_output": os.path.join("./samples", folder, "output.xml"),
+                "expected_output": os.path.join("./samples", folder, "expected_output.json")
             }
             samples.append(sample)
 
     for sample in samples:
         input_handler(sample)
+        presentation(sample)
 
 if __name__ == "__main__":
     main()

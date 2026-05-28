@@ -65,6 +65,17 @@ class Gpx_features:
     hiking_time: int = 0
     is_recorded: bool = False
 
+    def __init__(self):
+        self.distance = 0
+        self.elevation_gain = 0
+        self.points = []
+        self.weather_points = []
+        self.weather_information = []
+        self.surface_percentage = {}
+        self.climbs = []
+        self.hiking_time = 0
+        self.is_recorded = False
+
     def set_is_recorded(self, _is_recorded: bool):
         self.is_recorded = _is_recorded
 

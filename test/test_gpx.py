@@ -1,4 +1,5 @@
 import unittest
+from pathlib import Path
 from gpxpy.gpx import GPXTrackPoint
 import pandas as pd
 from input_handler.gpx_analyzer.utils.classes import Point, Gpx_features, Climb
@@ -6,6 +7,10 @@ from input_handler.gpx_analyzer.utils.gpx import haversine_distance, extract_fea
 from input_handler.gpx_analyzer.utils.map import extract_sac_scale, extract_mtb_scale, process_row
 import gpxpy
 import math
+
+# paths anchored to the project root (two levels up from this file: test/ → root)
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent
+_GPX_FILES_DIR = _PROJECT_ROOT / "input_handler" / "gpx_analyzer" / "files"
 
 
 class TestHaversine(unittest.TestCase):
@@ -22,7 +27,7 @@ class TestHaversine(unittest.TestCase):
 
 class TestFeaturesExtraction(unittest.TestCase):
     def test_features_extract(self):
-        gpx_file = open("./gpx_analyzer/files/planned_gpx.gpx", "r")
+        gpx_file = open(_GPX_FILES_DIR / "planned_gpx.gpx", "r")
 
         gpx = gpxpy.parse(gpx_file)
 
@@ -78,7 +83,7 @@ class TestGpxFeaturesMethods(unittest.TestCase):
 
 class TestExtractPercentages(unittest.TestCase):
     def test_extract_percentages(self):
-        gpx_file = open("./gpx_analyzer/files/planned_gpx.gpx", "r")
+        gpx_file = open("./input_handler/gpx_analyzer/files/planned_gpx.gpx", "r")
 
         gpx = gpxpy.parse(gpx_file)
 

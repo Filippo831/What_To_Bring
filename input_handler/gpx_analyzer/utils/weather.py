@@ -23,8 +23,8 @@ def call_api(_point: Point, _is_recorded: bool):
         date = pd.to_datetime(_point.time, unit="s", utc=True).strftime("%Y-%m-%d")
 
         params = {
-            "latitude": 52.52,
-            "longitude": 13.41,
+            "latitude": _point.latitude,
+            "longitude": _point.longitude,
             "start_date": date,
             "end_date": date,
             "hourly": WEATHER_FEATURES,

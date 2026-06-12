@@ -38,3 +38,5 @@ url-normalize==2.2.1
 urllib3==2.6.3
 urllib3-future==2.15.903
 wassima==2.0.5
+python-dotenv==1.2.2
+google-genai==2.8.0

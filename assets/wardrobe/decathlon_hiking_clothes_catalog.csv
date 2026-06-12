@@ -1,0 +1,31 @@
+Layer_Type,Product_Name,Sleeve_Length,Weight,Material,Drying_Time,Breathability,Middle_Layer_Material,Middle_Layer_Weight,Middle_Layer_Breathability,Shell_Breathability,Shell_Waterproofing,Hard_Soft_Shell,Insulation_Weight,Insulation_Materials,Insulation_Waterproofing
+BASE LAYER,Men's Hiking Synthetic SS T-Shirt MH500,Short Sleeved,142g (L),100% Polyester,Fast (Synthetic),High (4/5 stars),,,,,,,,,
+BASE LAYER,Women's Hiking T-Shirt MH100,Short Sleeved,110g (M),100% Polyester,Very Fast,Standard (Moisture wicking),,,,,,,,,
+BASE LAYER,Men's Trekking Merino Wool LS T-Shirt MT500,Long Sleeved,190g (L),"86% Merino Wool, 14% Polyamide",Moderate,Excellent (Natural fiber),,,,,,,,,
+BASE LAYER,Men's Hiking T-Shirt MH100,Short Sleeved,130g (L),100% Polyester,Fast,Good (Moisture Management),,,,,,,,,
+BASE LAYER,Women's Trekking Merino Wool T-Shirt MT500,Short Sleeved,125g (M),"86% Merino Wool, 14% Polyamide",Moderate,High (Anti-odor),,,,,,,,,
+BASE LAYER,Men's Long-Sleeved Hiking T-Shirt MH500,Long Sleeved,175g (L),Polyester / Elastane mix,Fast,High,,,,,,,,,
+BASE LAYER,Women's UV Protection Hiking LS T-Shirt MH100,Long Sleeved,150g (M),Polyester,Fast,High,,,,,,,,,
+BASE LAYER,Men's Desert Trekking UV T-Shirt Desert 500,Long Sleeved,180g (L),Polyamide / Polyester,Extreme Fast,Maximum (Vented),,,,,,,,,
+MIDDLE LAYER,Men's Hiking Fleece MH100,,,,,,Recycled Polyester Fleece,240g (L),Moderate (RET 7.5),,,,,,
+MIDDLE LAYER,Women's Mountain Hiking Fleece MH500,,,,,,Polyester Grid Fleece,285g (M),High (Mesh underarms),,,,,,
+MIDDLE LAYER,Men's Hiking Fleece MH500,,,,,,Polyester Fleece,335g (L),High (Micro-grid structure),,,,,,
+MIDDLE LAYER,Women's NH500 Sherpa Fleece,,,,,,Sherpa Fleece (Polyester),450g (M),Low (Thick insulation focus),,,,,,
+MIDDLE LAYER,Men's NH900 Sherpa Hiking Fleece,,,,,,Dense Sherpa Fleece,580g (L),Moderate (Warmth focus),,,,,,
+MIDDLE LAYER,Men's MH120 Hiking Fleece Zip,,,,,,Recycled Micro-fleece,210g (L),High,,,,,,
+MIDDLE LAYER,Women's MH120 Hiking Fleece,,,,,,Recycled Micro-fleece,190g (M),High,,,,,,
+SHELL LAYER,Men's Waterproof Hiking Jacket MH500,,,,,,,,,High (RET 6),"25,000mm water column",Hard Shell (3-Layer),,,
+SHELL LAYER,Women's Waterproof Jacket MH500,,,,,,,,,High (RET 6),"25,000mm water column",Hard Shell (3-Layer),,,
+SHELL LAYER,Men's Hiking Softshell MT500,,,,,,,,,High (Air permeable),Water repellent (DWR),Soft Shell,,,
+SHELL LAYER,Women's Hiking Softshell MT500,,,,,,,,,High,Water repellent (DWR),Soft Shell,,,
+SHELL LAYER,Men's Rain Jacket MH100,,,,,,,,,Moderate (RET 12),"5,000mm water column",Hard Shell (2-Layer),,,
+SHELL LAYER,Women's Rain Jacket MH100,,,,,,,,,Moderate (RET 12),"5,000mm water column",Hard Shell (2-Layer),,,
+SHELL LAYER,Men's Ultra-Light Rain Jacket FH500,,,,,,,,,Extremely High (RET < 6),"10,000mm water column",Hard Shell (Lightweight),,,
+INSULATION LAYER,Men's MT500 Down Puffer Jacket,,,,,,,,,,,,430g (L),Padding: 90% Down/10% Feather; Outer: Polyamide; Lining: Polyamide,Water repellent (DWR)
+INSULATION LAYER,Women's MT500 Down Puffer Jacket,,,,,,,,,,,,380g (M),Padding: 90% Down; Outer: 100% Polyamide; Lining: Polyamide,Water repellent (DWR)
+INSULATION LAYER,Men's Synthetic Padded Jacket MT100,,,,,,,,,,,,360g (L),Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide,Water repellent
+INSULATION LAYER,Women's Synthetic Padded Jacket MT100,,,,,,,,,,,,330g (M),Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide,Water repellent
+INSULATION LAYER,Men's Trekking Down Jacket MT900 (-18°C),,,,,,,,,,,,570g (L),Padding: 90% Down (800 CUIN); Outer: Polyamide; Lining: Polyamide,Water repellent
+INSULATION LAYER,Men's Hooded Hybrid Jacket MT500,,,,,,,,,,,,410g (L),Padding: Synthetic (chest); Sleeves: Fleece; Outer: Polyester/Polyamide,Water repellent (chest area)
+INSULATION LAYER,Women's Hooded Hybrid Jacket MT500,,,,,,,,,,,,370g (M),Padding: Synthetic; Outer: Polyamide mix; Lining: Polyamide,Water repellent
+INSULATION LAYER,Men's Trekking 3-in-1 Jacket Travel 100,,,,,,Removable Fleece,N/A,Moderate,Moderate (RET 12),"2,000mm water column",Hard Shell,Varies (Fleece inside),Outer: Polyester; Inner: Polyester Fleece,Outer shell only

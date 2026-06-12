@@ -1,7 +1,6 @@
 venv/
 __pycache__/
 .cache.sqlite
-*.csv*
 *.gpkg
 .~lock.results.csv#
 todo.txt
@@ -11,3 +10,4 @@ export/
 
 # API keys
 *.env
+todo.txt

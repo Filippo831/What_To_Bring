@@ -25,7 +25,7 @@ def main():
 
     for sample in samples:
         input_handler(sample)
-        presentation(sample)
+        # presentation(sample)
 
 if __name__ == "__main__":
     main()

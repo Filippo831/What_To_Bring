@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 
 from input_handler.gpx_analyzer.utils.classes import Gpx_features
+from input_handler.utils.string_conversion import underscore_to_camel_case
 
 
 def export_xml(_gpx_features: Gpx_features, _xml_root: ET.Element):
@@ -21,7 +22,7 @@ def export_xml(_gpx_features: Gpx_features, _xml_root: ET.Element):
         # Create a point for each kilometer
         dp = ET.SubElement(weather_root, "DataPoint", kilometer=str(i))
         for key, value in info.items():
-            child = ET.SubElement(dp, key)
+            child = ET.SubElement(dp, underscore_to_camel_case(key))
             child.text = str(value)
 
     surfaces_root = ET.SubElement(root, "Surfaces")

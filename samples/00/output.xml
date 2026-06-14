@@ -11,6 +11,7 @@
     <Wardrobe>
         <WardrobeItem name="Men's Hiking Synthetic SS T-Shirt MH500">
             <LayerType>BASE LAYER</LayerType>
+            <Id>0</Id>
             <SleeveLength>Short Sleeved</SleeveLength>
             <Weight>142g (L)</Weight>
             <Material>100% Polyester</Material>
@@ -19,6 +20,7 @@
         </WardrobeItem>
         <WardrobeItem name="Men's Trekking Merino Wool LS T-Shirt MT500">
             <LayerType>BASE LAYER</LayerType>
+            <Id>2</Id>
             <SleeveLength>Long Sleeved</SleeveLength>
             <Weight>190g (L)</Weight>
             <Material>86% Merino Wool, 14% Polyamide</Material>
@@ -27,6 +29,7 @@
         </WardrobeItem>
         <WardrobeItem name="Men's Hiking T-Shirt MH100">
             <LayerType>BASE LAYER</LayerType>
+            <Id>3</Id>
             <SleeveLength>Short Sleeved</SleeveLength>
             <Weight>130g (L)</Weight>
             <Material>100% Polyester</Material>
@@ -35,6 +38,7 @@
         </WardrobeItem>
         <WardrobeItem name="Men's Long-Sleeved Hiking T-Shirt MH500">
             <LayerType>BASE LAYER</LayerType>
+            <Id>5</Id>
             <SleeveLength>Long Sleeved</SleeveLength>
             <Weight>175g (L)</Weight>
             <Material>Polyester / Elastane mix</Material>
@@ -43,6 +47,7 @@
         </WardrobeItem>
         <WardrobeItem name="Men's Desert Trekking UV T-Shirt Desert 500">
             <LayerType>BASE LAYER</LayerType>
+            <Id>7</Id>
             <SleeveLength>Long Sleeved</SleeveLength>
             <Weight>180g (L)</Weight>
             <Material>Polyamide / Polyester</Material>
@@ -51,78 +56,91 @@
         </WardrobeItem>
         <WardrobeItem name="Men's Hiking Fleece MH100">
             <LayerType>MIDDLE LAYER</LayerType>
+            <Id>8</Id>
             <MiddleLayerMaterial>Recycled Polyester Fleece</MiddleLayerMaterial>
             <MiddleLayerWeight>240g (L)</MiddleLayerWeight>
             <MiddleLayerBreathability>Moderate (RET 7.5)</MiddleLayerBreathability>
         </WardrobeItem>
         <WardrobeItem name="Men's Hiking Fleece MH500">
             <LayerType>MIDDLE LAYER</LayerType>
+            <Id>10</Id>
             <MiddleLayerMaterial>Polyester Fleece</MiddleLayerMaterial>
             <MiddleLayerWeight>335g (L)</MiddleLayerWeight>
             <MiddleLayerBreathability>High (Micro-grid structure)</MiddleLayerBreathability>
         </WardrobeItem>
         <WardrobeItem name="Men's NH900 Sherpa Hiking Fleece">
             <LayerType>MIDDLE LAYER</LayerType>
+            <Id>12</Id>
             <MiddleLayerMaterial>Dense Sherpa Fleece</MiddleLayerMaterial>
             <MiddleLayerWeight>580g (L)</MiddleLayerWeight>
             <MiddleLayerBreathability>Moderate (Warmth focus)</MiddleLayerBreathability>
         </WardrobeItem>
         <WardrobeItem name="Men's MH120 Hiking Fleece Zip">
             <LayerType>MIDDLE LAYER</LayerType>
+            <Id>13</Id>
             <MiddleLayerMaterial>Recycled Micro-fleece</MiddleLayerMaterial>
             <MiddleLayerWeight>210g (L)</MiddleLayerWeight>
             <MiddleLayerBreathability>High</MiddleLayerBreathability>
         </WardrobeItem>
         <WardrobeItem name="Men's Waterproof Hiking Jacket MH500">
             <LayerType>SHELL LAYER</LayerType>
+            <Id>15</Id>
             <ShellBreathability>High (RET 6)</ShellBreathability>
             <ShellWaterproofing>25,000mm water column</ShellWaterproofing>
             <HardSoftShell>Hard Shell (3-Layer)</HardSoftShell>
         </WardrobeItem>
         <WardrobeItem name="Men's Hiking Softshell MT500">
             <LayerType>SHELL LAYER</LayerType>
+            <Id>17</Id>
             <ShellBreathability>High (Air permeable)</ShellBreathability>
             <ShellWaterproofing>Water repellent (DWR)</ShellWaterproofing>
             <HardSoftShell>Soft Shell</HardSoftShell>
         </WardrobeItem>
         <WardrobeItem name="Men's Rain Jacket MH100">
             <LayerType>SHELL LAYER</LayerType>
+            <Id>19</Id>
             <ShellBreathability>Moderate (RET 12)</ShellBreathability>
             <ShellWaterproofing>5,000mm water column</ShellWaterproofing>
             <HardSoftShell>Hard Shell (2-Layer)</HardSoftShell>
         </WardrobeItem>
         <WardrobeItem name="Men's Ultra-Light Rain Jacket FH500">
             <LayerType>SHELL LAYER</LayerType>
+            <Id>21</Id>
             <ShellBreathability>Extremely High (RET &lt; 6)</ShellBreathability>
             <ShellWaterproofing>10,000mm water column</ShellWaterproofing>
             <HardSoftShell>Hard Shell (Lightweight)</HardSoftShell>
         </WardrobeItem>
         <WardrobeItem name="Men's MT500 Down Puffer Jacket">
             <LayerType>INSULATION LAYER</LayerType>
+            <Id>22</Id>
             <InsulationWeight>430g (L)</InsulationWeight>
             <InsulationMaterials>Padding: 90% Down/10% Feather; Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
             <InsulationWaterproofing>Water repellent (DWR)</InsulationWaterproofing>
         </WardrobeItem>
         <WardrobeItem name="Men's Synthetic Padded Jacket MT100">
             <LayerType>INSULATION LAYER</LayerType>
+            <Id>24</Id>
             <InsulationWeight>360g (L)</InsulationWeight>
             <InsulationMaterials>Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
             <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
         </WardrobeItem>
         <WardrobeItem name="Men's Trekking Down Jacket MT900 (-18°C)">
             <LayerType>INSULATION LAYER</LayerType>
+            <Id>26</Id>
             <InsulationWeight>570g (L)</InsulationWeight>
             <InsulationMaterials>Padding: 90% Down (800 CUIN); Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
             <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
         </WardrobeItem>
         <WardrobeItem name="Men's Hooded Hybrid Jacket MT500">
             <LayerType>INSULATION LAYER</LayerType>
+            <Id>27</Id>
             <InsulationWeight>410g (L)</InsulationWeight>
             <InsulationMaterials>Padding: Synthetic (chest); Sleeves: Fleece; Outer: Polyester/Polyamide</InsulationMaterials>
             <InsulationWaterproofing>Water repellent (chest area)</InsulationWaterproofing>
         </WardrobeItem>
         <WardrobeItem name="Men's Trekking 3-in-1 Jacket Travel 100">
             <LayerType>INSULATION LAYER</LayerType>
+            <Id>29</Id>
             <MiddleLayerMaterial>Removable Fleece</MiddleLayerMaterial>
             <MiddleLayerBreathability>Moderate</MiddleLayerBreathability>
             <ShellBreathability>Moderate (RET 12)</ShellBreathability>

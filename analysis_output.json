@@ -1,43 +1,73 @@
 {
     "base": {
-        "motivation": "Since you have a low heat tolerance (3/10) and will face a steep 19.6% climb early in the hike, you should wear the long-sleeved synthetic shirt (ID 5) to start. It offers high breathability and fast drying to manage sweat. Pack the short-sleeved synthetic shirt (ID 0) as a dry spare in your backpack.",
+        "motivation": "Given your low heat tolerance (3/10) and the steep initial climb starting at km 1.1 (19.6% gradient), you will generate significant metabolic heat. A highly breathable, fast-drying synthetic short-sleeve shirt is selected as your active base layer to maximize moisture management. A long-sleeve synthetic shirt is packed as a dry spare for the descent.",
         "items": [
             {
                 "position": "worn",
-                "name": "Men's Long-Sleeved Hiking T-Shirt MH500"
+                "name": "Men's Hiking Synthetic SS T-Shirt MH500"
             },
             {
                 "position": "backpack",
-                "name": "Men's Hiking Synthetic SS T-Shirt MH500"
+                "name": "Men's Long-Sleeved Hiking T-Shirt MH500"
             }
         ]
     },
     "middle": {
-        "motivation": "To prevent immediate overheating during the intense initial climbs, do not wear a fleece at the start. Instead, pack the lightweight, highly breathable micro-fleece (ID 13) in your backpack to use during rest stops or cooler flat sections.",
+        "motivation": "At departure, the apparent temperature is cool (7.8°C). A lightweight, highly breathable micro-fleece is recommended to be worn initially to prevent cold-start shivering, but should be shed quickly once the steep climb begins. A warmer, grid-structured fleece is packed for the cooler descent and summit areas.",
         "items": [
             {
-                "position": "backpack",
+                "position": "worn",
                 "name": "Men's MH120 Hiking Fleece Zip"
+            },
+            {
+                "position": "backpack",
+                "name": "Men's Hiking Fleece MH500"
             }
         ]
     },
     "insulation": {
-        "motivation": "With apparent temperatures dropping to 3.9°C at higher elevations, you need a warm layer for static moments. The synthetic padded jacket (ID 24) is ideal to pack because synthetic insulation retains its loft and warmth even in the high humidity (up to 82%) you will encounter.",
+        "motivation": "The apparent temperature drops to a chilly 3.9°C around km 4 (the high point of the route). A packable down puffer jacket is essential in your backpack to provide thermal protection during rest stops or in case of emergency.",
         "items": [
             {
                 "position": "backpack",
-                "name": "Men's Synthetic Padded Jacket MT100"
+                "name": "Men's MT500 Down Puffer Jacket"
             }
         ]
     },
     "shell": {
-        "motivation": "There is a 30% chance of precipitation at kilometer 2. Pack the ultra-light rain jacket (ID 21) because its extremely high breathability (RET < 6) will prevent sweat buildup during high-exertion climbs while protecting you from wind and dampness.",
+        "motivation": "There is a 30% probability of precipitation around km 2, and wind exposure is likely on the mountain sections. A highly breathable, fully waterproof 3-layer hard shell is packed to shield you from wind chill and potential dampness without causing overheating.",
         "items": [
             {
                 "position": "backpack",
-                "name": "Men's Ultra-Light Rain Jacket FH500"
+                "name": "Men's Waterproof Hiking Jacket MH500"
             }
         ]
     },
-    "overall_strategy": "Your low heat tolerance and the steep climbs in the first half of the route require a 'start cold' strategy. Wear only your highly breathable synthetic base layer (ID 5) at departure to prevent early sweating. Keep your lightweight fleece (ID 13), synthetic puffer (ID 24), and ultra-breathable shell (ID 21) in your backpack, ready to be deployed as you reach the cooler, wind-exposed higher sections or during descents."
+    "pants": {
+        "motivation": "Long pants are recommended to protect your legs from brush, rocks, and the cool mountain air (7-10°C) across the technical terrain.",
+        "items": [
+            {
+                "name": "long pants",
+                "position": "worn"
+            }
+        ]
+    },
+    "shoes": {
+        "motivation": "With 67% of the route classified as mountain hiking and steep gradients, high-cut hiking shoes are required to provide necessary ankle support and traction on technical surfaces.",
+        "items": [
+            {
+                "name": "high shoes",
+                "position": "worn"
+            }
+        ]
+    },
+    "gear": {
+        "motivation": "Trekking poles are highly recommended to reduce joint impact and improve stability on the steep 17-19% gradients and technical mountain paths.",
+        "items": [
+            {
+                "name": "trekking poles"
+            }
+        ]
+    },
+    "overall_strategy": "Your low heat tolerance means you must avoid overheating and sweating heavily during the two major climbs (gradients up to 19.6%). Start the hike with a lightweight fleece over your synthetic short-sleeve base layer, but strip down to the base layer as soon as the climb begins. Keep your high-performance hard shell and down jacket in your pack, ready to deploy at the summit or during breaks where the apparent temperature drops to 3.9°C."
 }

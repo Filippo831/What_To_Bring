@@ -25,11 +25,48 @@ class Layer(BaseModel):
     motivation: str
     items: list[ClothingItem]
 
+class PantsEnum(str, Enum):
+    SHORTS = "shorts"
+    LONG_PANTS = "long pants"
+    RAIN_PANTS = "rain pants"
+
+class ShoesEnum(str, Enum):
+    HIGH_SHOES = "high shoes"
+    LOW_SHOES = "low shoes"
+    MOUNTAINEERING_SHOES = "mountaineering shoes"
+    TRAIL_RUNNING_SHOES = "trail running shoes"
+
+class PantsItem(BaseModel):
+    name: PantsEnum
+    position: Position
+
+class ShoesItem(BaseModel):
+    name: ShoesEnum
+    position: Position
+
+class GearItem(BaseModel):
+    name: str = Field(..., description="Name of recommended gear item. Backpack is not included in this list as it is always recommended.")
+
+class Pants(BaseModel):
+    motivation: str
+    items: list[PantsItem]
+
+class Shoes(BaseModel):
+    motivation: str
+    items: list[ShoesItem]
+
+class GearRecommendation(BaseModel):
+    motivation: str
+    items: list[GearItem]
+
 class GeminiResponse(BaseModel):
     base: Layer
     middle: Layer
     insulation: Layer
     shell: Layer
+    pants: Pants
+    shoes: Shoes
+    gear: GearRecommendation
     overall_strategy: str
 
 # Load Gemini API key from environment variable

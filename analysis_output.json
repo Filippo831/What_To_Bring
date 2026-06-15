@@ -1,24 +1,28 @@
 {
     "base": {
-        "motivation": "The MH500 short-sleeve synthetic shirt (ID 0) is selected as the worn base layer. Its high breathability and rapid drying properties are critical for your low heat tolerance (3/10), ensuring sweat is quickly wicked away during the steep 19.6% gradient climb starting at kilometer 1.1.",
+        "motivation": "Since you have a low heat tolerance (3/10) and will face a steep 19.6% climb early in the hike, you should wear the long-sleeved synthetic shirt (ID 5) to start. It offers high breathability and fast drying to manage sweat. Pack the short-sleeved synthetic shirt (ID 0) as a dry spare in your backpack.",
         "items": [
             {
                 "position": "worn",
+                "name": "Men's Long-Sleeved Hiking T-Shirt MH500"
+            },
+            {
+                "position": "backpack",
                 "name": "Men's Hiking Synthetic SS T-Shirt MH500"
             }
         ]
     },
     "middle": {
-        "motivation": "The MH120 fleece (ID 13) is chosen as a lightweight (210g), highly breathable mid-layer. Worn at the start to handle the cool 9.5°C morning temperature, it can be easily unzipped or stowed in your backpack once your metabolic heat rises during the initial ascent.",
+        "motivation": "To prevent immediate overheating during the intense initial climbs, do not wear a fleece at the start. Instead, pack the lightweight, highly breathable micro-fleece (ID 13) in your backpack to use during rest stops or cooler flat sections.",
         "items": [
             {
-                "position": "worn",
+                "position": "backpack",
                 "name": "Men's MH120 Hiking Fleece Zip"
             }
         ]
     },
     "insulation": {
-        "motivation": "The MT100 synthetic padded jacket (ID 24) is assigned to the backpack. It provides essential thermal protection for static breaks and descents when apparent temperatures drop to 3.9°C. Synthetic insulation is preferred over down here to maintain loft and warmth in the high humidity (up to 82%) environment.",
+        "motivation": "With apparent temperatures dropping to 3.9°C at higher elevations, you need a warm layer for static moments. The synthetic padded jacket (ID 24) is ideal to pack because synthetic insulation retains its loft and warmth even in the high humidity (up to 82%) you will encounter.",
         "items": [
             {
                 "position": "backpack",
@@ -27,7 +31,7 @@
         ]
     },
     "shell": {
-        "motivation": "The FH500 ultra-light rain jacket (ID 21) is packed in the backpack. With an extremely high breathability rating (RET < 6), it offers wind and wet-weather protection without causing overheating, which is perfect for managing the 30% precipitation probability at kilometer 2.",
+        "motivation": "There is a 30% chance of precipitation at kilometer 2. Pack the ultra-light rain jacket (ID 21) because its extremely high breathability (RET < 6) will prevent sweat buildup during high-exertion climbs while protecting you from wind and dampness.",
         "items": [
             {
                 "position": "backpack",
@@ -35,5 +39,5 @@
             }
         ]
     },
-    "overall_strategy": "Your low heat tolerance (3/10) combined with steep climbs (up to 19.6% gradient) in cool conditions (6.9°C to 10.7°C) requires an active layering strategy. You will start the hike wearing a highly breathable synthetic base layer and a lightweight fleece to stay comfortable during the flat first kilometer. As soon as the steep climbs begin, you should shed the mid-layer to prevent excessive sweating. Keep the ultra-light shell and synthetic insulation in your pack, ready to be deployed during rest stops, summits, or the descent where wind chill and lower exertion will rapidly cool your body."
+    "overall_strategy": "Your low heat tolerance and the steep climbs in the first half of the route require a 'start cold' strategy. Wear only your highly breathable synthetic base layer (ID 5) at departure to prevent early sweating. Keep your lightweight fleece (ID 13), synthetic puffer (ID 24), and ultra-breathable shell (ID 21) in your backpack, ready to be deployed as you reach the cooler, wind-exposed higher sections or during descents."
 }

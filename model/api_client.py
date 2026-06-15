@@ -18,7 +18,7 @@ class Position(str, Enum):
     BACKPACK = "backpack"
 
 class ClothingItem(BaseModel):
-    name: str = Field(..., description="Name of the clothing item")
+    id: str = Field(..., description="Id field of the clothing item copied and pasted from xml tag <WardrobeItem> in the input xml file")
     position: Position
 
 class Layer(BaseModel):

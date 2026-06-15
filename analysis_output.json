@@ -1,0 +1,39 @@
+{
+    "base": {
+        "motivation": "The MH500 short-sleeve synthetic shirt (ID 0) is selected as the worn base layer. Its high breathability and rapid drying properties are critical for your low heat tolerance (3/10), ensuring sweat is quickly wicked away during the steep 19.6% gradient climb starting at kilometer 1.1.",
+        "items": [
+            {
+                "position": "worn",
+                "name": "Men's Hiking Synthetic SS T-Shirt MH500"
+            }
+        ]
+    },
+    "middle": {
+        "motivation": "The MH120 fleece (ID 13) is chosen as a lightweight (210g), highly breathable mid-layer. Worn at the start to handle the cool 9.5°C morning temperature, it can be easily unzipped or stowed in your backpack once your metabolic heat rises during the initial ascent.",
+        "items": [
+            {
+                "position": "worn",
+                "name": "Men's MH120 Hiking Fleece Zip"
+            }
+        ]
+    },
+    "insulation": {
+        "motivation": "The MT100 synthetic padded jacket (ID 24) is assigned to the backpack. It provides essential thermal protection for static breaks and descents when apparent temperatures drop to 3.9°C. Synthetic insulation is preferred over down here to maintain loft and warmth in the high humidity (up to 82%) environment.",
+        "items": [
+            {
+                "position": "backpack",
+                "name": "Men's Synthetic Padded Jacket MT100"
+            }
+        ]
+    },
+    "shell": {
+        "motivation": "The FH500 ultra-light rain jacket (ID 21) is packed in the backpack. With an extremely high breathability rating (RET < 6), it offers wind and wet-weather protection without causing overheating, which is perfect for managing the 30% precipitation probability at kilometer 2.",
+        "items": [
+            {
+                "position": "backpack",
+                "name": "Men's Ultra-Light Rain Jacket FH500"
+            }
+        ]
+    },
+    "overall_strategy": "Your low heat tolerance (3/10) combined with steep climbs (up to 19.6% gradient) in cool conditions (6.9°C to 10.7°C) requires an active layering strategy. You will start the hike wearing a highly breathable synthetic base layer and a lightweight fleece to stay comfortable during the flat first kilometer. As soon as the steep climbs begin, you should shed the mid-layer to prevent excessive sweating. Keep the ultra-light shell and synthetic insulation in your pack, ready to be deployed during rest stops, summits, or the descent where wind chill and lower exertion will rapidly cool your body."
+}

@@ -1,7 +1,32 @@
 {
-  "suggested_items": [
-    "Men's Hiking Synthetic SS T-Shirt MH500",
-    "Men's MH120 Hiking Fleece Zip",
-    "Men's Ultra-Light Rain Jacket FH500"
-  ]
+  "_note": "",
+  "_validated_categories": ["base", "middle", "shell"],
+
+  "base": {
+    "items": [
+      {"name": "Men's Hiking Synthetic SS T-Shirt MH500", "position": "worn"}
+    ]
+  },
+  "middle": {
+    "items": [
+      {"name": "Men's MH120 Hiking Fleece Zip", "position": "worn"}
+    ]
+  },
+  "insulation": {
+    "items": []
+  },
+  "shell": {
+    "items": [
+      {"name": "Men's Ultra-Light Rain Jacket FH500", "position": "backpack"}
+    ]
+  },
+  "pants": {
+    "items": []
+  },
+  "shoes": {
+    "items": []
+  },
+  "gear": {
+    "items": []
+  }
 }

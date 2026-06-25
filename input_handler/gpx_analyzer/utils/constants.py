@@ -24,3 +24,6 @@ WEATHER_FEATURES = [
 
 # path with map osm inforamtion
 MAP_PATH = "./assets/map/nord-est-custom.gpkg"
+
+# amount of years in the past to check the weather
+HISTORICAL_YEARS = 5

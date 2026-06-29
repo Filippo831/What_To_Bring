@@ -1,0 +1,22 @@
+{
+  "name": "Maria",
+  "surname": "Rossi",
+  "mail": "maria.rossi@example.com",
+  "age": 18,
+  "gender": "female",
+  "heat_tolerance": 2,
+  "wardrobe": [
+    "Women's Hiking T-Shirt MH100",
+    "Women's Trekking Merino Wool T-Shirt MT500",
+    "Women's UV Protection Hiking LS T-Shirt MH100",
+    "Women's Mountain Hiking Fleece MH500",
+    "Women's NH500 Sherpa Fleece",
+    "Women's MH120 Hiking Fleece",
+    "Women's Waterproof Jacket MH500",
+    "Women's Hiking Softshell MT500",
+    "Women's Rain Jacket MH100",
+    "Women's MT500 Down Puffer Jacket",
+    "Women's Synthetic Padded Jacket MT100",
+    "Women's Hooded Hybrid Jacket MT500"
+  ]
+}

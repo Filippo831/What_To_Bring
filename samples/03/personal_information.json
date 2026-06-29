@@ -1,0 +1,28 @@
+{
+  "name": "Mario",
+  "surname": "Rossi",
+  "mail": "mario.rossi@example.com",
+  "age": 23,
+  "gender": "male",
+  "heat_tolerance": 9,
+  "wardrobe": [
+    "Men's Hiking Synthetic SS T-Shirt MH500",
+    "Men's Trekking Merino Wool LS T-Shirt MT500",
+    "Men's Hiking T-Shirt MH100",
+    "Men's Long-Sleeved Hiking T-Shirt MH500",
+    "Men's Desert Trekking UV T-Shirt Desert 500",
+    "Men's Hiking Fleece MH100",
+    "Men's Hiking Fleece MH500",
+    "Men's NH900 Sherpa Hiking Fleece",
+    "Men's MH120 Hiking Fleece Zip",
+    "Men's Waterproof Hiking Jacket MH500",
+    "Men's Hiking Softshell MT500",
+    "Men's Rain Jacket MH100",
+    "Men's Ultra-Light Rain Jacket FH500",
+    "Men's MT500 Down Puffer Jacket",
+    "Men's Synthetic Padded Jacket MT100",
+    "Men's Trekking Down Jacket MT900 (-18°C)",
+    "Men's Hooded Hybrid Jacket MT500",
+    "Men's Trekking 3-in-1 Jacket Travel 100"
+  ]
+}

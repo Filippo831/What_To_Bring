@@ -22,7 +22,7 @@ def gpx_analyzer(_gpx_file_path: str, _xml_root: ET.Element, _starting_time: str
     print("GPX file parsed successfully")
 
     # discriminate between planned gpx and recorded gpx
-    is_recorded = gpx.time is not None
+    is_recorded = gpx.time is not None or gpx.tracks[0].segments[0].points[0].time is not None
     starting_time: int = 0
 
     if is_recorded:

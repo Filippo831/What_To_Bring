@@ -24,6 +24,10 @@ def main():
             samples.append(sample)
 
     for sample in samples:
+        # print the number of the sample and the folder name
+        print(f"Sample {samples.index(sample) + 1}/{len(samples)}: {sample['folder']}")
+        # skip sample 01
+
         input_handler(sample)
         # presentation(sample)
 

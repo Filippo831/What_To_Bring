@@ -36,6 +36,7 @@ def call_api(_point: Point, _is_recorded: bool):
             "latitude": _point.latitude,
             "longitude": _point.longitude,
             "hourly": WEATHER_FEATURES,
+            "forecast_days": 14,
         }
 
     responses = openmeteo.weather_api(url, params=params)  # pyright: ignore[reportUnknownMemberType]

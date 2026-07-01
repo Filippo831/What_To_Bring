@@ -11,14 +11,16 @@ from input_handler.gpx_analyzer.utils.constants import (
 from input_handler.gpx_analyzer.utils.classes import Gpx_features, Climb, Point
 from itertools import pairwise
 import time
-import datetime
 
 
 def calculate_starting_time(_gpx_features: GPX):
-    starting_time = _gpx_features.time
+    starting_time = _gpx_features.time or _gpx_features.tracks[0].segments[0].points[0].time
 
     # convert starting_time to unix time
-    starting_time = int(time.mktime(starting_time.timetuple()))
+    if starting_time is None:
+        print("Error: starting time is None") 
+    else:
+        starting_time = int(time.mktime(starting_time.timetuple()))
     return starting_time
 
 

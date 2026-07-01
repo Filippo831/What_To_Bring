@@ -85,12 +85,7 @@ def process_row(row: pd.Series) -> pd.Series:
 
 
 def get_surface_percentage(_result: pd.DataFrame, _gpx_features: Gpx_features) -> dict[str, float]:
-    points_count = len(_gpx_features.points)
     dataframe_rows = _result.shape[0]
-
-    assert points_count == dataframe_rows, (
-        "The number of points and the number of rows in the result dataframe must be the same."
-    )
 
     surface_length: dict[str, float] = {}
 

@@ -1,0 +1,287 @@
+<?xml version="1.0" ?>
+<InputData>
+    <PersonalInformation>
+        <Name>Mario</Name>
+        <Surname>Rossi</Surname>
+        <Mail>mario.rossi@example.com</Mail>
+        <Age>45</Age>
+        <Gender>male</Gender>
+        <HeatTolerance>7/10</HeatTolerance>
+    </PersonalInformation>
+    <Wardrobe>
+        <WardrobeItem name="Men's Hiking Synthetic SS T-Shirt MH500">
+            <Id>0</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Short Sleeved</SleeveLength>
+            <Weight>142g (L)</Weight>
+            <Material>100% Polyester</Material>
+            <DryingTime>Fast (Synthetic)</DryingTime>
+            <Breathability>High (4/5 stars)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Trekking Merino Wool LS T-Shirt MT500">
+            <Id>2</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Long Sleeved</SleeveLength>
+            <Weight>190g (L)</Weight>
+            <Material>86% Merino Wool, 14% Polyamide</Material>
+            <DryingTime>Moderate</DryingTime>
+            <Breathability>Excellent (Natural fiber)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Hiking T-Shirt MH100">
+            <Id>3</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Short Sleeved</SleeveLength>
+            <Weight>130g (L)</Weight>
+            <Material>100% Polyester</Material>
+            <DryingTime>Fast</DryingTime>
+            <Breathability>Good (Moisture Management)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Long-Sleeved Hiking T-Shirt MH500">
+            <Id>5</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Long Sleeved</SleeveLength>
+            <Weight>175g (L)</Weight>
+            <Material>Polyester / Elastane mix</Material>
+            <DryingTime>Fast</DryingTime>
+            <Breathability>High</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Desert Trekking UV T-Shirt Desert 500">
+            <Id>7</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Long Sleeved</SleeveLength>
+            <Weight>180g (L)</Weight>
+            <Material>Polyamide / Polyester</Material>
+            <DryingTime>Extreme Fast</DryingTime>
+            <Breathability>Maximum (Vented)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Hiking Fleece MH100">
+            <Id>8</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Recycled Polyester Fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>240g (L)</MiddleLayerWeight>
+            <MiddleLayerBreathability>Moderate (RET 7.5)</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Hiking Fleece MH500">
+            <Id>10</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Polyester Fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>335g (L)</MiddleLayerWeight>
+            <MiddleLayerBreathability>High (Micro-grid structure)</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's NH900 Sherpa Hiking Fleece">
+            <Id>12</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Dense Sherpa Fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>580g (L)</MiddleLayerWeight>
+            <MiddleLayerBreathability>Moderate (Warmth focus)</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's MH120 Hiking Fleece Zip">
+            <Id>13</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Recycled Micro-fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>210g (L)</MiddleLayerWeight>
+            <MiddleLayerBreathability>High</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Waterproof Hiking Jacket MH500">
+            <Id>15</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>High (RET 6)</ShellBreathability>
+            <ShellWaterproofing>25,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell (3-Layer)</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Hiking Softshell MT500">
+            <Id>17</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>High (Air permeable)</ShellBreathability>
+            <ShellWaterproofing>Water repellent (DWR)</ShellWaterproofing>
+            <HardSoftShell>Soft Shell</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Rain Jacket MH100">
+            <Id>19</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>Moderate (RET 12)</ShellBreathability>
+            <ShellWaterproofing>5,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell (2-Layer)</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Ultra-Light Rain Jacket FH500">
+            <Id>21</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>Extremely High (RET &lt; 6)</ShellBreathability>
+            <ShellWaterproofing>10,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell (Lightweight)</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Men's MT500 Down Puffer Jacket">
+            <Id>22</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>430g (L)</InsulationWeight>
+            <InsulationMaterials>Padding: 90% Down/10% Feather; Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent (DWR)</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Synthetic Padded Jacket MT100">
+            <Id>24</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>360g (L)</InsulationWeight>
+            <InsulationMaterials>Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Trekking Down Jacket MT900 (-18°C)">
+            <Id>26</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>570g (L)</InsulationWeight>
+            <InsulationMaterials>Padding: 90% Down (800 CUIN); Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Hooded Hybrid Jacket MT500">
+            <Id>27</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>410g (L)</InsulationWeight>
+            <InsulationMaterials>Padding: Synthetic (chest); Sleeves: Fleece; Outer: Polyester/Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent (chest area)</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Men's Trekking 3-in-1 Jacket Travel 100">
+            <Id>29</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Removable Fleece</MiddleLayerMaterial>
+            <MiddleLayerBreathability>Moderate</MiddleLayerBreathability>
+            <ShellBreathability>Moderate (RET 12)</ShellBreathability>
+            <ShellWaterproofing>2,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell</HardSoftShell>
+            <InsulationWeight>Varies (Fleece inside)</InsulationWeight>
+            <InsulationMaterials>Outer: Polyester; Inner: Polyester Fleece</InsulationMaterials>
+            <InsulationWaterproofing>Outer shell only</InsulationWaterproofing>
+        </WardrobeItem>
+    </Wardrobe>
+    <GPXFeatures>
+        <Distance units="km">11.291081094781262</Distance>
+        <ElevationGain units="m">821.8410489999999</ElevationGain>
+        <HikingTime units="minutes">357</HikingTime>
+        <WeatherForecast>
+            <DataPoint kilometer="0">
+                <Temperature2m>13.607999801635742</Temperature2m>
+                <RelativeHumidity2m>74.0</RelativeHumidity2m>
+                <ApparentTemperature>12.879192352294922</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="1">
+                <Temperature2m>14.33549976348877</Temperature2m>
+                <RelativeHumidity2m>72.0</RelativeHumidity2m>
+                <ApparentTemperature>14.170614242553711</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="2">
+                <Temperature2m>14.074999809265137</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>13.819925308227539</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="3">
+                <Temperature2m>14.07450008392334</Temperature2m>
+                <RelativeHumidity2m>80.0</RelativeHumidity2m>
+                <ApparentTemperature>13.864252090454102</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="4">
+                <Temperature2m>13.15149974822998</Temperature2m>
+                <RelativeHumidity2m>80.0</RelativeHumidity2m>
+                <ApparentTemperature>12.681377410888672</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="5">
+                <Temperature2m>14.154000282287598</Temperature2m>
+                <RelativeHumidity2m>70.0</RelativeHumidity2m>
+                <ApparentTemperature>13.263849258422852</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="6">
+                <Temperature2m>14.68600082397461</Temperature2m>
+                <RelativeHumidity2m>68.0</RelativeHumidity2m>
+                <ApparentTemperature>15.313196182250977</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="7">
+                <Temperature2m>14.048999786376953</Temperature2m>
+                <RelativeHumidity2m>74.0</RelativeHumidity2m>
+                <ApparentTemperature>14.53042221069336</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="8">
+                <Temperature2m>15.095499992370605</Temperature2m>
+                <RelativeHumidity2m>74.0</RelativeHumidity2m>
+                <ApparentTemperature>15.864738464355469</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="9">
+                <Temperature2m>18.129499435424805</Temperature2m>
+                <RelativeHumidity2m>57.0</RelativeHumidity2m>
+                <ApparentTemperature>18.596506118774414</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="10">
+                <Temperature2m>17.56549835205078</Temperature2m>
+                <RelativeHumidity2m>64.0</RelativeHumidity2m>
+                <ApparentTemperature>17.712120056152344</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="11">
+                <Temperature2m>19.232999801635742</Temperature2m>
+                <RelativeHumidity2m>57.0</RelativeHumidity2m>
+                <ApparentTemperature>19.461307525634766</ApparentTemperature>
+                <PrecipitationProbability>0.0</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+        </WeatherForecast>
+        <Surfaces>
+            <Surface type="mountain_hiking">58.047068362256994</Surface>
+            <Surface type="hiking">1.5757838183922612</Surface>
+            <Surface type="asphalt">33.42405629676874</Surface>
+            <Surface type="path">4.1744365237304795</Surface>
+            <Surface type="alpine_hiking">0.24052526186863726</Surface>
+        </Surfaces>
+        <Climbs>
+            <Climb>
+                <Length>4331.370911781708</Length>
+                <Gain>685.015684</Gain>
+                <Gradient>15.815216428052775</Gradient>
+                <StartDistance>105.83702629851855</StartDistance>
+                <StartElevation>1313.513999</StartElevation>
+            </Climb>
+            <Climb>
+                <Length>785.5164834726829</Length>
+                <Gain>126.0267429999999</Gain>
+                <Gradient>16.043806291988854</Gradient>
+                <StartDistance>4834.567138817473</StartDistance>
+                <StartElevation>1995.130337</StartElevation>
+            </Climb>
+        </Climbs>
+    </GPXFeatures>
+    <ActivityType>hike</ActivityType>
+</InputData>

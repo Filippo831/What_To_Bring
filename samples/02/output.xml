@@ -1,0 +1,252 @@
+<?xml version="1.0" ?>
+<InputData>
+    <PersonalInformation>
+        <Name>Maria</Name>
+        <Surname>Rossi</Surname>
+        <Mail>maria.rossi@example.com</Mail>
+        <Age>18</Age>
+        <Gender>female</Gender>
+        <HeatTolerance>2/10</HeatTolerance>
+    </PersonalInformation>
+    <Wardrobe>
+        <WardrobeItem name="Women's Hiking T-Shirt MH100">
+            <Id>1</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Short Sleeved</SleeveLength>
+            <Weight>110g (M)</Weight>
+            <Material>100% Polyester</Material>
+            <DryingTime>Very Fast</DryingTime>
+            <Breathability>Standard (Moisture wicking)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Trekking Merino Wool T-Shirt MT500">
+            <Id>4</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Short Sleeved</SleeveLength>
+            <Weight>125g (M)</Weight>
+            <Material>86% Merino Wool, 14% Polyamide</Material>
+            <DryingTime>Moderate</DryingTime>
+            <Breathability>High (Anti-odor)</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's UV Protection Hiking LS T-Shirt MH100">
+            <Id>6</Id>
+            <LayerType>BASE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <SleeveLength>Long Sleeved</SleeveLength>
+            <Weight>150g (M)</Weight>
+            <Material>Polyester</Material>
+            <DryingTime>Fast</DryingTime>
+            <Breathability>High</Breathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Mountain Hiking Fleece MH500">
+            <Id>9</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Polyester Grid Fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>285g (M)</MiddleLayerWeight>
+            <MiddleLayerBreathability>High (Mesh underarms)</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's NH500 Sherpa Fleece">
+            <Id>11</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Sherpa Fleece (Polyester)</MiddleLayerMaterial>
+            <MiddleLayerWeight>450g (M)</MiddleLayerWeight>
+            <MiddleLayerBreathability>Low (Thick insulation focus)</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's MH120 Hiking Fleece">
+            <Id>14</Id>
+            <LayerType>MIDDLE LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <MiddleLayerMaterial>Recycled Micro-fleece</MiddleLayerMaterial>
+            <MiddleLayerWeight>190g (M)</MiddleLayerWeight>
+            <MiddleLayerBreathability>High</MiddleLayerBreathability>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Waterproof Jacket MH500">
+            <Id>16</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>High (RET 6)</ShellBreathability>
+            <ShellWaterproofing>25,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell (3-Layer)</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Hiking Softshell MT500">
+            <Id>18</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>High</ShellBreathability>
+            <ShellWaterproofing>Water repellent (DWR)</ShellWaterproofing>
+            <HardSoftShell>Soft Shell</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Rain Jacket MH100">
+            <Id>20</Id>
+            <LayerType>SHELL LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <ShellBreathability>Moderate (RET 12)</ShellBreathability>
+            <ShellWaterproofing>5,000mm water column</ShellWaterproofing>
+            <HardSoftShell>Hard Shell (2-Layer)</HardSoftShell>
+        </WardrobeItem>
+        <WardrobeItem name="Women's MT500 Down Puffer Jacket">
+            <Id>23</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>380g (M)</InsulationWeight>
+            <InsulationMaterials>Padding: 90% Down; Outer: 100% Polyamide; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent (DWR)</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Synthetic Padded Jacket MT100">
+            <Id>25</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>330g (M)</InsulationWeight>
+            <InsulationMaterials>Padding: 100% Polyester; Outer: Polyamide; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
+        </WardrobeItem>
+        <WardrobeItem name="Women's Hooded Hybrid Jacket MT500">
+            <Id>28</Id>
+            <LayerType>INSULATION LAYER</LayerType>
+            <Brand>Decathlon</Brand>
+            <InsulationWeight>370g (M)</InsulationWeight>
+            <InsulationMaterials>Padding: Synthetic; Outer: Polyamide mix; Lining: Polyamide</InsulationMaterials>
+            <InsulationWaterproofing>Water repellent</InsulationWaterproofing>
+        </WardrobeItem>
+    </Wardrobe>
+    <GPXFeatures>
+        <Distance units="km">13.293200828235657</Distance>
+        <ElevationGain units="m">784.3440619999999</ElevationGain>
+        <HikingTime units="minutes">283</HikingTime>
+        <WeatherForecast>
+            <DataPoint kilometer="0">
+                <Temperature2m>12.7524995803833</Temperature2m>
+                <RelativeHumidity2m>88.0</RelativeHumidity2m>
+                <ApparentTemperature>12.628398895263672</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="1">
+                <Temperature2m>11.289999961853027</Temperature2m>
+                <RelativeHumidity2m>88.0</RelativeHumidity2m>
+                <ApparentTemperature>10.752455711364746</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="2">
+                <Temperature2m>11.069499969482422</Temperature2m>
+                <RelativeHumidity2m>77.0</RelativeHumidity2m>
+                <ApparentTemperature>9.975996017456055</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="3">
+                <Temperature2m>9.937999725341797</Temperature2m>
+                <RelativeHumidity2m>82.0</RelativeHumidity2m>
+                <ApparentTemperature>8.173078536987305</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="4">
+                <Temperature2m>10.040999412536621</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>7.943042755126953</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="5">
+                <Temperature2m>9.35200023651123</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>7.109143257141113</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="6">
+                <Temperature2m>10.567500114440918</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>8.396127700805664</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="7">
+                <Temperature2m>11.237000465393066</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>9.216751098632812</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="8">
+                <Temperature2m>11.750999450683594</Temperature2m>
+                <RelativeHumidity2m>70.0</RelativeHumidity2m>
+                <ApparentTemperature>10.12656021118164</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="9">
+                <Temperature2m>11.939499855041504</Temperature2m>
+                <RelativeHumidity2m>70.0</RelativeHumidity2m>
+                <ApparentTemperature>10.357008934020996</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="10">
+                <Temperature2m>13.200499534606934</Temperature2m>
+                <RelativeHumidity2m>75.0</RelativeHumidity2m>
+                <ApparentTemperature>11.704078674316406</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="11">
+                <Temperature2m>12.680500030517578</Temperature2m>
+                <RelativeHumidity2m>90.0</RelativeHumidity2m>
+                <ApparentTemperature>11.016552925109863</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="12">
+                <Temperature2m>13.174500465393066</Temperature2m>
+                <RelativeHumidity2m>90.0</RelativeHumidity2m>
+                <ApparentTemperature>11.66100025177002</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+            <DataPoint kilometer="13">
+                <Temperature2m>14.145999908447266</Temperature2m>
+                <RelativeHumidity2m>84.0</RelativeHumidity2m>
+                <ApparentTemperature>12.692886352539062</ApparentTemperature>
+                <PrecipitationProbability>nan</PrecipitationProbability>
+                <Precipitation>0.0</Precipitation>
+            </DataPoint>
+        </WeatherForecast>
+        <Surfaces>
+            <Surface type="asphalt">1.563629291511054</Surface>
+            <Surface type="mountain_hiking">30.00993667846112</Surface>
+            <Surface type="alpine_hiking">1.6611576712842149</Surface>
+            <Surface type="hiking">53.162124034549485</Surface>
+            <Surface type="difficult_alpine_hiking">0.04623514443443389</Surface>
+            <Surface type="path">0.037950199116054094</Surface>
+        </Surfaces>
+        <Climbs>
+            <Climb>
+                <Length>3752.406494763934</Length>
+                <Gain>633.7788939999998</Gain>
+                <Gradient>16.889931698081426</Gradient>
+                <StartDistance>104.0941747588217</StartDistance>
+                <StartElevation>1231.046156</StartElevation>
+            </Climb>
+            <Climb>
+                <Length>400.9040081700309</Length>
+                <Gain>21.510176</Gain>
+                <Gradient>5.365418045627803</Gradient>
+                <StartDistance>3944.4608692170855</StartDistance>
+                <StartElevation>1867.59452</StartElevation>
+            </Climb>
+            <Climb>
+                <Length>601.9171391661312</Length>
+                <Gain>103.581547</Gain>
+                <Gradient>17.20860568009364</Gradient>
+                <StartDistance>4541.319643153425</StartDistance>
+                <StartElevation>1890.893115</StartElevation>
+            </Climb>
+        </Climbs>
+    </GPXFeatures>
+    <ActivityType>hike</ActivityType>
+</InputData>

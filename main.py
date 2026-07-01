@@ -26,9 +26,6 @@ def main():
     for sample in samples:
         # print the number of the sample and the folder name
         print(f"Sample {samples.index(sample) + 1}/{len(samples)}: {sample['folder']}")
-        # analyze only sample 04
-        if sample['folder'] != "04":
-            continue 
 
         input_handler(sample)
         # presentation(sample)

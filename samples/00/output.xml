@@ -175,79 +175,79 @@
         <HikingTime units="minutes">227</HikingTime>
         <WeatherForecast>
             <DataPoint kilometer="0">
-                <Temperature2m>9.568499565124512</Temperature2m>
-                <RelativeHumidity2m>79.0</RelativeHumidity2m>
-                <ApparentTemperature>7.846708297729492</ApparentTemperature>
+                <Temperature2m>9.886999130249023</Temperature2m>
+                <RelativeHumidity2m>56.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>3.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="1">
-                <Temperature2m>9.468500137329102</Temperature2m>
-                <RelativeHumidity2m>71.0</RelativeHumidity2m>
-                <ApparentTemperature>7.235301971435547</ApparentTemperature>
+                <Temperature2m>10.636999130249023</Temperature2m>
+                <RelativeHumidity2m>49.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>0.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="2">
-                <Temperature2m>8.261499404907227</Temperature2m>
-                <RelativeHumidity2m>82.0</RelativeHumidity2m>
-                <ApparentTemperature>5.996007919311523</ApparentTemperature>
+                <Temperature2m>8.31100082397461</Temperature2m>
+                <RelativeHumidity2m>49.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>30.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="3">
-                <Temperature2m>7.611500263214111</Temperature2m>
-                <RelativeHumidity2m>76.0</RelativeHumidity2m>
-                <ApparentTemperature>4.746725082397461</ApparentTemperature>
+                <Temperature2m>7.560999870300293</Temperature2m>
+                <RelativeHumidity2m>45.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>8.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="4">
-                <Temperature2m>6.903000354766846</Temperature2m>
-                <RelativeHumidity2m>76.0</RelativeHumidity2m>
-                <ApparentTemperature>3.9076690673828125</ApparentTemperature>
+                <Temperature2m>6.852499485015869</Temperature2m>
+                <RelativeHumidity2m>45.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>8.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="5">
-                <Temperature2m>7.943499565124512</Temperature2m>
-                <RelativeHumidity2m>72.0</RelativeHumidity2m>
-                <ApparentTemperature>5.16949462890625</ApparentTemperature>
+                <Temperature2m>6.842999458312988</Temperature2m>
+                <RelativeHumidity2m>51.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>0.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="6">
-                <Temperature2m>7.566499710083008</Temperature2m>
-                <RelativeHumidity2m>72.0</RelativeHumidity2m>
-                <ApparentTemperature>4.7246856689453125</ApparentTemperature>
+                <Temperature2m>6.465999603271484</Temperature2m>
+                <RelativeHumidity2m>51.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>0.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="7">
-                <Temperature2m>8.651999473571777</Temperature2m>
-                <RelativeHumidity2m>72.0</RelativeHumidity2m>
-                <ApparentTemperature>6.009642601013184</ApparentTemperature>
+                <Temperature2m>7.551499366760254</Temperature2m>
+                <RelativeHumidity2m>51.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>0.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="8">
-                <Temperature2m>9.844000816345215</Temperature2m>
-                <RelativeHumidity2m>74.0</RelativeHumidity2m>
-                <ApparentTemperature>7.2260026931762695</ApparentTemperature>
+                <Temperature2m>9.416000366210938</Temperature2m>
+                <RelativeHumidity2m>56.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>5.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="9">
-                <Temperature2m>10.655500411987305</Temperature2m>
-                <RelativeHumidity2m>71.0</RelativeHumidity2m>
-                <ApparentTemperature>7.970769882202148</ApparentTemperature>
+                <Temperature2m>9.62399959564209</Temperature2m>
+                <RelativeHumidity2m>56.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>5.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>
             <DataPoint kilometer="10">
-                <Temperature2m>10.707500457763672</Temperature2m>
-                <RelativeHumidity2m>71.0</RelativeHumidity2m>
-                <ApparentTemperature>8.03373908996582</ApparentTemperature>
+                <Temperature2m>9.675999641418457</Temperature2m>
+                <RelativeHumidity2m>56.0</RelativeHumidity2m>
+                <ApparentTemperature>nan</ApparentTemperature>
                 <PrecipitationProbability>5.0</PrecipitationProbability>
                 <Precipitation>0.0</Precipitation>
             </DataPoint>

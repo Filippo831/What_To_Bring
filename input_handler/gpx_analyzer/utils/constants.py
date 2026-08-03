@@ -23,7 +23,10 @@ WEATHER_FEATURES = [
 ]
 
 # path with map osm inforamtion
-MAP_PATH = "./assets/map/nord-est-custom.gpkg"
+from pathlib import Path
+
+_PROJECT_ROOT = Path(__file__).resolve().parents[3]
+MAP_PATH = str(_PROJECT_ROOT / "assets" / "map" / "nord-est-custom.gpkg")
 
 # amount of years in the past to check the weather
 HISTORICAL_YEARS = 5

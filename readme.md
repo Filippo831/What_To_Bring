@@ -9,10 +9,23 @@
 ├── presentation/           # output presentation and performance analysis
 ├── evaluation/             # automated evaluation harness against the samples
 ├── server/                 # flask server + demo interface
-├── tests/                  # unittest
-└── what_to_bring.py        # entry point
+├── test/                   # unittest
+└── main.py                 # entry point
 
 ```
+
+## environment
+
+- Create a `.env` file in the project root with your Gemini API key (see `.env.example`).
+- Only sample `00` has a validated ground truth; the other samples' `expected_output.json` files are empty and are skipped by the evaluation.
+
+## run the tests
+
+```
+$ python -m unittest discover -s test
+```
+
+Requires the local assets (wardrobe CSV, map GPKG) for the full suite.
 
 ## evaluate the model
 

@@ -116,6 +116,18 @@ class TestServer(unittest.TestCase):
         self.assertEqual(res.status_code, 200)
         self.assertIn(b"What To Bring", res.data)
 
+    def test_catalog_lists_products(self):
+        res = self.client.get("/api/catalog")
+        self.assertEqual(res.status_code, 200)
+
+        items = res.get_json()
+        self.assertGreaterEqual(len(items), 30)
+        for item in items:
+            self.assertIn("name", item)
+            self.assertIn("layer", item)
+        names = {item["name"] for item in items}
+        self.assertIn("Men's Hiking Synthetic SS T-Shirt MH500", names)
+
     def test_happy_path(self):
         res = self._post()
         self.assertEqual(res.status_code, 200)

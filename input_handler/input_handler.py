@@ -13,6 +13,10 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent
 _WARDROBE_CATALOG = _PROJECT_ROOT / "assets" / "wardrobe" / "decathlon_hiking_clothes_catalog.csv"
 
 
+def load_wardrobe_catalog() -> pd.DataFrame:
+    return pd.read_csv(_WARDROBE_CATALOG)
+
+
 def build_input_xml(
     course_gpx: str,
     personal_info: dict,
@@ -40,7 +44,7 @@ def build_input_xml(
     personal_information_element = ET.SubElement(xml_root, "PersonalInformation")
     wardrobe_list_element = ET.SubElement(xml_root, "Wardrobe")
 
-    wardrobe_df = pd.read_csv(_WARDROBE_CATALOG)
+    wardrobe_df = load_wardrobe_catalog()
     for key, value in personal_info.items():
         if key == "wardrobe":
             for item in value:

@@ -9,50 +9,59 @@
 <body>
 <header>
   <h1>What To Bring</h1>
-  <p>Upload a GPX track plus your personal and hike information to get a clothing recommendation.</p>
+  <p>Upload a GPX track, tell us about yourself and your wardrobe, and get a clothing recommendation.</p>
 </header>
 
 <main>
   <section id="form-section">
     <form id="estimate-form">
+      <h3>1. GPX track</h3>
       <label for="gpx">GPX file *</label>
       <input type="file" id="gpx" name="gpx" accept=".gpx,application/gpx+xml,text/xml" required>
 
-      <label for="personal">Personal information (JSON) *</label>
-      <textarea id="personal" name="personal_information" rows="12" spellcheck="false">{
-  "name": "Mario",
-  "surname": "Rossi",
-  "mail": "mario.rossi@example.com",
-  "age": 25,
-  "gender": "male",
-  "heat_tolerance": 3,
-  "wardrobe": [
-    "Men's Hiking Synthetic SS T-Shirt MH500",
-    "Men's Trekking Merino Wool LS T-Shirt MT500",
-    "Men's Hiking T-Shirt MH100",
-    "Men's Long-Sleeved Hiking T-Shirt MH500",
-    "Men's Desert Trekking UV T-Shirt Desert 500",
-    "Men's Hiking Fleece MH100",
-    "Men's Hiking Fleece MH500",
-    "Men's NH900 Sherpa Hiking Fleece",
-    "Men's MH120 Hiking Fleece Zip",
-    "Men's Waterproof Hiking Jacket MH500",
-    "Men's Hiking Softshell MT500",
-    "Men's Rain Jacket MH100",
-    "Men's Ultra-Light Rain Jacket FH500",
-    "Men's MT500 Down Puffer Jacket",
-    "Men's Synthetic Padded Jacket MT100",
-    "Men's Trekking Down Jacket MT900 (-18°C)",
-    "Men's Hooded Hybrid Jacket MT500",
-    "Men's Trekking 3-in-1 Jacket Travel 100"
-  ]
-}</textarea>
+      <h3>2. Personal information</h3>
+      <div class="grid">
+        <label>Name <input id="name" type="text" value="Mario"></label>
+        <label>Surname <input id="surname" type="text" value="Rossi"></label>
+        <label>Email <input id="mail" type="email" value="mario.rossi@example.com"></label>
+        <label>Age <input id="age" type="number" min="1" max="120" value="25"></label>
+        <label>Gender
+          <select id="gender">
+            <option value="male" selected>male</option>
+            <option value="female">female</option>
+            <option value="other">other</option>
+          </select>
+        </label>
+        <label>Heat tolerance (1 = very sensitive)
+          <select id="heat-tolerance">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+          </select>
+        </label>
+      </div>
 
-      <label for="hike">Hike information (JSON) *</label>
-      <textarea id="hike" name="hike_information" rows="4" spellcheck="false">{
-  "starting_time": "2026-05-27 09:00",
-  "type": "hike"
-}</textarea>
+      <h3>3. My wardrobe</h3>
+      <div class="wardrobe-toolbar">
+        <input id="wardrobe-search" type="search" placeholder="Search clothes..." autocomplete="off">
+        <button type="button" id="select-all">Select all</button>
+        <button type="button" id="clear-all">Clear</button>
+      </div>
+      <div id="wardrobe-list" class="wardrobe-list"></div>
+      <p id="wardrobe-count" class="count"></p>
+
+      <h3>4. Hike information</h3>
+      <div class="grid">
+        <label>Starting time <input id="starting-time" type="datetime-local" value="2026-05-27T09:00"></label>
+        <label>Type <input id="activity-type" type="text" value="hike"></label>
+      </div>
 
       <button type="submit">Estimate</button>
       <p id="status" class="status"></p>

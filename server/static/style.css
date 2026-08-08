@@ -40,20 +40,50 @@ section {
   margin-top: 1.25rem;
 }
 
-form label {
-  display: block;
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.grid label {
+  display: flex;
+  flex-direction: column;
   font-weight: 600;
-  margin: 1rem 0 0.35rem;
+  font-size: 0.85rem;
+  margin: 0;
+  color: #3e4c59;
+}
+
+form h3 {
+  margin: 1.5rem 0 0.5rem;
+  font-size: 1.05rem;
+  border-bottom: 1px solid #e4e7eb;
+  padding-bottom: 0.35rem;
 }
 
 textarea,
-input[type="file"] {
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="search"],
+input[type="datetime-local"],
+input[type="file"],
+select {
   width: 100%;
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 0.85rem;
+  font-family: inherit;
+  font-size: 0.9rem;
   border: 1px solid #cbd2d9;
   border-radius: 6px;
-  padding: 0.6rem;
+  padding: 0.55rem 0.6rem;
+  background: #fff;
+  margin-top: 0.25rem;
+}
+
+input[type="file"] {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.85rem;
 }
 
 textarea {
@@ -74,6 +104,82 @@ button {
 
 button:hover {
   background: #1d4ed8;
+}
+
+.wardrobe-toolbar {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin: 0.4rem 0 0.6rem;
+}
+
+.wardrobe-toolbar input[type="search"] {
+  flex: 1;
+  margin-top: 0;
+}
+
+.wardrobe-toolbar button {
+  margin: 0;
+  padding: 0.45rem 0.9rem;
+  font-size: 0.85rem;
+  background: #52606d;
+}
+
+.wardrobe-toolbar button:hover {
+  background: #3e4c59;
+}
+
+.wardrobe-list {
+  max-height: 320px;
+  overflow-y: auto;
+  border: 1px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.wardrobe-group {
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #f0f2f5;
+  padding-bottom: 0.5rem;
+}
+
+.wardrobe-group:last-child {
+  border-bottom: none;
+}
+
+.wardrobe-group h4 {
+  margin: 0.25rem 0 0.3rem;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #7b8794;
+}
+
+.choice {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 400;
+  padding: 0.15rem 0.25rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.choice:hover {
+  background: #f5f7fa;
+}
+
+.choice input {
+  width: auto;
+  margin: 0;
+  accent-color: #2563eb;
+}
+
+.count {
+  color: #7b8794;
+  font-size: 0.85rem;
+  margin: 0.4rem 0 0;
 }
 
 .status {

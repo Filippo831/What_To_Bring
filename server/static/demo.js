@@ -11,6 +11,9 @@ const LAYER_LABELS = {
 const statusEl = document.getElementById("status");
 const resultSection = document.getElementById("result-section");
 
+let catalog = [];
+const selected = new Set();
+
 function escapeHtml(text) {
   return String(text)
     .replaceAll("&", "&amp;")
@@ -22,6 +25,100 @@ function escapeHtml(text) {
 function format(value, suffix) {
   if (value === null || value === undefined || Number.isNaN(value)) return "n/a";
   return `${Number(value).toFixed(1)}${suffix}`;
+}
+
+async function loadCatalog() {
+  try {
+    const res = await fetch("/api/catalog");
+    if (!res.ok) throw new Error(String(res.status));
+    catalog = await res.json();
+  } catch {
+    statusEl.textContent = "Could not load the wardrobe catalog from the server.";
+    return;
+  }
+  renderWardrobe();
+}
+
+function renderWardrobe() {
+  const query = document.getElementById("wardrobe-search").value.trim().toLowerCase();
+  const list = document.getElementById("wardrobe-list");
+  list.innerHTML = "";
+
+  const groups = {};
+  for (const item of catalog) {
+    (groups[item.layer] ||= []).push(item);
+  }
+
+  for (const [layer, items] of Object.entries(groups)) {
+    const matches = items.filter((i) => i.name.toLowerCase().includes(query));
+    if (!matches.length) continue;
+
+    const group = document.createElement("div");
+    group.className = "wardrobe-group";
+    const header = document.createElement("h4");
+    header.textContent = layer;
+    group.appendChild(header);
+
+    for (const item of matches) {
+      const label = document.createElement("label");
+      label.className = "choice";
+      label.title = item.name;
+
+      const cb = document.createElement("input");
+      cb.type = "checkbox";
+      cb.checked = selected.has(item.name);
+      cb.addEventListener("change", () => {
+        if (cb.checked) selected.add(item.name);
+        else selected.delete(item.name);
+        updateCount();
+      });
+
+      label.appendChild(cb);
+      label.appendChild(document.createTextNode(item.name));
+      group.appendChild(label);
+    }
+
+    list.appendChild(group);
+  }
+
+  updateCount();
+}
+
+function updateCount() {
+  const total = document.querySelectorAll("#wardrobe-list input:checked").length;
+  document.getElementById("wardrobe-count").textContent =
+    `${total} selected out of ${catalog.length} items`;
+}
+
+document.getElementById("wardrobe-search").addEventListener("input", renderWardrobe);
+document.getElementById("select-all").addEventListener("click", () => {
+  for (const item of catalog) selected.add(item.name);
+  renderWardrobe();
+});
+document.getElementById("clear-all").addEventListener("click", () => {
+  selected.clear();
+  renderWardrobe();
+});
+
+function buildPersonalInfo() {
+  const info = {
+    name: document.getElementById("name").value.trim(),
+    surname: document.getElementById("surname").value.trim(),
+    mail: document.getElementById("mail").value.trim(),
+    gender: document.getElementById("gender").value,
+    heat_tolerance: Number(document.getElementById("heat-tolerance").value),
+  };
+  const age = Number(document.getElementById("age").value);
+  if (age > 0) info.age = age;
+  info.wardrobe = [...selected];
+  return info;
+}
+
+function buildHikeInfo() {
+  const info = { type: document.getElementById("activity-type").value.trim() };
+  const startingTime = document.getElementById("starting-time").value;
+  if (startingTime) info.starting_time = startingTime.replace("T", " ");
+  return info;
 }
 
 function renderLayers(recommendations) {
@@ -94,20 +191,23 @@ document.getElementById("estimate-form").addEventListener("submit", async (e) =>
     statusEl.textContent = "Please select a GPX file.";
     return;
   }
+  if (selected.size === 0) {
+    statusEl.textContent = "Select at least one item in your wardrobe.";
+    return;
+  }
 
   const formData = new FormData();
   formData.append("gpx", gpx);
-
-  for (const [id, field] of [["personal", "personal_information"], ["hike", "hike_information"]]) {
-    let value;
-    try {
-      value = JSON.stringify(JSON.parse(document.getElementById(id).value));
-    } catch {
-      statusEl.textContent = `Invalid JSON in "${id}" field.`;
-      return;
-    }
-    formData.append(field, new Blob([value], { type: "application/json" }), `${field}.json`);
-  }
+  formData.append(
+    "personal_information",
+    new Blob([JSON.stringify(buildPersonalInfo())], { type: "application/json" }),
+    "personal_information.json"
+  );
+  formData.append(
+    "hike_information",
+    new Blob([JSON.stringify(buildHikeInfo())], { type: "application/json" }),
+    "hike_information.json"
+  );
 
   statusEl.textContent = "Analyzing... this can take a minute (weather and map analysis).";
   statusEl.classList.add("loading");
@@ -132,3 +232,5 @@ document.getElementById("estimate-form").addEventListener("submit", async (e) =>
   statusEl.textContent = "";
   render(data);
 });
+
+loadCatalog();

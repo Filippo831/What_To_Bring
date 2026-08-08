@@ -5,7 +5,7 @@ from typing import Callable, Optional
 
 from flask import Flask, jsonify, request, send_from_directory
 
-from input_handler.input_handler import build_input_xml
+from input_handler.input_handler import build_input_xml, load_wardrobe_catalog
 
 ModelFn = Callable[[str], dict]
 
@@ -103,6 +103,20 @@ def create_app(model_fn: Optional[ModelFn] = None) -> Flask:
     @app.get("/api/health")
     def health():
         return jsonify({"status": "ok"})
+
+    @app.get("/api/catalog")
+    def catalog():
+        df = load_wardrobe_catalog()
+        items = []
+        for _, row in df.iterrows():
+            items.append(
+                {
+                    "name": row["Product_Name"],
+                    "layer": row["Layer_Type"],
+                    "brand": row["Brand"],
+                }
+            )
+        return jsonify(items)
 
     @app.post("/api/estimate")
     def estimate():

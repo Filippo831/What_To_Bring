@@ -36,6 +36,7 @@ per-sample averages plus pooled micro-averages. Results are written to a JSON re
 $ python -m evaluation.run_evaluation --model mock            # deterministic mock, no API key
 $ python -m evaluation.run_evaluation --model real            # calls the Gemini API (needs GEMINI_API_KEY)
 $ python -m evaluation.run_evaluation --model mock --no-weather --output report.json
+$ python -m evaluation.run_evaluation --model real --samples 00,02   # only run selected samples
 ```
 
 ## run the estimation server (with demo interface)
@@ -47,9 +48,21 @@ $ python run_server.py
 ```
 
 API:
-- `POST /api/estimate` — multipart form with `gpx` (file) and `personal_information` + `hike_information` (files or JSON text). Returns `{hike_features, recommendations, overall_strategy}`.
+- `POST /api/estimate` — multipart form with `gpx` (file) and `personal_information` + `hike_information` (files or JSON text). Returns `{case_id, hike_features, recommendations, overall_strategy}`.
+- `POST /api/feedback/<case_id>` — JSON body reporting how accurate each category was; used to build new evaluation samples from real usage (see below).
 - `GET /api/health` — health check.
-- `GET /` — demo page where you can upload a GPX and paste the two JSONs.
+- `GET /` — demo page where you can upload a GPX, paste the two JSONs, and leave feedback on the result.
+
+## turning user feedback into evaluation samples
+
+Real uploads have no ground truth, so feedback collected via the demo page is
+just saved under `feedback_data/` until a team member reviews it. Once
+reviewed, promote it into a new `samples/` folder:
+
+```
+$ python -m evaluation.promote_feedback --list           # see what's pending
+$ python -m evaluation.promote_feedback --case <case_id> # promote one after reviewing it
+```
 
 ## setup
 - Clone the repository

@@ -31,14 +31,15 @@ class SampleEvaluation:
     error: Optional[str] = None
     metrics: Optional[PerformanceMetrics] = None
     model_output: Optional[dict] = None
-
-
+    skipped: bool = False
+    
 @dataclass
 class Aggregates:
     per_sample_average: dict[str, Optional[float]]
     pooled: dict[str, Optional[float]]
     n_ok: int
     n_failed: int
+    n_skipped: int
 
 
 def discover_samples(samples_dir: Path) -> list[dict[str, str]]:
@@ -83,14 +84,33 @@ def evaluate_sample(
                 model_output=model_output,
             )
 
-        with open(sample["expected_output"], encoding="utf-8") as f:
-            ground_truth = json.load(f)
+        expected_raw = Path(sample["expected_output"]).read_text(encoding="utf-8")
+        if not expected_raw.strip():
+            return SampleEvaluation(
+                name, False, model_output=model_output, skipped=True
+            )
+
+        ground_truth = json.loads(expected_raw)
+        if "_validated_categories" in ground_truth and not ground_truth["_validated_categories"]:
+            return SampleEvaluation(
+                name, False, model_output=model_output, skipped=True
+            )
 
         metrics = evaluate(model_output, ground_truth)
         return SampleEvaluation(name, True, metrics=metrics, model_output=model_output)
     except Exception as e:
         return SampleEvaluation(name, False, error=f"{type(e).__name__}: {e}")
 
+def _metrics_of(r: "SampleEvaluation") -> PerformanceMetrics:
+    assert r.metrics is not None, f"{r.sample_name}: expected metrics on an ok sample"
+    return r.metrics
+
+
+def _model_output_of(r: "SampleEvaluation") -> dict:
+    assert (
+        r.model_output is not None
+    ), f"{r.sample_name}: expected model_output on an ok sample"
+    return r.model_output
 
 def aggregate(results: list[SampleEvaluation]) -> Aggregates:
     ok = [r for r in results if r.ok]
@@ -99,13 +119,13 @@ def aggregate(results: list[SampleEvaluation]) -> Aggregates:
     if ok:
         for key in METRIC_KEYS:
             per_sample_average[key] = (
-                sum(getattr(r.metrics.overall, key) for r in ok) / len(ok)
+                sum(getattr(_metrics_of(r).overall, key) for r in ok) / len(ok)
             )
-        pos_values = [
-            r.metrics.overall.position_accuracy
-            for r in ok
-            if r.metrics.overall.position_accuracy is not None
-        ]
+        pos_values: list[float] = []
+        for r in ok:
+            pa = _metrics_of(r).overall.position_accuracy
+            if pa is not None:
+                pos_values.append(pa)
         per_sample_average["position_accuracy"] = (
             sum(pos_values) / len(pos_values) if pos_values else None
         )
@@ -114,7 +134,7 @@ def aggregate(results: list[SampleEvaluation]) -> Aggregates:
     pos_correct = 0.0
     pos_tp = 0
     for r in ok:
-        for cm in r.metrics.per_category.values():
+        for cm in _metrics_of(r).per_category.values():
             if not cm.validated:
                 continue
             all_tp += len(cm.true_positives)
@@ -142,11 +162,13 @@ def aggregate(results: list[SampleEvaluation]) -> Aggregates:
         "position_accuracy": pos_correct / pos_tp if pos_tp > 0 else None,
     }
 
+    n_skipped = sum(1 for r in results if r.skipped)
     return Aggregates(
         per_sample_average=per_sample_average,
         pooled=pooled,
         n_ok=len(ok),
-        n_failed=len(results) - len(ok),
+        n_failed=len(results) - len(ok) - n_skipped,
+        n_skipped=n_skipped,
     )
 
 
@@ -165,22 +187,26 @@ def print_summary(
     print(f"\n{sep}")
     print(
         f"  Evaluation report ({len(results)} samples, "
-        f"{aggregates.n_ok} ok, {aggregates.n_failed} failed)"
+        f"{aggregates.n_ok} ok, {aggregates.n_skipped} skipped, "
+        f"{aggregates.n_failed} failed)"
     )
     print(sep)
 
     for r in results:
+        if r.skipped:
+            print(f"\n  {r.sample_name}: SKIPPED")
+            continue
         if not r.ok:
             print(f"\n  {r.sample_name}: FAILED - {r.error}")
             continue
-        o = r.metrics.overall
+        o = _metrics_of(r).overall
         pos = f" Pos={o.position_accuracy:.2%}" if o.position_accuracy is not None else ""
         print(
             f"\n  {r.sample_name}: F1={o.f1:.2%} Jaccard={o.jaccard:.2%}"
             f" Precision={o.precision:.2%} Recall={o.recall:.2%}{pos}"
         )
         if verbose:
-            print_report(r.sample_name, r.model_output, r.metrics)
+            print_report(r.sample_name, _model_output_of(r), _metrics_of(r))
 
     print(f"\n{'═' * 40}")
     print("  PER-SAMPLE AVERAGE")
@@ -231,6 +257,7 @@ def _results_to_dict(
             {
                 "sample": r.sample_name,
                 "ok": r.ok,
+                "skipped": r.skipped,
                 "error": r.error,
                 "metrics": _metrics_to_dict(r.metrics) if r.metrics else None,
             }
@@ -239,6 +266,7 @@ def _results_to_dict(
         "per_sample_average": aggregates.per_sample_average,
         "pooled": aggregates.pooled,
         "n_ok": aggregates.n_ok,
+        "n_skipped": aggregates.n_skipped,
         "n_failed": aggregates.n_failed,
     }
 
@@ -259,13 +287,44 @@ def main(argv: Optional[list[str]] = None) -> int:
     )
     parser.add_argument("--model", choices=["mock", "real"], default="mock")
     parser.add_argument("--samples-dir", default="samples")
+    parser.add_argument(
+        "--samples",
+        default=None,
+        help=(
+            "Comma-separated list of sample folder names to evaluate "
+            "(e.g. '00,02'). Default: all samples in --samples-dir."
+        ),
+    )
     parser.add_argument("--no-weather", action="store_true")
     parser.add_argument("--output", default="evaluation_results.json")
     parser.add_argument("--verbose", action="store_true")
+    parser.add_argument(
+        "--fail-under",
+        type=float,
+        default=None,
+        metavar="F1",
+        help=(
+            "Exit with a non-zero status if the pooled F1 score drops below "
+            "this value (0-1). Useful as a regression gate in CI when "
+            "iterating on the prompt or the pipeline."
+        ),
+    )
     args = parser.parse_args(argv)
 
     samples_dir = Path(args.samples_dir)
+    if not samples_dir.is_dir():
+        print(f"Samples directory not found: {samples_dir}")
+        return 1
+
     samples = discover_samples(samples_dir)
+    if args.samples:
+        wanted = {name.strip() for name in args.samples.split(",") if name.strip()}
+        unknown = wanted - {s["folder"] for s in samples}
+        if unknown:
+            print(f"Unknown sample folder(s): {', '.join(sorted(unknown))}")
+            return 1
+        samples = [s for s in samples if s["folder"] in wanted]
+
     if not samples:
         print(f"No samples found in {samples_dir}")
         return 1
@@ -291,7 +350,20 @@ def main(argv: Optional[list[str]] = None) -> int:
         json.dump(_results_to_dict(results, aggregates, meta), f, indent=2)
     print(f"Results written to {args.output}")
 
-    return 0 if aggregates.n_ok > 0 else 1
+    if aggregates.n_ok == 0:
+        print("\nNo sample could be scored (all skipped or failed).")
+        return 1
+
+    if args.fail_under is not None:
+        pooled_f1 = aggregates.pooled["f1"]
+        if pooled_f1 < args.fail_under:
+            print(
+                f"\nPooled F1 {pooled_f1:.2%} is below the --fail-under "
+                f"threshold {args.fail_under:.2%}."
+            )
+            return 1
+
+    return 0
 
 
 if __name__ == "__main__":

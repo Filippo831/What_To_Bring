@@ -242,6 +242,73 @@ class TestEvaluateSample(unittest.TestCase):
         self.assertIn("FileNotFoundError", result.error)
 
 
+class TestSkippedSamples(unittest.TestCase):
+    def _sample_dict(self, tmp_root: Path, expected_output_text: str) -> dict[str, str]:
+        folder = tmp_root / "s"
+        folder.mkdir()
+        (folder / "personal_information.json").write_text("{}")
+        (folder / "hike_information.json").write_text("{}")
+        (folder / "course.gpx").write_text("<gpx/>")
+        (folder / "expected_output.json").write_text(expected_output_text)
+        return {
+            "folder": "s",
+            "personal_information": str(folder / "personal_information.json"),
+            "hike_information": str(folder / "hike_information.json"),
+            "course": str(folder / "course.gpx"),
+            "expected_output": str(folder / "expected_output.json"),
+        }
+
+    def test_empty_expected_output_is_skipped_not_failed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            sample = self._sample_dict(Path(tmp), "")
+            with mock.patch(
+                "evaluation.run_evaluation.build_input_xml", return_value="<InputData/>"
+            ):
+                result = evaluate_sample(sample, lambda xml_input: _perfect_output())
+
+        self.assertFalse(result.ok)
+        self.assertTrue(result.skipped)
+        self.assertIsNone(result.error)
+
+    def test_explicit_empty_validated_categories_is_skipped(self):
+        gt = json.dumps({"_validated_categories": []})
+        with tempfile.TemporaryDirectory() as tmp:
+            sample = self._sample_dict(Path(tmp), gt)
+            with mock.patch(
+                "evaluation.run_evaluation.build_input_xml", return_value="<InputData/>"
+            ):
+                result = evaluate_sample(sample, lambda xml_input: _perfect_output())
+
+        self.assertFalse(result.ok)
+        self.assertTrue(result.skipped)
+
+    def test_missing_validated_categories_key_defaults_to_all(self):
+        gt = json.dumps(_perfect_ground_truth())
+        gt_without_key = json.dumps(
+            {k: v for k, v in json.loads(gt).items() if k != "_validated_categories"}
+        )
+        with tempfile.TemporaryDirectory() as tmp:
+            sample = self._sample_dict(Path(tmp), gt_without_key)
+            with mock.patch(
+                "evaluation.run_evaluation.build_input_xml", return_value="<InputData/>"
+            ):
+                result = evaluate_sample(sample, lambda xml_input: _perfect_output())
+
+        self.assertTrue(result.ok)
+        self.assertFalse(result.skipped)
+
+    def test_skipped_excluded_from_failed_count(self):
+        skipped = SampleEvaluation("A", False, skipped=True)
+        failed = SampleEvaluation("B", False, error="boom")
+        ok = _result("C", _perfect_output(), _perfect_ground_truth())
+
+        agg = aggregate([skipped, failed, ok])
+
+        self.assertEqual(agg.n_ok, 1)
+        self.assertEqual(agg.n_skipped, 1)
+        self.assertEqual(agg.n_failed, 1)
+
+
 class TestMain(unittest.TestCase):
     def test_main_writes_report(self):
         with tempfile.TemporaryDirectory() as tmp:
@@ -280,6 +347,88 @@ class TestMain(unittest.TestCase):
             self.assertEqual(data["n_failed"], 0)
             self.assertAlmostEqual(data["pooled"]["f1"], 1.0)
             self.assertAlmostEqual(data["per_sample"][0]["metrics"]["overall"]["f1"], 1.0)
+
+    def _make_two_samples(self, root: Path) -> Path:
+        samples_dir = root / "samples"
+        for folder_name in ("00", "01"):
+            sample_dir = samples_dir / folder_name
+            sample_dir.mkdir(parents=True)
+            (sample_dir / "personal_information.json").write_text('{"name": "x"}')
+            (sample_dir / "hike_information.json").write_text("{}")
+            (sample_dir / "course.gpx").write_text("<gpx/>")
+            with open(_SAMPLE_00_DIR / "expected_output.json", encoding="utf-8") as f:
+                expected = json.load(f)
+            (sample_dir / "expected_output.json").write_text(json.dumps(expected))
+        return samples_dir
+
+    def test_samples_filter_runs_only_selected_folder(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            samples_dir = self._make_two_samples(root)
+            out = root / "report.json"
+            with mock.patch(
+                "evaluation.run_evaluation.build_input_xml",
+                return_value="<InputData/>",
+            ):
+                code = main(
+                    [
+                        "--model", "mock",
+                        "--samples-dir", str(samples_dir),
+                        "--samples", "01",
+                        "--no-weather",
+                        "--output", str(out),
+                    ]
+                )
+
+            self.assertEqual(code, 0)
+            data = json.loads(out.read_text(encoding="utf-8"))
+            self.assertEqual([s["sample"] for s in data["per_sample"]], ["01"])
+
+    def test_unknown_sample_filter_errors_out(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            samples_dir = self._make_two_samples(root)
+            code = main(
+                [
+                    "--model", "mock",
+                    "--samples-dir", str(samples_dir),
+                    "--samples", "99",
+                    "--output", str(root / "report.json"),
+                ]
+            )
+            self.assertEqual(code, 1)
+
+    def test_fail_under_threshold_fails_the_run(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            samples_dir = self._make_two_samples(root)
+            out = root / "report.json"
+            with mock.patch(
+                "evaluation.run_evaluation.build_input_xml",
+                return_value="<InputData/>",
+            ):
+                code = main(
+                    [
+                        "--model", "mock",
+                        "--samples-dir", str(samples_dir),
+                        "--samples", "00",
+                        "--no-weather",
+                        "--output", str(out),
+                        "--fail-under", "1.1",  # unreachable F1, forces failure
+                    ]
+                )
+            self.assertEqual(code, 1)
+
+    def test_missing_samples_dir_errors_out(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            code = main(
+                [
+                    "--model", "mock",
+                    "--samples-dir", str(Path(tmp) / "does-not-exist"),
+                    "--output", str(Path(tmp) / "report.json"),
+                ]
+            )
+            self.assertEqual(code, 1)
 
 
 if __name__ == "__main__":

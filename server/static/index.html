@@ -76,6 +76,21 @@
     <h2>Hike analysis</h2>
     <div id="features"></div>
   </section>
+
+  <section id="feedback-section" hidden>
+    <h2>Was this accurate?</h2>
+    <p class="feedback-intro">
+      For each item, tell us whether it was spot on or not — this feeds our
+      evaluation dataset so we can keep improving the model.
+    </p>
+    <div id="feedback-categories"></div>
+
+    <label for="feedback-comment">Anything else you'd like to add? (optional)</label>
+    <textarea id="feedback-comment" rows="2" placeholder="e.g. it was much colder than expected at the summit..."></textarea>
+
+    <button type="button" id="feedback-submit">Send feedback</button>
+    <p id="feedback-status" class="status"></p>
+  </section>
 </main>
 
 <script src="/static/demo.js"></script>

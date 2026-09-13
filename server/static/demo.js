@@ -8,11 +8,25 @@ const LAYER_LABELS = {
   gear: "Gear",
 };
 
+const CATALOG_LAYER_BY_CATEGORY = {
+  base: "BASE LAYER",
+  middle: "MIDDLE LAYER",
+  insulation: "INSULATION LAYER",
+  shell: "SHELL LAYER",
+};
+
 const statusEl = document.getElementById("status");
 const resultSection = document.getElementById("result-section");
+const feedbackSection = document.getElementById("feedback-section");
+const feedbackCategoriesEl = document.getElementById("feedback-categories");
+const feedbackStatusEl = document.getElementById("feedback-status");
+const feedbackSubmitBtn = document.getElementById("feedback-submit");
 
 let catalog = [];
 const selected = new Set();
+
+let currentCaseId = null;
+let feedbackState = {};
 
 function escapeHtml(text) {
   return String(text)
@@ -180,11 +194,205 @@ function render(data) {
   renderLayers(data.recommendations || {});
   renderFeatures(data.hike_features || {});
   resultSection.hidden = false;
+
+  currentCaseId = data.case_id || null;
+  initFeedback(data.recommendations || {});
 }
+
+function initFeedback(recommendations) {
+  feedbackState = {};
+  feedbackStatusEl.textContent = "";
+  feedbackSubmitBtn.disabled = false;
+
+  if (!currentCaseId) {
+    feedbackSection.hidden = true;
+    return;
+  }
+
+  for (const key of Object.keys(recommendations)) {
+    feedbackState[key] = { accurate: null, items: [] };
+  }
+  renderFeedbackCategories(recommendations);
+  feedbackSection.hidden = false;
+}
+
+function renderFeedbackCategories(recommendations) {
+  feedbackCategoriesEl.innerHTML = "";
+
+  for (const [key, layer] of Object.entries(recommendations)) {
+    const items = layer.items || [];
+    const card = document.createElement("div");
+    card.className = "feedback-card";
+
+    const header = document.createElement("div");
+    header.className = "feedback-card-header";
+    header.innerHTML = `<h4>${escapeHtml(LAYER_LABELS[key] || key)}</h4>`;
+
+    const suggested = document.createElement("p");
+    suggested.className = "feedback-suggested";
+    suggested.textContent = items.length
+      ? `Suggested: ${items.map((i) => i.name).join(", ")}`
+      : "Suggested: nothing";
+    header.appendChild(suggested);
+    card.appendChild(header);
+
+    const toggle = document.createElement("div");
+    toggle.className = "feedback-toggle";
+
+    const accurateBtn = document.createElement("button");
+    accurateBtn.type = "button";
+    accurateBtn.className = "feedback-btn accurate";
+    accurateBtn.textContent = "👍 Accurate";
+
+    const wrongBtn = document.createElement("button");
+    wrongBtn.type = "button";
+    wrongBtn.className = "feedback-btn inaccurate";
+    wrongBtn.textContent = "✏️ Not quite";
+
+    const editor = document.createElement("div");
+    editor.className = "feedback-editor";
+    editor.hidden = true;
+
+    function refreshToggle() {
+      const state = feedbackState[key].accurate;
+      accurateBtn.classList.toggle("active", state === true);
+      wrongBtn.classList.toggle("active", state === false);
+      editor.hidden = state !== false;
+    }
+
+    accurateBtn.addEventListener("click", () => {
+      feedbackState[key].accurate = true;
+      refreshToggle();
+    });
+    wrongBtn.addEventListener("click", () => {
+      feedbackState[key].accurate = false;
+      refreshToggle();
+    });
+
+    toggle.appendChild(accurateBtn);
+    toggle.appendChild(wrongBtn);
+    card.appendChild(toggle);
+
+    buildEditor(editor, key);
+    card.appendChild(editor);
+
+    feedbackCategoriesEl.appendChild(card);
+  }
+}
+
+function buildEditor(editor, category) {
+  editor.innerHTML = `
+    <p class="feedback-editor-hint">What did you actually bring for this layer?</p>
+    <div class="feedback-add-row">
+      <input type="text" class="feedback-item-name" placeholder="Item name" list="feedback-catalog-${category}" />
+      <select class="feedback-item-position">
+        <option value="worn">worn</option>
+        <option value="backpack">backpack</option>
+      </select>
+      <button type="button" class="feedback-add-item">Add</button>
+    </div>
+    <ul class="feedback-item-list"></ul>
+  `;
+
+  const catalogLayer = CATALOG_LAYER_BY_CATEGORY[category];
+  if (catalogLayer) {
+    const datalist = document.createElement("datalist");
+    datalist.id = `feedback-catalog-${category}`;
+    for (const item of catalog) {
+      if (item.layer !== catalogLayer) continue;
+      const option = document.createElement("option");
+      option.value = item.name;
+      datalist.appendChild(option);
+    }
+    editor.appendChild(datalist);
+  }
+
+  const nameInput = editor.querySelector(".feedback-item-name");
+  const positionSelect = editor.querySelector(".feedback-item-position");
+  const addBtn = editor.querySelector(".feedback-add-item");
+  const list = editor.querySelector(".feedback-item-list");
+
+  function renderList() {
+    list.innerHTML = "";
+    feedbackState[category].items.forEach((item, index) => {
+      const li = document.createElement("li");
+      li.innerHTML = `${escapeHtml(item.name)} <span class="badge ${escapeHtml(item.position)}">${escapeHtml(item.position)}</span>`;
+      const removeBtn = document.createElement("button");
+      removeBtn.type = "button";
+      removeBtn.className = "feedback-remove-item";
+      removeBtn.textContent = "×";
+      removeBtn.addEventListener("click", () => {
+        feedbackState[category].items.splice(index, 1);
+        renderList();
+      });
+      li.appendChild(removeBtn);
+      list.appendChild(li);
+    });
+  }
+
+  addBtn.addEventListener("click", () => {
+    const name = nameInput.value.trim();
+    if (!name) return;
+    feedbackState[category].items.push({
+      name,
+      position: positionSelect.value,
+    });
+    nameInput.value = "";
+    renderList();
+  });
+
+  renderList();
+}
+
+feedbackSubmitBtn.addEventListener("click", async () => {
+  if (!currentCaseId) return;
+
+  const categories = {};
+  for (const [key, state] of Object.entries(feedbackState)) {
+    if (state.accurate === null) continue; // no opinion given, skip
+    categories[key] = state.accurate
+      ? { accurate: true }
+      : { accurate: false, actual_items: state.items };
+  }
+
+  if (Object.keys(categories).length === 0) {
+    feedbackStatusEl.textContent = "Mark at least one category before sending.";
+    return;
+  }
+
+  feedbackSubmitBtn.disabled = true;
+  feedbackStatusEl.classList.remove("loading");
+  feedbackStatusEl.textContent = "Sending...";
+  feedbackStatusEl.classList.add("loading");
+
+  try {
+    const res = await fetch(`/api/feedback/${currentCaseId}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        categories,
+        comment: document.getElementById("feedback-comment").value.trim(),
+      }),
+    });
+    const data = await res.json().catch(() => ({}));
+    feedbackStatusEl.classList.remove("loading");
+    if (!res.ok) {
+      feedbackStatusEl.textContent = `Error (${res.status}): ${data.error || "unknown"}`;
+      feedbackSubmitBtn.disabled = false;
+      return;
+    }
+    feedbackStatusEl.textContent = "Thanks! Your feedback was recorded.";
+  } catch {
+    feedbackStatusEl.classList.remove("loading");
+    feedbackStatusEl.textContent = "Network error: could not send feedback.";
+    feedbackSubmitBtn.disabled = false;
+  }
+});
 
 document.getElementById("estimate-form").addEventListener("submit", async (e) => {
   e.preventDefault();
   resultSection.hidden = true;
+  feedbackSection.hidden = true;
 
   const gpx = document.getElementById("gpx").files[0];
   if (!gpx) {

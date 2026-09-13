@@ -274,3 +274,133 @@ th {
   color: #52606d;
   font-weight: 600;
 }
+
+.feedback-intro {
+  color: #52606d;
+  font-size: 0.9rem;
+  margin: 0.3rem 0 1rem;
+}
+
+.feedback-card {
+  border: 1px solid #e4e7eb;
+  border-radius: 8px;
+  padding: 0.9rem;
+  margin-bottom: 0.9rem;
+  background: #fbfcfe;
+}
+
+.feedback-card-header h4 {
+  margin: 0 0 0.2rem;
+  font-size: 0.95rem;
+  text-transform: capitalize;
+}
+
+.feedback-suggested {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #7b8794;
+}
+
+.feedback-toggle {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.feedback-btn {
+  margin: 0;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: #eef1f4;
+  color: #3e4c59;
+  border: 1px solid #cbd2d9;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.feedback-btn:hover {
+  background: #e4e7eb;
+}
+
+.feedback-btn.accurate.active {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+.feedback-btn.inaccurate.active {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #991b1b;
+}
+
+.feedback-editor {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px dashed #e4e7eb;
+}
+
+.feedback-editor-hint {
+  margin: 0 0 0.4rem;
+  font-size: 0.82rem;
+  color: #52606d;
+}
+
+.feedback-add-row {
+  display: flex;
+  gap: 0.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.feedback-add-row input {
+  flex: 1;
+  margin: 0;
+}
+
+.feedback-add-row select {
+  width: auto;
+  margin: 0;
+}
+
+.feedback-add-row button {
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.85rem;
+}
+
+.feedback-item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.88rem;
+}
+
+.feedback-item-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0;
+}
+
+.feedback-remove-item {
+  margin: 0 0 0 auto;
+  padding: 0 0.4rem;
+  background: transparent;
+  color: #9aa5b1;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.feedback-remove-item:hover {
+  color: #b91c1c;
+  background: transparent;
+}
+
+#feedback-submit {
+  background: #16a34a;
+}
+
+#feedback-submit:hover {
+  background: #15803d;
+}

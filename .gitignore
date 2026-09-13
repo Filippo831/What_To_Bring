@@ -8,6 +8,7 @@ typings/
 nord-est-latest.osm.pbf
 export/
 
-# API keys
+feedback_data/
+
 *.env
 todo.txt

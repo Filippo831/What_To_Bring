@@ -1,6 +1,9 @@
 import json
+import uuid
 import xml.etree.ElementTree as ET
+from datetime import datetime, timezone
 from math import isfinite
+from pathlib import Path
 from typing import Callable, Optional
 
 from flask import Flask, jsonify, request, send_from_directory
@@ -8,6 +11,13 @@ from flask import Flask, jsonify, request, send_from_directory
 from input_handler.input_handler import build_input_xml, load_wardrobe_catalog
 
 ModelFn = Callable[[str], dict]
+
+_FEEDBACK_DIR = Path(__file__).resolve().parent.parent / "feedback_data" / "cases"
+
+_ALLOWED_CATEGORIES = {"base", "middle", "insulation", "shell", "pants", "shoes", "gear"}
+
+def _case_dir(case_id: str) -> Path:
+    return _FEEDBACK_DIR / case_id
 
 _WEATHER_FIELDS = {
     "temperature_2m": "Temperature2m",
@@ -154,13 +164,101 @@ def create_app(model_fn: Optional[ModelFn] = None) -> Flask:
             k: v for k, v in model_output.items() if k != "overall_strategy"
         }
 
+        case_id = _save_case(gpx_content, personal_info, hike_info, model_output)
+
         return jsonify(
             {
+                "case_id": case_id,
                 "hike_features": hike_features,
                 "recommendations": recommendations,
                 "overall_strategy": model_output.get("overall_strategy"),
             }
         )
+
+    def _save_case(
+        gpx_content: str, personal_info: dict, hike_info: dict, model_output: dict
+    ) -> Optional[str]:
+        # Best-effort persistence: if this fails (e.g. read-only filesystem),
+        # the estimate should still be returned to the user. Losing the
+        # ability to collect feedback for one request is not worth breaking
+        # the core feature.
+        try:
+            case_id = uuid.uuid4().hex
+            case_dir = _case_dir(case_id)
+            case_dir.mkdir(parents=True, exist_ok=True)
+            (case_dir / "course.gpx").write_text(gpx_content, encoding="utf-8")
+            (case_dir / "personal_information.json").write_text(
+                json.dumps(personal_info, indent=2), encoding="utf-8"
+            )
+            (case_dir / "hike_information.json").write_text(
+                json.dumps(hike_info, indent=2), encoding="utf-8"
+            )
+            (case_dir / "model_output.json").write_text(
+                json.dumps(model_output, indent=2), encoding="utf-8"
+            )
+            (case_dir / "meta.json").write_text(
+                json.dumps(
+                    {"created_at": datetime.now(timezone.utc).isoformat()}, indent=2
+                ),
+                encoding="utf-8",
+            )
+            return case_id
+        except OSError as e:
+            app.logger.warning("Could not persist case for feedback: %s", e)
+            return None
+
+    @app.post("/api/feedback/<case_id>")
+    def feedback(case_id: str):
+        case_dir = _case_dir(case_id)
+        if not case_dir.is_dir():
+            return jsonify({"error": "Unknown case_id"}), 404
+
+        body = request.get_json(silent=True)
+        if not isinstance(body, dict):
+            return jsonify({"error": "Expected a JSON body"}), 400
+
+        categories = body.get("categories")
+        if not isinstance(categories, dict) or not categories:
+            return jsonify({"error": "'categories' must be a non-empty object"}), 400
+
+        cleaned: dict[str, dict] = {}
+        for cat, entry in categories.items():
+            if cat not in _ALLOWED_CATEGORIES:
+                return jsonify({"error": f"Unknown category '{cat}'"}), 400
+            if not isinstance(entry, dict) or "accurate" not in entry:
+                return (
+                    jsonify({"error": f"Category '{cat}' needs an 'accurate' boolean"}),
+                    400,
+                )
+            accurate = bool(entry["accurate"])
+            cleaned_entry: dict = {"accurate": accurate}
+            if not accurate:
+                actual_items = entry.get("actual_items", [])
+                if not isinstance(actual_items, list):
+                    return (
+                        jsonify({"error": f"'{cat}.actual_items' must be a list"}),
+                        400,
+                    )
+                for item in actual_items:
+                    if not isinstance(item, dict) or "name" not in item:
+                        return (
+                            jsonify(
+                                {"error": f"Each item in '{cat}.actual_items' needs a 'name'"}
+                            ),
+                            400,
+                        )
+                cleaned_entry["actual_items"] = actual_items
+            cleaned[cat] = cleaned_entry
+
+        feedback_payload = {
+            "categories": cleaned,
+            "comment": str(body.get("comment", "")).strip(),
+            "submitted_at": datetime.now(timezone.utc).isoformat(),
+        }
+        (case_dir / "feedback.json").write_text(
+            json.dumps(feedback_payload, indent=2), encoding="utf-8"
+        )
+        return jsonify({"status": "ok"})
 
     @app.get("/")
     def index():
